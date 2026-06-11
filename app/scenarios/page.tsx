@@ -53,7 +53,7 @@ export default function ScenariosPage() {
   return (
     <>
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 32 }}>32강 진출 경우의 수</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>32강 진출 경우의 수</h1>
         <p>
           각 조의 <strong>잔여 경기 결과 조합을 전부 열거</strong>해, 팀별 직접
           진출(조 1·2위) <strong>확정 / 탈락 / 경쟁 중</strong> 상태와 진출 확률을

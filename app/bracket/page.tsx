@@ -39,7 +39,7 @@ export default function BracketPage() {
   return (
     <>
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 32 }}>토너먼트 진출 확률</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>토너먼트 진출 확률</h1>
         <p>
           대회 전체를 컴퓨터로 2만 번 가상으로 치러, 각 팀이 32강부터 우승까지{" "}
           <strong>각 단계에 오를 확률</strong>을 집계했습니다. 색이 진할수록 확률이

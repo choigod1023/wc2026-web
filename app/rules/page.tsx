@@ -10,7 +10,7 @@ export default function RulesPage() {
   return (
     <article className="prose">
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 32 }}>2026 월드컵 바뀐 룰</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>2026 월드컵 바뀐 룰</h1>
         <p>
           2026 대회는 형식과 규정이 크게 바뀌었다. 예측 시뮬레이션의 조 순위·진출
           판정도 이 규칙을 따른다. 아래는 공식 규정 기준 사실이며, 출처를 함께

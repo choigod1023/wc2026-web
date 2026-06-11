@@ -15,7 +15,7 @@ export default function ScorePage() {
   return (
     <>
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 32 }}>스코어 · 언오버 · 핸디캡</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>스코어 · 언오버 · 핸디캡</h1>
         <p>
           승/무/패만으로는 <strong>언더오버(총 득점)</strong>와{" "}
           <strong>핸디캡(득점차)</strong>을 줄 수 없다. 그래서 &lsquo;몇 대 몇&rsquo;의

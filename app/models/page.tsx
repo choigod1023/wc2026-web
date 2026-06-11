@@ -49,7 +49,7 @@ export default function ModelsPage() {
   return (
     <>
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 32 }}>모델 비교</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>모델 비교</h1>
         <p>
           하나의 방식만 믿지 않습니다. 여러 예측 방식을 <strong>과거로 학습하고
           그 이후 경기로 시험</strong>해(2024~2026.6) 누가 더 정확했는지 공정하게

@@ -11,7 +11,7 @@ export default function MathPage() {
   return (
     <article className="prose">
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 32 }}>어떻게 예측하나요?</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>어떻게 예측하나요?</h1>
         <p>
           수학을 몰라도 괜찮습니다. 먼저 <strong>쉬운 말</strong>로 설명하고, 더
           궁금한 분을 위해 아래에 <strong>실제 수식</strong>도 정리해 뒀어요.

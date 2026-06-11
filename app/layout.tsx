@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,20 +31,7 @@ export default function RootLayout({
                 WC<b>2026</b> 예측
               </span>
             </Link>
-            <nav className="nav">
-              <Link href="/">대시보드</Link>
-              <Link href="/live">라이브</Link>
-              <Link href="/models">모델 비교</Link>
-              <Link href="/bracket">토너먼트</Link>
-              <Link href="/math">수식</Link>
-              <a
-                href="https://github.com/choigod1023/wc2026-predictor"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub ↗
-              </a>
-            </nav>
+            <Nav />
           </div>
         </header>
         <main className="wrap">{children}</main>

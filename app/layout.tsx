@@ -32,6 +32,9 @@ export default function RootLayout({
             </Link>
             <nav className="nav">
               <Link href="/">대시보드</Link>
+              <Link href="/live">라이브</Link>
+              <Link href="/models">모델 비교</Link>
+              <Link href="/bracket">토너먼트</Link>
               <Link href="/math">수식</Link>
               <a
                 href="https://github.com/choigod1023/wc2026-predictor"

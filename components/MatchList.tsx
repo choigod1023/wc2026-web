@@ -1,4 +1,5 @@
 import matches from "@/data/matches.json";
+import { ko } from "@/lib/teams";
 
 type Match = {
   date: string;
@@ -34,7 +35,7 @@ export default function MatchList() {
             <div className="match" key={i}>
               <div>
                 <div className="teams">
-                  {m.home} <span className="city">vs</span> {m.away}
+                  {ko(m.home)} <span className="city">vs</span> {ko(m.away)}
                 </div>
                 <div className="city">{m.city}</div>
               </div>

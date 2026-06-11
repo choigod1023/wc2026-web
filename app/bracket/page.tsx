@@ -5,7 +5,7 @@ import { ko } from "@/lib/teams";
 export const metadata: Metadata = {
   title: "토너먼트 진출 확률 — WC2026 예측",
   description:
-    "32강부터 결승·우승까지 각 팀이 각 단계에 도달할 확률 (몬테카를로 시뮬레이션).",
+    "32강부터 결승·우승까지 각 팀이 각 단계에 오를 확률 (대회 2만 번 반복 시뮬레이션).",
 };
 
 type Stage = {
@@ -41,9 +41,9 @@ export default function BracketPage() {
       <section className="hero" style={{ padding: "40px 0 8px" }}>
         <h1 style={{ fontSize: 32 }}>토너먼트 진출 확률</h1>
         <p>
-          조별리그 72경기 확률로 대회를 20,000회 시뮬레이션해, 각 팀이 32강부터
-          우승까지 <strong>각 단계에 도달할 확률</strong>을 집계했다. 색이 진할수록
-          확률이 높다.
+          대회 전체를 컴퓨터로 2만 번 가상으로 치러, 각 팀이 32강부터 우승까지{" "}
+          <strong>각 단계에 오를 확률</strong>을 집계했습니다. 색이 진할수록 확률이
+          높습니다.
         </p>
       </section>
 
@@ -84,9 +84,9 @@ export default function BracketPage() {
           </table>
         </div>
         <p className="note" style={{ marginTop: 12 }}>
-          근사: (a) 조 동률은 Elo 타이브레이크, (b) 32강 대진은 공식 브래킷 대신
-          1위풀 vs 2·3위풀 무작위 추첨. 따라서 중상위권은 ±1%p 노이즈가 있다.
-          녹아웃 승부는 Elo 기대승점율을 진출 확률로 사용(연장·승부차기 포함 개념).
+          참고: 32강 대진표가 아직 공식 확정 방식이 아니라 무작위로 짝지어 돌리기
+          때문에, 중상위권 팀은 ±1%p 정도 오차가 있을 수 있습니다. 토너먼트 승부는
+          실제 스코어를 추첨하고, 비기면 연장·승부차기까지 반영합니다.
         </p>
       </section>
     </>

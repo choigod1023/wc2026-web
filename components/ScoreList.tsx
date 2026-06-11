@@ -57,7 +57,7 @@ export default function ScoreList() {
                       {s.lambdaHome.toFixed(2)} : {s.lambdaAway.toFixed(2)}
                     </b>
                   </span>
-                  <span className="muted2">Elo {s.eloDiff >= 0 ? "+" : ""}{s.eloDiff}</span>
+                  <span className="muted2">실력차 {s.eloDiff >= 0 ? "+" : ""}{s.eloDiff}</span>
                 </div>
 
                 <div className="sc-grid">

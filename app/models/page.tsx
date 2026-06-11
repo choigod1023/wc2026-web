@@ -51,9 +51,13 @@ export default function ModelsPage() {
       <section className="hero" style={{ padding: "40px 0 8px" }}>
         <h1 style={{ fontSize: 32 }}>모델 비교</h1>
         <p>
-          하나의 모델만 믿지 않는다. 여러 후보 모델을 <strong>동일한
-          walk-forward 분할</strong>(학습 1990–2023 / 검증 2024–2026.6)로 채점해
-          공정 비교한다. 채택은 Brier 개선으로만 — 백테스트 우선 원칙.
+          하나의 방식만 믿지 않습니다. 여러 예측 방식을 <strong>과거로 학습하고
+          그 이후 경기로 시험</strong>해(2024~2026.6) 누가 더 정확했는지 공정하게
+          비교합니다.
+        </p>
+        <p className="note">
+          아래 <b>Brier</b>는 <b>예측 정확도 점수</b>입니다 — 확률을 정직하게
+          맞힐수록 낮아지고, 0이면 완벽입니다.
         </p>
       </section>
 
@@ -110,9 +114,9 @@ export default function ModelsPage() {
           </table>
         </div>
         <p className="note" style={{ marginTop: 10 }}>
-          기준선(uniform 0.667, base-rate 0.639)을 모든 실모델이 명확히 이긴다.
-          실모델 간 차이는 미미해(0.5053~0.5065) Elo 차이 한 피처가 이미 정보
-          대부분을 담고 있음을 보여준다 — 단순함이 강점.
+          아무 정보 없이 1/3씩 찍으면 0.667, 과거 평균 비율로 찍으면 0.639인데,
+          모든 실제 모델이 이를 명확히 이깁니다. 모델 간 차이는 아주 작아(0.5053~0.5065)
+          &lsquo;팀 실력 점수 차이&rsquo; 하나에 정보 대부분이 담겨 있음을 보여줍니다 — 단순함이 강점.
         </p>
       </section>
 

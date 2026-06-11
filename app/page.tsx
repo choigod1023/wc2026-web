@@ -46,15 +46,15 @@ export default function Home() {
             </div>
           </div>
           <div className="kpi-card">
-            <div className="label">예측 정확도 (낮을수록 좋음)</div>
+            <div className="label">예측 적중률</div>
             <div className="value">
-              0.506<small> / 그냥 찍기 0.639</small>
+              약 60<small>% (승·무·패)</small>
             </div>
           </div>
           <div className="kpi-card">
-            <div className="label">우승 시뮬레이션</div>
+            <div className="label">우승 확률 계산</div>
             <div className="value">
-              20,000<small>회 몬테카를로</small>
+              2만 번<small> 가상 대회 반복</small>
             </div>
           </div>
         </div>
@@ -62,8 +62,8 @@ export default function Home() {
 
       <section>
         <div className="section-head">
-          <h2>🏆 우승 확률 (모델)</h2>
-          <span className="sub">몬테카를로 20,000회 · 우승 / 결승 진출</span>
+          <h2>🏆 우승 확률</h2>
+          <span className="sub">대회를 2만 번 가상으로 돌린 결과 · 우승 / 결승 진출</span>
         </div>
         <div className="card">
           <table>
@@ -101,8 +101,8 @@ export default function Home() {
 
       <section>
         <div className="section-head">
-          <h2>📈 Elo 레이팅 Top 12</h2>
-          <span className="sub">2026-06-08 기준 · 팀 전력 수치화</span>
+          <h2>📈 팀 실력 점수 Top 12</h2>
+          <span className="sub">체스 랭킹식 점수(Elo) · 높을수록 강함 · 2026-06-08 기준</span>
         </div>
         <div className="card">
           <table>
@@ -110,7 +110,7 @@ export default function Home() {
               <tr>
                 <th className="rank">#</th>
                 <th>국가</th>
-                <th className="num">Elo</th>
+                <th className="num">실력 점수</th>
               </tr>
             </thead>
             <tbody>

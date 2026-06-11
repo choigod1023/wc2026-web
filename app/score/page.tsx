@@ -26,16 +26,16 @@ export default function ScorePage() {
 
       <section>
         <div className="section-head">
-          <h2>🧪 스코어 모델 검증</h2>
-          <span className="sub">walk-forward · 스코어 로그우도 / O/U2.5 Brier</span>
+          <h2>🧪 어떤 스코어 방식이 더 맞았나</h2>
+          <span className="sub">과거로 학습→이후 경기로 시험 · 점수 높을수록/오차 낮을수록 정확</span>
         </div>
         <div className="card">
           <table>
             <thead>
               <tr>
-                <th>모델</th>
-                <th className="num">스코어 logLik ↑</th>
-                <th className="num">O/U 2.5 Brier ↓</th>
+                <th>방식</th>
+                <th className="num">스코어 적중력 ↑</th>
+                <th className="num">언오버 오차 ↓</th>
               </tr>
             </thead>
             <tbody>
@@ -57,8 +57,9 @@ export default function ScorePage() {
           </table>
         </div>
         <p className="note" style={{ marginTop: 10 }}>
-          Dixon-Coles가 저점수(0:0·1:1) 의존성을 보정해 로그우도가 가장 높아 아래
-          예측의 대표 모델로 쓴다. 둘 다 &lsquo;평균득점 고정&rsquo; 기준선을 명확히 이긴다.
+          Dixon-Coles는 0:0·1:1 같은 낮은 스코어가 실제로 더 자주 나오는 점을 보정해
+          가장 잘 맞아, 아래 예측의 대표로 씁니다. 두 방식 모두 &lsquo;그냥 평균 득점&rsquo;보다
+          확연히 정확합니다.
         </p>
       </section>
 

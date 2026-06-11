@@ -33,6 +33,12 @@ npm run build    # 정적 빌드
 모델 레포의 CSV가 갱신되면 `data/*.json` 을 다시 생성한다.
 (`championship.json`, `matches.json`, `elo.json`, `modelVsMarket.json`)
 
+## 자동 갱신
+`.github/workflows/refresh-predictions.yml` 가 6시간마다(+수동 버튼) 예측 레포를
+clone해 파이프라인을 돌리고 `export_web.py` 로 `data/*.json` 을 갱신·커밋한다.
+모델은 요청마다가 아니라 이 스케줄로만 돌고(무거운 학습 없음, CPU로 충분),
+프론트는 정적 JSON을 읽는다. 커밋되면 Vercel이 자동 재배포한다.
+
 ## 배포
 Vercel에 연결되어 `main` 브랜치 푸시 시 자동 배포된다.
 

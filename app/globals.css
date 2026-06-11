@@ -599,15 +599,33 @@ th.num {
 /* group standings */
 .standings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 14px;
+  align-items: start;
+}
+/* 그리드 자식이 내용 때문에 늘어나지 않도록(카드 폭 균일) */
+.standings-grid > .card {
+  min-width: 0;
 }
 .standings-grid table {
   font-size: 13px;
+  table-layout: fixed; /* 팀명 길이와 무관하게 열 폭 고정 */
+  width: 100%;
 }
 .standings-grid th,
 .standings-grid td {
   padding: 6px 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 팀명 열: 폭 고정 + 한글 단어 단위 줄바꿈(길면 두 줄로) */
+.standings-grid th:first-child,
+.standings-grid td:first-child,
+.standings-grid .team-cell {
+  width: 38%;
+  white-space: normal;
+  word-break: keep-all;
+  line-height: 1.3;
 }
 .grp-title {
   font-weight: 700;

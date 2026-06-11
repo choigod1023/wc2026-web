@@ -208,7 +208,7 @@ export default function LivePage() {
                           i < 2 ? "qual" : r.pld >= 3 ? "elim" : undefined
                         }
                       >
-                        <td style={{ whiteSpace: "nowrap" }}>{ko(r.team)}</td>
+                        <td className="team-cell">{ko(r.team)}</td>
                         <td className="num">{r.pld}</td>
                         <td className="num">
                           {r.w}-{r.d}-{r.l}

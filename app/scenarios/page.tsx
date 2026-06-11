@@ -91,7 +91,7 @@ export default function ScenariosPage() {
                       const s = STATUS[t.status];
                       return (
                         <tr key={t.team}>
-                          <td style={{ whiteSpace: "nowrap" }}>{ko(t.team)}</td>
+                          <td className="team-cell">{ko(t.team)}</td>
                           <td>
                             <span className={`st ${s.cls}`}>{s.text}</span>
                           </td>

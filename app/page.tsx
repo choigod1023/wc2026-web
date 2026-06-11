@@ -16,18 +16,18 @@ export default function Home() {
     <>
       <section className="hero">
         <h1>
-          내 모델은 <span className="grad">베팅 시장보다</span>
+          이 예측, <span className="grad">베팅 시장보다</span>
           <br />
           정확할까?
         </h1>
         <p>
-          2026 월드컵 조별리그 72경기를 검증장으로, Elo 레이팅 + 다항 로지스틱
-          확률 모델이 베팅 시장 가격보다 정확한지 검증하는 프로젝트입니다. 아래는
-          개막 시점 고정 예측이며, 대회 후 Brier Score로 채점됩니다.
+          축구 데이터로 각 팀의 우승·스코어·승부 확률을 계산하고, 그 예측이 실제
+          베팅 시장(배당)보다 정확한지 대회 내내 검증하는 프로젝트입니다. 2026
+          월드컵 조별리그 72경기가 그 시험장이에요.
         </p>
-        <span className="hero-formula">
-          E = 1 / (1 + 10^(−(R_home + H − R_away)/400))
-        </span>
+        <Link href="/math" className="hero-cta">
+          🙂 수학은 몰라도 괜찮아요 — 어떻게 예측하는지 보기 →
+        </Link>
       </section>
 
       <section>
@@ -46,9 +46,9 @@ export default function Home() {
             </div>
           </div>
           <div className="kpi-card">
-            <div className="label">모델 Brier (walk-forward)</div>
+            <div className="label">예측 정확도 (낮을수록 좋음)</div>
             <div className="value">
-              0.506<small> / 기준선 0.639</small>
+              0.506<small> / 그냥 찍기 0.639</small>
             </div>
           </div>
           <div className="kpi-card">
@@ -137,10 +137,10 @@ export default function Home() {
       <section>
         <div className="card" style={{ textAlign: "center" }}>
           <p style={{ margin: "0 0 12px", color: "var(--muted)" }}>
-            어떤 수식으로 이 확률이 나오는지 궁금하다면
+            이 확률이 어떻게 나오는지 궁금하다면 (수학 몰라도 OK)
           </p>
-          <Link href="/math" className="hero-formula">
-            수식 해설 보기 →
+          <Link href="/math" className="hero-cta">
+            어떻게 예측하나요? →
           </Link>
         </div>
       </section>

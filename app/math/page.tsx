@@ -1,104 +1,120 @@
 import type { Metadata } from "next";
+import { Tex } from "@/components/Tex";
 
 export const metadata: Metadata = {
-  title: "수식 해설 — WC2026 예측",
+  title: "어떻게 예측하나요? — WC2026",
   description:
-    "Elo 레이팅, 확률 변환(로지스틱), Brier Score, 시장 내재 확률, 몬테카를로까지 시스템에 들어간 모든 수식.",
+    "축구를 좋아하지만 수학은 몰라도 괜찮습니다. 이 사이트가 우승·스코어·언오버를 어떻게 계산하는지 쉬운 말로, 그리고 원하는 분께는 수식으로 설명합니다.",
 };
-
-function F({ children }: { children: React.ReactNode }) {
-  return <div className="formula">{children}</div>;
-}
 
 export default function MathPage() {
   return (
     <article className="prose">
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 style={{ fontSize: 34 }}>수식 해설</h1>
+        <h1 style={{ fontSize: 32 }}>어떻게 예측하나요?</h1>
         <p>
-          이 시스템은 단 두 줄의 Elo 수식에서 출발해, 확률 분해 → 검증 →
-          시뮬레이션으로 이어진다. 아래는 각 단계의 정확한 계산식이다.
+          수학을 몰라도 괜찮습니다. 먼저 <strong>쉬운 말</strong>로 설명하고, 더
+          궁금한 분을 위해 아래에 <strong>실제 수식</strong>도 정리해 뒀어요.
         </p>
       </section>
 
-      <h2>1. Elo 레이팅 — 팀 전력의 수치화</h2>
-      <h3>1.1 기대 승점율</h3>
-      <p>
-        두 팀의 경기 전 레이팅 차이로 홈팀의 기대 승점율 E를 계산한다. E는 승=1,
-        무=0.5, 패=0을 섞은 값이라 <em>승리 확률이 아니라</em> 기대 점수다.
-      </p>
-      <F>
-        E_home = 1 / (1 + 10^(−(R_home + H − R_away) / 400))
-      </F>
-      <ul>
-        <li>
-          <code>R_home, R_away</code> — 경기 전 Elo 레이팅 (초기값 1500)
-        </li>
-        <li>
-          <code>H</code> — 홈 어드밴티지. 중립 경기면 0, 아니면 +100
-        </li>
-        <li>
-          분모 <code>400</code> — "400점 차 = 승률 약 10배"가 되도록 정한 스케일
-          상수 (튜닝 대상 아님, 체계의 정의)
-        </li>
-      </ul>
+      {/* ── 쉽게 말하면 (수식 없음) ── */}
+      <section>
+        <h2 style={{ marginTop: 8 }}>🙂 쉽게 말하면</h2>
+        <div className="steps">
+          <div className="step">
+            <span className="step-no">1</span>
+            <div>
+              <b>팀 실력에 점수를 매깁니다 (Elo).</b> 체스·게임 랭킹처럼, 이기면
+              점수가 오르고 지면 내려갑니다. <em>강팀이 약팀을 이기면 조금</em>,{" "}
+              <em>약팀이 강팀을 이기면(이변) 많이</em> 움직여요. 중요한 대회(월드컵)
+              결과일수록 더 크게 반영합니다.
+            </div>
+          </div>
+          <div className="step">
+            <span className="step-no">2</span>
+            <div>
+              <b>두 팀의 점수 차이로 승·무·패 확률을 뽑습니다.</b> 과거 수만 경기에서
+              &ldquo;이만큼 점수 차가 나면 실제로 어떤 결과가 얼마나 나왔나&rdquo;를 학습해
+              홈승/무/원정승 확률로 바꿉니다.
+            </div>
+          </div>
+          <div className="step">
+            <span className="step-no">3</span>
+            <div>
+              <b>&lsquo;몇 대 몇&rsquo;까지 예측합니다.</b> 각 팀이 평균 몇 골 넣을지를
+              계산해 스코어 분포를 만들고, 거기서 <em>언더/오버</em>(총 득점)와{" "}
+              <em>핸디캡</em>(득점 차)까지 뽑아냅니다.
+            </div>
+          </div>
+          <div className="step">
+            <span className="step-no">4</span>
+            <div>
+              <b>대회를 2만 번 가상으로 돌립니다 (몬테카를로).</b> 주사위를 수만 번
+              굴리듯 대회 전체를 반복 시뮬레이션해서, 각 팀이 <em>우승·4강·16강에
+              오를 확률</em>을 셈합니다.
+            </div>
+          </div>
+        </div>
+        <div className="callout">
+          그리고 가장 중요한 질문 하나 — <b>&ldquo;우리 예측이 베팅 시장(배당)보다
+          정확할까?&rdquo;</b> 대회가 끝나면 같은 경기에 대해 우리 확률과 시장 확률의
+          정확도를 채점해서 확인합니다. 이게 이 프로젝트의 진짜 목적이에요.
+        </div>
+        <p className="note">
+          참고: 실제 베팅을 위한 사이트가 아니라, 모델의 정확도를 검증·기록하는
+          학습용 프로젝트입니다.
+        </p>
+      </section>
 
-      <h3>1.2 레이팅 갱신</h3>
-      <p>
-        실제 결과 S(승 1 / 무 0.5 / 패 0)와 기대값 E의 차이만큼 레이팅을
-        이동시킨다. 제로섬 — 홈이 얻은 만큼 원정이 잃는다.
-      </p>
-      <F>
-        ΔR = K · G · (S − E_home)
-        <br />
-        R_home += ΔR<span className="cmt"> ; </span>R_away −= ΔR
-      </F>
-      <div className="callout">
-        핵심은 <code>(S − E)</code> — <strong>놀라움(surprise) 항</strong>이다.
-        예상대로면 0에 가까워 거의 안 움직이고, 약팀이 이변을 내면 크게 움직인다.
-        베이지안 갱신의 가장 단순한 형태.
-      </div>
+      {/* ── 여기서부터 수식 ── */}
+      <h2 style={{ marginTop: 44 }}>📐 더 궁금하다면: 실제 수식</h2>
+      <p className="note">아래는 위 4단계를 그대로 수식으로 적은 것입니다.</p>
 
-      <h3>1.3 경기 중요도 가중치 K</h3>
-      <p>정보 가치가 높은 경기일수록 K를 키워 더 크게 갱신한다.</p>
-      <F>
-        월드컵 본선 60 · 대륙선수권 50 · 예선 40 · 네이션스리그 30 · 친선전 20
-      </F>
-
-      <h3>1.4 골 차 배수 G</h3>
-      <p>득점차 d = |home − away| 가 클수록 "더 강한 전력 신호"로 본다.</p>
-      <F>
-        d ≤ 1 → 1.0 <span className="cmt"> | </span> d = 2 → 1.5
-        <span className="cmt"> | </span> d ≥ 3 → (11 + d) / 8
-      </F>
-
-      <h2>2. 확률 변환 — Elo 차이 → 승/무/패</h2>
-      <p>
-        Elo의 E는 무승부를 0.5로 뭉갠 값이라, 시장과 비교하려면 P(홈승)·P(무)·
-        P(원정승) 세 확률로 분해해야 한다. <strong>다항 로지스틱 회귀</strong>를
-        쓴다. 입력 피처는 단 하나 — 경기 전 Elo 차이.
-      </p>
-      <F>x = Δpre = (R_home + H) − R_away</F>
-      <F>
-        P(c | x) = softmax_c( β_c · x + α_c ), &nbsp; c ∈ {"{홈, 무, 원정}"}
-      </F>
+      <h3>1. 팀 실력 점수 (Elo)</h3>
+      <p>두 팀 점수 차로 기대 성적 E를 구하고(승=1·무=0.5·패=0 혼합):</p>
+      <Tex block>
+        {String.raw`E_{\text{home}} = \frac{1}{1 + 10^{-\left(R_{\text{home}} + H - R_{\text{away}}\right)/400}}`}
+      </Tex>
+      <p>실제 결과 S와 기대값의 차이만큼 점수를 올리고 내립니다:</p>
+      <Tex block>{String.raw`\Delta R = K \cdot G \cdot (S - E)`}</Tex>
       <p className="note">
-        피처를 1개만 쓰는 이유: 단순할수록 과적합 위험이 낮고, Elo 차이 하나에 팀
-        전력 정보 대부분이 이미 압축돼 있다. 피처 추가는 walk-forward Brier
-        개선을 확인한 뒤에만. 또한 학습 피처는 반드시 <em>경기 전</em> 값이라야
-        데이터 누수가 없다.
+        <b>쉽게:</b> <Tex>{String.raw`(S-E)`}</Tex>가 &lsquo;놀라움&rsquo;. 예상대로면 거의
+        안 변하고, 이변일수록 크게 변합니다. <Tex>{String.raw`K`}</Tex>=대회 중요도,{" "}
+        <Tex>{String.raw`G`}</Tex>=골 차, <Tex>{String.raw`H`}</Tex>=홈 이점(+100).
       </p>
 
-      <h2>3. 평가 지표 — 멀티클래스 Brier Score</h2>
+      <h3>2. 승·무·패 확률 (로지스틱 회귀)</h3>
       <p>
-        예측 확률 벡터와 실제 결과(원-핫)의 평균 제곱 거리. "맞췄나"가 아니라
-        "확률을 정직하게 말했나"를 측정한다. 베팅 맥락의 핵심 지표.
+        경기 전 점수 차 <Tex>{String.raw`x`}</Tex> 하나로 세 결과의 확률을 만듭니다:
       </p>
-      <F>Brier = mean_i Σ_c ( p_(i,c) − y_(i,c) )²</F>
+      <Tex block>
+        {String.raw`P(c \mid x) = \frac{e^{\beta_c x + \alpha_c}}{\displaystyle\sum_{c' \in \{H,D,A\}} e^{\beta_{c'} x + \alpha_{c'}}}`}
+      </Tex>
+      <p className="note">
+        <b>쉽게:</b> &ldquo;점수 차가 이 정도면 홈승 ○○%, 무 ○○%, 원정승 ○○%&rdquo;를
+        과거 데이터로 학습한 표라고 보면 됩니다.
+      </p>
+
+      <h3>3. 스코어 → 언더/오버 · 핸디캡 (포아송)</h3>
+      <p>각 팀의 기대 득점 λ를 점수 차로 추정하고,</p>
+      <Tex block>
+        {String.raw`\log \lambda_{\text{home}} = a_0 + a_1\, x, \qquad \log \lambda_{\text{away}} = b_0 + b_1\, x`}
+      </Tex>
+      <p>스코어가 x:y로 날 확률을 구해(저점수 보정 Dixon-Coles 포함),</p>
+      <Tex block>
+        {String.raw`P(X=x,\, Y=y) = \frac{\lambda_h^{x} e^{-\lambda_h}}{x!}\cdot \frac{\lambda_a^{y} e^{-\lambda_a}}{y!}`}
+      </Tex>
       <p>
-        완벽한 예측 = 0, 항상 (⅓,⅓,⅓) 찍기 = 0.667. walk-forward 검증(학습
-        1990–2023 / 검증 2024–2026.6) 결과:
+        여기서 <b>오버 2.5</b>는 <Tex>{String.raw`\sum_{x+y>2.5} P(x,y)`}</Tex>,{" "}
+        <b>핸디캡</b>은 득점 차 분포로 바로 계산됩니다.
       </p>
+
+      <h3>4. 정확도 점수 (Brier)</h3>
+      <p>예측 확률과 실제 결과가 얼마나 가까운지 잰 값(낮을수록 정확):</p>
+      <Tex block>
+        {String.raw`\text{Brier} = \frac{1}{N}\sum_{i=1}^{N}\sum_{c}\left(p_{i,c} - y_{i,c}\right)^2`}
+      </Tex>
       <div className="card" style={{ margin: "14px 0" }}>
         <table>
           <thead>
@@ -109,16 +125,16 @@ export default function MathPage() {
           </thead>
           <tbody>
             <tr>
-              <td>uniform (항상 ⅓)</td>
+              <td>그냥 ⅓씩 찍기</td>
               <td className="num">0.6667</td>
             </tr>
             <tr>
-              <td>base-rate (학습기간 H/D/A 비율)</td>
+              <td>과거 평균 비율로 찍기</td>
               <td className="num">0.6385</td>
             </tr>
             <tr>
               <td>
-                <strong>Elo + 로지스틱 (본 모델)</strong>
+                <strong>우리 모델</strong>
               </td>
               <td className="num">
                 <strong>0.5056</strong>
@@ -127,60 +143,23 @@ export default function MathPage() {
           </tbody>
         </table>
       </div>
-      <div className="callout">
-        주의: 이 0.5056을 클럽 축구 북메이커 Brier와 직접 비교하면 안 된다.
-        국가대표 경기엔 격차 큰 예선(쉬운 문제)이 많아 평균 난이도가 다르기
-        때문. 정당한 비교는 <strong>같은 72경기</strong>에 대한 모델 vs 마감 배당
-        Brier 대결 — 그것이 이 프로젝트의 목적이다.
-      </div>
 
-      <h2>4. 시장 내재 확률 (마진 제거)</h2>
-      <p>
-        마감 소수 배당의 역수를 합으로 정규화해 북메이커 마진을 제거한 뒤, 모델과
-        같은 경기에 대해 Brier로 대결한다.
-      </p>
-      <F>p_c = (1 / o_c) / ( 1/o_H + 1/o_D + 1/o_A )</F>
-      <p>우승 마켓의 미국식 +배당은 다음으로 환산한다:</p>
-      <F>
-        p = 100 / (odds + 100)
-        <span className="cmt"> &nbsp; # +470 → 17.5%</span>
-      </F>
-
-      <h2>5. 토너먼트 진출 확률 — 몬테카를로</h2>
-      <p>
-        104경기가 얽힌 우승 확률은 해석적으로 풀기 어렵다. 대회 전체를 20,000회
-        가상 진행해 우승 빈도로 근사한다 (rng seed = 42, 재현성).
-      </p>
-      <h3>5.1 한 경기 추첨</h3>
-      <F>
-        u ~ U(0,1)
-        <br />u {"<"} p_H → 홈승 <span className="cmt"> | </span> p_H ≤ u {"<"}{" "}
-        p_H+p_D → 무 <span className="cmt"> | </span> 그 외 → 원정승
-      </F>
-      <h3>5.2 녹아웃 진출 확률 (Elo 근사)</h3>
-      <p>스코어 모델이 없어 Elo 기대승점율을 진출 확률로 쓴다.</p>
-      <F>P(a beats b) = 1 / (1 + 10^(−(R_a − R_b)/400))</F>
-      <h3>5.3 우승 확률과 표준오차</h3>
-      <F>
-        P̂(우승=t) = (t가 우승한 시행 수) / N
-        <br />
-        SE = √( p̂(1−p̂) / N ) <span className="cmt"> # p̂=0.16, N=20k → ±0.26%p</span>
-      </F>
+      <h3>5. 시장(배당) 확률과 비교</h3>
+      <p>소수 배당을 확률로 바꿀 때는 역수를 합으로 나눠 수수료(마진)를 제거합니다:</p>
+      <Tex block>
+        {String.raw`p_c = \frac{1/o_c}{\,1/o_H + 1/o_D + 1/o_A\,}`}
+      </Tex>
       <p className="note">
-        명시적 근사 2가지: (a) 조 동률은 골득실 대신 Elo로 타이브레이크, (b) 32강
-        대진은 공식 브래킷 대신 "1위 풀 vs 2·3위 풀" 무작위 추첨 → 중상위권에
-        ±1%p 노이즈.
+        <b>쉽게:</b> 같은 경기에서 <b>우리 확률 vs 시장 확률</b>의 Brier를 비교해, 누가
+        더 정확했는지 대회 후 채점합니다.
       </p>
 
-      <div
-        className="callout"
-        style={{ marginTop: 36, textAlign: "center" }}
-      >
-        전체 수식 명세와 코드는{" "}
+      <div className="callout" style={{ marginTop: 32 }}>
+        전체 수식·코드는{" "}
         <a href="https://github.com/choigod1023/wc2026-predictor/blob/main/docs/MATH.md">
           docs/MATH.md
         </a>{" "}
-        에서 볼 수 있습니다.
+        에 더 자세히 있습니다.
       </div>
     </article>
   );

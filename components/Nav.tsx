@@ -33,17 +33,40 @@ const GROUPS: Group[] = [
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState<string | null>(null);
+  const [anchor, setAnchor] = useState<{ left: number; top: number } | null>(null);
   const ref = useRef<HTMLElement>(null);
 
-  // 라우트 변경 / 외부 클릭 시 닫기
+  // 라우트 변경 시 닫기
   useEffect(() => setOpen(null), [pathname]);
+  // 외부 클릭 / 스크롤 / 리사이즈 시 닫기 (fixed 메뉴 위치 어긋남 방지)
   useEffect(() => {
-    const h = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(null);
+    const close = (e: Event) => {
+      if (e.type === "click" && ref.current && ref.current.contains(e.target as Node))
+        return;
+      setOpen(null);
     };
-    document.addEventListener("click", h);
-    return () => document.removeEventListener("click", h);
+    document.addEventListener("click", close);
+    window.addEventListener("scroll", close, true);
+    window.addEventListener("resize", close);
+    return () => {
+      document.removeEventListener("click", close);
+      window.removeEventListener("scroll", close, true);
+      window.removeEventListener("resize", close);
+    };
   }, []);
+
+  const toggle = (label: string, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (open === label) {
+      setOpen(null);
+      return;
+    }
+    const r = e.currentTarget.getBoundingClientRect();
+    const menuW = 220;
+    const left = Math.min(r.left, window.innerWidth - menuW - 8);
+    setAnchor({ left: Math.max(8, left), top: r.bottom + 6 });
+    setOpen(label);
+  };
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -67,17 +90,17 @@ export default function Nav() {
             <button
               type="button"
               className={`nav-link nav-toggle ${groupActive ? "active" : ""}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpen(open === g.label ? null : g.label);
-              }}
+              onClick={(e) => toggle(g.label, e)}
               aria-expanded={open === g.label}
             >
               {g.label}
               <span className="caret">▾</span>
             </button>
-            {open === g.label && (
-              <div className="nav-menu">
+            {open === g.label && anchor && (
+              <div
+                className="nav-menu"
+                style={{ position: "fixed", left: anchor.left, top: anchor.top }}
+              >
                 {g.items.map((it) => (
                   <Link
                     key={it.href}

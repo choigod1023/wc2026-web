@@ -1,0 +1,122 @@
+[
+{
+"team": "Spain",
+"modelPct": 25.37,
+"fanduel": 17.54,
+"draftkings": 18.18,
+"polymarket": 16.0,
+"kalshi": 16.5
+},
+{
+"team": "France",
+"modelPct": 10.69,
+"fanduel": 17.24,
+"draftkings": 17.39,
+"polymarket": 16.2,
+"kalshi": null
+},
+{
+"team": "England",
+"modelPct": 6.48,
+"fanduel": 12.5,
+"draftkings": 12.5,
+"polymarket": 10.9,
+"kalshi": null
+},
+{
+"team": "Portugal",
+"modelPct": 3.03,
+"fanduel": null,
+"draftkings": 10.53,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Brazil",
+"modelPct": 5.49,
+"fanduel": 10.53,
+"draftkings": 10.0,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Argentina",
+"modelPct": 19.95,
+"fanduel": 9.09,
+"draftkings": 10.0,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Germany",
+"modelPct": 2.43,
+"fanduel": null,
+"draftkings": 6.67,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Netherlands",
+"modelPct": 2.72,
+"fanduel": null,
+"draftkings": 4.76,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Norway",
+"modelPct": 0.96,
+"fanduel": null,
+"draftkings": 2.78,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Belgium",
+"modelPct": 1.3,
+"fanduel": null,
+"draftkings": 2.44,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Colombia",
+"modelPct": 5.0,
+"fanduel": null,
+"draftkings": 2.44,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Mexico",
+"modelPct": 1.67,
+"fanduel": 1.79,
+"draftkings": null,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "United States",
+"modelPct": 0.07,
+"fanduel": 1.64,
+"draftkings": 1.64,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Uruguay",
+"modelPct": 1.25,
+"fanduel": null,
+"draftkings": 1.52,
+"polymarket": null,
+"kalshi": null
+},
+{
+"team": "Canada",
+"modelPct": 0.48,
+"fanduel": 0.44,
+"draftkings": null,
+"polymarket": null,
+"kalshi": null
+}
+]

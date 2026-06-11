@@ -609,23 +609,63 @@ th.num {
 }
 .standings-grid table {
   font-size: 13px;
-  table-layout: fixed; /* 팀명 길이와 무관하게 열 폭 고정 */
+  table-layout: fixed; /* 팀명 길이와 무관하게 열 폭 고정 → 카드/열 균일 */
   width: 100%;
 }
 .standings-grid th,
 .standings-grid td {
-  padding: 6px 8px;
+  padding: 6px 6px;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
-/* 팀명 열: 폭 고정 + 한글 단어 단위 줄바꿈(길면 두 줄로) */
-.standings-grid th:first-child,
-.standings-grid td:first-child,
+/* 팀명 열만 줄바꿈(한글 단어 단위), 나머지(숫자·상태배지)는 한 줄 유지 */
 .standings-grid .team-cell {
-  width: 38%;
   white-space: normal;
   word-break: keep-all;
   line-height: 1.3;
+}
+.standings-grid .num,
+.standings-grid .st {
+  white-space: nowrap;
+}
+
+/* 경우의 수 테이블 열 폭 (팀 / 상태 / 직접진출 / 32강*) */
+.tbl-scn th:nth-child(1),
+.tbl-scn td:nth-child(1) {
+  width: 36%;
+}
+.tbl-scn th:nth-child(2),
+.tbl-scn td:nth-child(2) {
+  width: 28%;
+}
+.tbl-scn th:nth-child(3),
+.tbl-scn td:nth-child(3) {
+  width: 19%;
+}
+.tbl-scn th:nth-child(4),
+.tbl-scn td:nth-child(4) {
+  width: 17%;
+}
+
+/* 라이브 순위 테이블 열 폭 (팀 / 경기 / 승무패 / 득실 / 승점) */
+.tbl-stand th:nth-child(1),
+.tbl-stand td:nth-child(1) {
+  width: 30%;
+}
+.tbl-stand th:nth-child(2),
+.tbl-stand td:nth-child(2) {
+  width: 13%;
+}
+.tbl-stand th:nth-child(3),
+.tbl-stand td:nth-child(3) {
+  width: 26%;
+}
+.tbl-stand th:nth-child(4),
+.tbl-stand td:nth-child(4) {
+  width: 14%;
+}
+.tbl-stand th:nth-child(5),
+.tbl-stand td:nth-child(5) {
+  width: 17%;
 }
 .grp-title {
   font-weight: 700;

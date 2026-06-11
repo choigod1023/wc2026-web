@@ -190,7 +190,7 @@ export default function LivePage() {
             {data.standings.map((g) => (
               <div className="card" key={g.label}>
                 <p className="grp-title">{g.label}</p>
-                <table>
+                <table className="tbl-stand">
                   <thead>
                     <tr>
                       <th>팀</th>

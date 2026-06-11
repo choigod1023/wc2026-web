@@ -77,7 +77,7 @@ export default function ScenariosPage() {
                     {g.decided}/6 경기 종료
                   </span>
                 </p>
-                <table>
+                <table className="tbl-scn">
                   <thead>
                     <tr>
                       <th>팀</th>

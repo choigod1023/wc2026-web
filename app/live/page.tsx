@@ -92,7 +92,7 @@ export default function LivePage() {
         <h1 style={{ fontSize: 32 }}>라이브</h1>
         <p>
           실시간 스코어 · 경기별 3-way 배당(소수) · 모델 예측 · 실시간 조별 순위.
-          30초마다 자동 갱신됩니다. 데이터: named.com 스포츠 API.
+          30초마다 자동 갱신됩니다.
         </p>
         <div className="live-bar">
           {hasLive && <span className="live-dot" />}

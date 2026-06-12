@@ -108,6 +108,13 @@ function normalize(g: any): LiveMatch {
   };
 }
 
+function pickWC(all: any): LiveMatch[] {
+  if (!Array.isArray(all)) return [];
+  return all
+    .filter((g: any) => g?.league?.id === WC_LEAGUE_ID && g?.teams?.home && g?.teams?.away)
+    .map(normalize);
+}
+
 async function fetchDate(date: string, revalidate: number): Promise<LiveMatch[]> {
   try {
     const res = await fetch(`${BASE}/sports/soccer/games?date=${date}`, {
@@ -115,11 +122,21 @@ async function fetchDate(date: string, revalidate: number): Promise<LiveMatch[]>
       next: { revalidate },
     });
     if (!res.ok) return [];
-    const all = await res.json();
-    if (!Array.isArray(all)) return [];
-    return all
-      .filter((g: any) => g?.league?.id === WC_LEAGUE_ID && g?.teams?.home && g?.teams?.away)
-      .map(normalize);
+    return pickWC(await res.json());
+  } catch {
+    return [];
+  }
+}
+
+// named 라이브 정식 피드: 오늘+내일 경기(진행 중 broadcast 포함). 라이브 표시에 더 정확.
+async function fetchTodayGames(revalidate: number): Promise<LiveMatch[]> {
+  try {
+    const res = await fetch(
+      `${BASE}/sports/soccer/today-games?tomorrow-game-flag=true`,
+      { headers: { "User-Agent": "Mozilla/5.0" }, next: { revalidate } },
+    );
+    if (!res.ok) return [];
+    return pickWC(await res.json());
   } catch {
     return [];
   }
@@ -152,25 +169,26 @@ async function fetchOddsMap(date: string): Promise<Map<number, LiveMatch["odds"]
   return map;
 }
 
-// 라이브/오늘 주변 경기 (어제~모레)
+// 라이브/오늘 주변 경기.
+//  · 주 피드: today-games(오늘+내일, 진행 중 broadcast 최신) — 라이브 정확도 우선
+//  · 보강: 어제·오늘 날짜 조회 → 이미 끝난 경기(종료 배당 적중 표시용) 포함
+//  today-games에 있는 경기는 today-games 값으로 덮어써(가장 최신 라이브 상태) 사용.
 export async function getLiveWindow(): Promise<LiveMatch[]> {
-  const dates = [-1, 0, 1, 2].map(kstDate);
-  const [lists, oddsMaps] = await Promise.all([
-    Promise.all(dates.map((d) => fetchDate(d, 5))), // 라이브 스코어: 5초 캐시
-    // popular-games(+tomorrow flag)로 -1,+1 호출하면 -1,0,1,2 모두 커버
+  const [today, recent, oddsMaps] = await Promise.all([
+    fetchTodayGames(5),
+    Promise.all([kstDate(-1), kstDate(0)].map((d) => fetchDate(d, 5))),
     Promise.all([kstDate(-1), kstDate(1)].map(fetchOddsMap)),
   ]);
   const odds = new Map<number, LiveMatch["odds"]>();
   for (const m of oddsMaps) for (const [k, v] of m) odds.set(k, v);
 
-  const seen = new Set<number>();
-  const out: LiveMatch[] = [];
-  for (const m of lists.flat()) {
-    if (seen.has(m.id)) continue;
-    seen.add(m.id);
-    if (!m.odds && odds.has(m.id)) m.odds = odds.get(m.id)!;
-    out.push(m);
-  }
+  const byId = new Map<number, LiveMatch>();
+  for (const m of recent.flat()) byId.set(m.id, m); // 날짜 기반(종료 포함)
+  for (const m of today) byId.set(m.id, m); // today-games 우선(최신 라이브)
+
+  const out = [...byId.values()].map((m) =>
+    !m.odds && odds.has(m.id) ? { ...m, odds: odds.get(m.id)! } : m,
+  );
   out.sort((x, y) => x.startDatetime.localeCompare(y.startDatetime));
   return out;
 }

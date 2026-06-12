@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { getAllPlayed } from "@/lib/named";
 import { computeScenarios } from "@/lib/scenarios";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic"; // 첫 진입에도 현재 데이터 생성
+export const revalidate = 0;
 
 export async function GET() {
   const played = await getAllPlayed();

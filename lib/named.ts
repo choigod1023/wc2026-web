@@ -20,6 +20,8 @@ export type LiveMatch = {
   awayScore: number;
   result: "WIN" | "DRAW" | "LOSS" | "UNKNOWN";
   odds: { win: number; draw: number; loss: number } | null;
+  clock: string | null; // 진행 중 경기 시간 (예: "후반 12'")
+  playText: string | null; // 최근 상황 (예: "후반 시작")
 };
 
 type NamedTeam = {
@@ -29,6 +31,22 @@ type NamedTeam = {
 
 function teamScore(t: NamedTeam): number {
   return (t.periodData ?? []).reduce((s, p) => s + (p.score ?? 0), 0);
+}
+
+// 진행 중 경기 시간 라벨. broadcast(이벤트 기반)의 period+displayTime을 우선 사용.
+function liveClock(g: any): string | null {
+  const b = g.broadcast ?? {};
+  const period = b.period ?? g.period ?? 0;
+  const dt: string | null = b.displayTime ?? g.displayTime ?? null;
+  if (!period) return null;
+  const label =
+    period === 1 ? "전반" : period === 2 ? "후반" : period <= 4 ? "연장" : "";
+  let mm = 0;
+  if (dt && /^\d+:\d+$/.test(dt)) {
+    const [m, s] = dt.split(":").map(Number);
+    mm = m + (s > 0 ? 1 : 0);
+  }
+  return mm > 0 ? `${label} ${mm}'` : label || null;
 }
 
 function mapStatus(g: any): LiveMatch["status"] {
@@ -66,20 +84,27 @@ function normalize(g: any): LiveMatch {
       ? "LOSS"
       : g.result
     : "UNKNOWN";
+  const status = mapStatus(g);
+  // 진행 중엔 broadcast.score가 가장 현재 스코어. 없으면 periodData 합.
+  const bScore = g.broadcast?.score;
+  const hasB =
+    status === "LIVE" && bScore && typeof bScore.home === "number";
   return {
     id: g.id,
     startDatetime: g.startDatetime,
-    status: mapStatus(g),
+    status,
     displayTime: g.displayTime ?? null,
-    period: g.period ?? 0,
+    period: g.broadcast?.period ?? g.period ?? 0,
     homeKo: h.name,
     awayKo: a.name,
     homeEn: enFromKo(h.name),
     awayEn: enFromKo(a.name),
-    homeScore: teamScore(h),
-    awayScore: teamScore(a),
+    homeScore: hasB ? bScore.home : teamScore(h),
+    awayScore: hasB ? bScore.away : teamScore(a),
     result: result as LiveMatch["result"],
     odds: extractOdds(g),
+    clock: status === "LIVE" ? liveClock(g) : null,
+    playText: status === "LIVE" ? (g.broadcast?.playText ?? null) : null,
   };
 }
 
@@ -131,7 +156,7 @@ async function fetchOddsMap(date: string): Promise<Map<number, LiveMatch["odds"]
 export async function getLiveWindow(): Promise<LiveMatch[]> {
   const dates = [-1, 0, 1, 2].map(kstDate);
   const [lists, oddsMaps] = await Promise.all([
-    Promise.all(dates.map((d) => fetchDate(d, 8))), // 라이브 스코어: 8초 캐시
+    Promise.all(dates.map((d) => fetchDate(d, 5))), // 라이브 스코어: 5초 캐시
     // popular-games(+tomorrow flag)로 -1,+1 호출하면 -1,0,1,2 모두 커버
     Promise.all([kstDate(-1), kstDate(1)].map(fetchOddsMap)),
   ]);

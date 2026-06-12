@@ -20,6 +20,8 @@ type Match = {
   result: string;
   odds: Odds | null;
   prediction: Pred | null;
+  clock: string | null;
+  playText: string | null;
 };
 type StandRow = {
   team: string;
@@ -43,10 +45,7 @@ function impliedFromOdds(o: Odds) {
 
 function statusLabel(m: Match): { text: string; cls: string } {
   if (m.status === "LIVE")
-    return {
-      text: m.displayTime ? `LIVE · ${m.displayTime}` : "LIVE",
-      cls: "live",
-    };
+    return { text: m.clock ? `LIVE · ${m.clock}` : "LIVE", cls: "live" };
   if (m.status === "FINAL") return { text: "경기 종료", cls: "fin" };
   if (m.status === "CANCEL") return { text: "취소", cls: "fin" };
   const t = new Date(m.startDatetime);
@@ -54,6 +53,12 @@ function statusLabel(m: Match): { text: string; cls: string } {
   const mm = String(t.getMinutes()).padStart(2, "0");
   const md = `${t.getMonth() + 1}/${t.getDate()}`;
   return { text: `${md} ${hh}:${mm} 예정`, cls: "fin" };
+}
+
+// 종료 경기의 실제 결과(H/D/A) — 어떤 배당/예측이 맞았는지 판정용
+function finalOutcome(m: Match): "H" | "D" | "A" | null {
+  if (m.status !== "FINAL") return null;
+  return m.homeScore > m.awayScore ? "H" : m.homeScore < m.awayScore ? "A" : "D";
 }
 
 export default function LivePage() {
@@ -80,7 +85,7 @@ export default function LivePage() {
     const start = () => {
       if (id) return;
       load();
-      id = setInterval(load, 10000); // 약 10초마다 폴링
+      id = setInterval(load, 5000); // 약 5초마다 폴링 (라이브스코어 체감)
     };
     const stop = () => {
       if (id) clearInterval(id);
@@ -104,8 +109,8 @@ export default function LivePage() {
       <section className="hero" style={{ padding: "40px 0 8px" }}>
         <h1 className="ph1" style={{ fontSize: 32 }}>라이브</h1>
         <p>
-          실시간 스코어 · 경기별 3-way 배당(소수) · 모델 예측 · 실시간 조별 순위.
-          약 10초마다 자동 갱신됩니다.
+          실시간 스코어 · 경기 시간 · 3-way 배당 · 모델 예측 · 실시간 조별 순위.
+          약 5초마다 자동 갱신됩니다.
         </p>
         <div className="live-bar">
           {hasLive && <span className="live-dot" />}
@@ -132,41 +137,96 @@ export default function LivePage() {
           const st = statusLabel(m);
           const showScore = m.status === "LIVE" || m.status === "FINAL";
           const mk = m.odds ? impliedFromOdds(m.odds) : null;
+          const out = finalOutcome(m); // 종료 시 실제 결과
+          const oddsArr = m.odds
+            ? ([
+                { key: "H", lbl: "홈승", v: m.odds.win },
+                { key: "D", lbl: "무", v: m.odds.draw },
+                { key: "A", lbl: "원정승", v: m.odds.loss },
+              ] as const)
+            : [];
+          // 최저 배당(시장 예상) 결과
+          const favKey =
+            oddsArr.length > 0
+              ? oddsArr.reduce((a, b) => (b.v < a.v ? b : a)).key
+              : null;
+          // 모델이 가장 높게 본 결과
+          const modelKey = m.prediction
+            ? (["H", "D", "A"] as const)[
+                [
+                  m.prediction.pHome,
+                  m.prediction.pDraw,
+                  m.prediction.pAway,
+                ].indexOf(
+                  Math.max(
+                    m.prediction.pHome,
+                    m.prediction.pDraw,
+                    m.prediction.pAway,
+                  ),
+                )
+              ]
+            : null;
+          const outLabel =
+            out === "H" ? "홈승" : out === "A" ? "원정승" : out === "D" ? "무" : "";
           return (
             <div
               key={m.id}
               className={`live-match ${m.status === "LIVE" ? "is-live" : ""}`}
             >
               <div className="lm-top">
-                <span className={`lm-status ${st.cls}`}>{st.text}</span>
+                <span className={`lm-status ${st.cls}`}>
+                  {m.status === "LIVE" && <span className="live-dot mini" />}
+                  {st.text}
+                </span>
                 <span>월드컵</span>
               </div>
               <div className="lm-score">
                 <span className="lm-team left">{ko(m.homeEn ?? m.homeKo)}</span>
-                <span className="lm-num">
+                <span className={`lm-num ${m.status === "LIVE" ? "livescore" : ""}`}>
                   {showScore ? `${m.homeScore} : ${m.awayScore}` : "vs"}
                 </span>
                 <span className="lm-team">{ko(m.awayEn ?? m.awayKo)}</span>
               </div>
 
+              {m.status === "LIVE" && m.playText && (
+                <div className="lm-playtext">{m.playText}</div>
+              )}
+
               {m.odds && (
                 <div className="lm-odds">
-                  <div className="chip">
-                    <span className="lbl">홈승</span>
-                    <b>{m.odds.win.toFixed(2)}</b>
-                  </div>
-                  <div className="chip">
-                    <span className="lbl">무</span>
-                    <b>{m.odds.draw.toFixed(2)}</b>
-                  </div>
-                  <div className="chip">
-                    <span className="lbl">원정승</span>
-                    <b>{m.odds.loss.toFixed(2)}</b>
-                  </div>
+                  {oddsArr.map((c) => (
+                    <div
+                      key={c.key}
+                      className={`chip ${out === c.key ? "won" : out ? "lost" : ""}`}
+                    >
+                      <span className="lbl">
+                        {c.lbl}
+                        {out === c.key && " ✓"}
+                      </span>
+                      <b>{c.v.toFixed(2)}</b>
+                    </div>
+                  ))}
                 </div>
               )}
 
-              {(m.prediction || mk) && (
+              {out && (
+                <div className="lm-result">
+                  결과 <b>{outLabel}</b>
+                  {favKey != null &&
+                    (out === favKey ? (
+                      <span className="tag-ok">예상대로 (최저배당 적중)</span>
+                    ) : (
+                      <span className="tag-up">이변</span>
+                    ))}
+                  {modelKey != null && (
+                    <span className={modelKey === out ? "tag-ok" : "tag-no"}>
+                      모델 {modelKey === out ? "적중 ✓" : "빗나감 ✗"}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {!out && (m.prediction || mk) && (
                 <div className="lm-compare">
                   {m.prediction && (
                     <span>

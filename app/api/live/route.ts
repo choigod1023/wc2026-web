@@ -3,7 +3,10 @@ import { getLiveWindow, getAllPlayed } from "@/lib/named";
 import { computeStandings } from "@/lib/groups";
 import matchesData from "@/data/matches.json";
 
-export const revalidate = 8;
+// 항상 동적 실행 → 첫 진입에도 현재 데이터를 생성(빌드시점 캐시로 굳지 않게).
+// named 호출 자체는 5초 캐시라 매 요청이 외부를 두드리지 않는다.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type Pred = { pHome: number; pDraw: number; pAway: number };
 
@@ -39,6 +42,6 @@ export async function GET() {
 
   return NextResponse.json(
     { asOf: new Date().toISOString(), matches, standings },
-    { headers: { "Cache-Control": "s-maxage=8, stale-while-revalidate=20" } },
+    { headers: { "Cache-Control": "s-maxage=5, stale-while-revalidate=15" } },
   );
 }

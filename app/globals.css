@@ -707,6 +707,69 @@ th.num {
   color: var(--accent);
 }
 
+/* 종료 경기: 적중 배당 강조 */
+.lm-odds .chip.won {
+  border-color: rgba(74, 222, 128, 0.6);
+  background: rgba(74, 222, 128, 0.14);
+}
+.lm-odds .chip.won .lbl,
+.lm-odds .chip.won b {
+  color: var(--accent);
+}
+.lm-odds .chip.lost {
+  opacity: 0.5;
+}
+.lm-result {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.lm-result b {
+  color: var(--text);
+}
+.tag-ok,
+.tag-up,
+.tag-no {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.tag-ok {
+  background: rgba(74, 222, 128, 0.16);
+  color: var(--accent);
+}
+.tag-up {
+  background: rgba(251, 191, 36, 0.16);
+  color: var(--warn);
+}
+.tag-no {
+  background: rgba(248, 113, 113, 0.16);
+  color: #f87171;
+}
+
+/* 진행 중: 시간/상황/스코어 */
+.live-dot.mini {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.lm-playtext {
+  text-align: center;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--accent-2);
+}
+.lm-num.livescore {
+  color: #f87171;
+}
+
 /* group standings */
 .standings-grid {
   display: grid;

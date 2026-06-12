@@ -3,7 +3,7 @@ import { getLiveWindow, getAllPlayed } from "@/lib/named";
 import { computeStandings } from "@/lib/groups";
 import matchesData from "@/data/matches.json";
 
-export const revalidate = 30;
+export const revalidate = 8;
 
 type Pred = { pHome: number; pDraw: number; pAway: number };
 
@@ -39,6 +39,6 @@ export async function GET() {
 
   return NextResponse.json(
     { asOf: new Date().toISOString(), matches, standings },
-    { headers: { "Cache-Control": "s-maxage=30, stale-while-revalidate=60" } },
+    { headers: { "Cache-Control": "s-maxage=8, stale-while-revalidate=20" } },
   );
 }

@@ -63,6 +63,7 @@ export default function LivePage() {
 
   useEffect(() => {
     let alive = true;
+    let id: ReturnType<typeof setInterval> | null = null;
     const load = async () => {
       try {
         const res = await fetch("/api/live", { cache: "no-store" });
@@ -76,11 +77,23 @@ export default function LivePage() {
         if (alive) setErr(true);
       }
     };
-    load();
-    const id = setInterval(load, 30000);
+    const start = () => {
+      if (id) return;
+      load();
+      id = setInterval(load, 10000); // 약 10초마다 폴링
+    };
+    const stop = () => {
+      if (id) clearInterval(id);
+      id = null;
+    };
+    // 탭이 보일 때만 폴링(숨겨지면 중단, 다시 보이면 즉시 새로고침)
+    const onVis = () => (document.hidden ? stop() : start());
+    start();
+    document.addEventListener("visibilitychange", onVis);
     return () => {
       alive = false;
-      clearInterval(id);
+      stop();
+      document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
 
@@ -92,7 +105,7 @@ export default function LivePage() {
         <h1 className="ph1" style={{ fontSize: 32 }}>라이브</h1>
         <p>
           실시간 스코어 · 경기별 3-way 배당(소수) · 모델 예측 · 실시간 조별 순위.
-          30초마다 자동 갱신됩니다.
+          약 10초마다 자동 갱신됩니다.
         </p>
         <div className="live-bar">
           {hasLive && <span className="live-dot" />}

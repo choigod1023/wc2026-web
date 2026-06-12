@@ -112,7 +112,7 @@ async function fetchOddsMap(date: string): Promise<Map<number, LiveMatch["odds"]
   try {
     const res = await fetch(
       `${BASE}/popular-games?date=${date}&tomorrow-game-flag=true`,
-      { headers: { "User-Agent": "Mozilla/5.0" }, next: { revalidate: 30 } },
+      { headers: { "User-Agent": "Mozilla/5.0" }, next: { revalidate: 10 } },
     );
     if (!res.ok) return map;
     const j = await res.json();
@@ -131,7 +131,7 @@ async function fetchOddsMap(date: string): Promise<Map<number, LiveMatch["odds"]
 export async function getLiveWindow(): Promise<LiveMatch[]> {
   const dates = [-1, 0, 1, 2].map(kstDate);
   const [lists, oddsMaps] = await Promise.all([
-    Promise.all(dates.map((d) => fetchDate(d, 30))),
+    Promise.all(dates.map((d) => fetchDate(d, 8))), // 라이브 스코어: 8초 캐시
     // popular-games(+tomorrow flag)로 -1,+1 호출하면 -1,0,1,2 모두 커버
     Promise.all([kstDate(-1), kstDate(1)].map(fetchOddsMap)),
   ]);
@@ -160,7 +160,8 @@ export async function getAllPlayed(): Promise<LiveMatch[]> {
     dates.push(d.toISOString().slice(0, 10));
     d.setUTCDate(d.getUTCDate() + 1);
   }
-  const lists = await Promise.all(dates.map((dt) => fetchDate(dt, 120)));
+  // 오늘 경기(아직 진행/방금 종료)는 getLiveWindow의 8초 캐시와 URL이 같아 함께 신선해진다.
+  const lists = await Promise.all(dates.map((dt) => fetchDate(dt, 60)));
   const seen = new Set<number>();
   const out: LiveMatch[] = [];
   for (const m of lists.flat()) {

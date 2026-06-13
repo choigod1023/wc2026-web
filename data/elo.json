@@ -80,10 +80,6 @@
 "elo": 1915.9
 },
 {
-"team": "Paraguay",
-"elo": 1913.3
-},
-{
 "team": "Denmark",
 "elo": 1912.9
 },
@@ -108,10 +104,6 @@
 "elo": 1891.2
 },
 {
-"team": "Canada",
-"elo": 1890.0
-},
-{
 "team": "Algeria",
 "elo": 1881.8
 },
@@ -122,6 +114,18 @@
 {
 "team": "Yugoslavia",
 "elo": 1872.1
+},
+{
+"team": "United States",
+"elo": 1872.1
+},
+{
+"team": "Canada",
+"elo": 1867.3
+},
+{
+"team": "Paraguay",
+"elo": 1861.9
 },
 {
 "team": "Panama",
@@ -138,10 +142,6 @@
 {
 "team": "Scotland",
 "elo": 1830.3
-},
-{
-"team": "United States",
-"elo": 1820.7
 },
 {
 "team": "Venezuela",

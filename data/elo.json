@@ -28,20 +28,16 @@
 "elo": 2027.6
 },
 {
-"team": "Ecuador",
-"elo": 2021.7
+"team": "Germany",
+"elo": 2014.7
 },
 {
 "team": "Netherlands",
-"elo": 2008.7
-},
-{
-"team": "Germany",
-"elo": 2003.4
+"elo": 2007.0
 },
 {
 "team": "Japan",
-"elo": 1989.0
+"elo": 1990.7
 },
 {
 "team": "Morocco",
@@ -50,6 +46,10 @@
 {
 "team": "Mexico",
 "elo": 1978.6
+},
+{
+"team": "Ecuador",
+"elo": 1975.6
 },
 {
 "team": "Uruguay",
@@ -128,6 +128,10 @@
 "elo": 1861.9
 },
 {
+"team": "Ivory Coast",
+"elo": 1858.6
+},
+{
 "team": "Scotland",
 "elo": 1849.1
 },
@@ -152,11 +156,7 @@
 "elo": 1817.3
 },
 {
-"team": "Ivory Coast",
-"elo": 1812.4
-},
-{
-"team": "Egypt",
-"elo": 1808.1
+"team": "Sweden",
+"elo": 1814.1
 }
 ]

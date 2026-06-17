@@ -770,6 +770,31 @@ th.num {
   color: #f87171;
 }
 
+/* 경기 카드 그리드 (데스크톱 다열) */
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 10px;
+}
+.match-grid > .live-match {
+  margin-bottom: 0;
+}
+
+/* 모델 빗나감 상세 */
+.lm-miss {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: #cdd5ee;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 8px;
+  padding: 8px 10px;
+  line-height: 1.5;
+}
+.lm-miss b {
+  color: var(--text);
+}
+
 /* group standings */
 .standings-grid {
   display: grid;

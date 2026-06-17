@@ -35,12 +35,39 @@ type StandRow = {
   pts: number;
 };
 type GroupStanding = { label: string; rows: StandRow[] };
-type Payload = { asOf: string; matches: Match[]; standings: GroupStanding[] };
+type Payload = {
+  asOf: string;
+  matches: Match[];
+  finished: Match[];
+  standings: GroupStanding[];
+};
 
 function impliedFromOdds(o: Odds) {
   const inv = [1 / o.win, 1 / o.draw, 1 / o.loss];
   const s = inv[0] + inv[1] + inv[2];
   return { h: inv[0] / s, d: inv[1] / s, a: inv[2] / s };
+}
+
+const OUT_LABEL = { H: "홈승", D: "무", A: "원정승" } as const;
+
+// 받침 유무로 을/를 선택
+function eulReul(word: string): string {
+  const c = word.charCodeAt(word.length - 1);
+  if (c < 0xac00 || c > 0xd7a3) return "을(를)";
+  return (c - 0xac00) % 28 !== 0 ? "을" : "를";
+}
+
+// 예측에서 가장 높게 본 결과 + 그 확률
+function modelTop(p: Pred): { key: "H" | "D" | "A"; prob: number } {
+  const arr = [
+    { key: "H" as const, prob: p.pHome },
+    { key: "D" as const, prob: p.pDraw },
+    { key: "A" as const, prob: p.pAway },
+  ];
+  return arr.reduce((a, b) => (b.prob > a.prob ? b : a));
+}
+function probOf(p: Pred, key: "H" | "D" | "A"): number {
+  return key === "H" ? p.pHome : key === "D" ? p.pDraw : p.pAway;
 }
 
 function statusLabel(m: Match): { text: string; cls: string } {
@@ -59,6 +86,121 @@ function statusLabel(m: Match): { text: string; cls: string } {
 function finalOutcome(m: Match): "H" | "D" | "A" | null {
   if (m.status !== "FINAL") return null;
   return m.homeScore > m.awayScore ? "H" : m.homeScore < m.awayScore ? "A" : "D";
+}
+
+function MatchCard({ m }: { m: Match }) {
+  const st = statusLabel(m);
+  const showScore = m.status === "LIVE" || m.status === "FINAL";
+  const mk = m.odds ? impliedFromOdds(m.odds) : null;
+  const out = finalOutcome(m);
+  const oddsArr = m.odds
+    ? ([
+        { key: "H", lbl: "홈승", v: m.odds.win },
+        { key: "D", lbl: "무", v: m.odds.draw },
+        { key: "A", lbl: "원정승", v: m.odds.loss },
+      ] as const)
+    : [];
+  const favKey =
+    oddsArr.length > 0 ? oddsArr.reduce((a, b) => (b.v < a.v ? b : a)).key : null;
+  const mTop = m.prediction ? modelTop(m.prediction) : null;
+  const modelKey = mTop?.key ?? null;
+  const modelHit = out != null && modelKey === out;
+
+  return (
+    <div className={`live-match ${m.status === "LIVE" ? "is-live" : ""}`}>
+      <div className="lm-top">
+        <span className={`lm-status ${st.cls}`}>
+          {m.status === "LIVE" && <span className="live-dot mini" />}
+          {st.text}
+        </span>
+        <span>월드컵</span>
+      </div>
+      <div className="lm-score">
+        <span className="lm-team left">{ko(m.homeEn ?? m.homeKo)}</span>
+        <span className={`lm-num ${m.status === "LIVE" ? "livescore" : ""}`}>
+          {showScore ? `${m.homeScore} : ${m.awayScore}` : "vs"}
+        </span>
+        <span className="lm-team">{ko(m.awayEn ?? m.awayKo)}</span>
+      </div>
+
+      {m.status === "LIVE" && m.playText && (
+        <div className="lm-playtext">{m.playText}</div>
+      )}
+
+      {m.odds && (
+        <div className="lm-odds">
+          {oddsArr.map((c) => (
+            <div
+              key={c.key}
+              className={`chip ${out === c.key ? "won" : out ? "lost" : ""}`}
+            >
+              <span className="lbl">
+                {c.lbl}
+                {out === c.key && " ✓"}
+              </span>
+              <b>{c.v.toFixed(2)}</b>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {out && (
+        <>
+          <div className="lm-result">
+            결과 <b>{OUT_LABEL[out]}</b>
+            {favKey != null &&
+              (out === favKey ? (
+                <span className="tag-ok">예상대로 (최저배당 적중)</span>
+              ) : (
+                <span className="tag-up">이변</span>
+              ))}
+            {modelKey != null && (
+              <span className={modelHit ? "tag-ok" : "tag-no"}>
+                모델 {modelHit ? "적중 ✓" : "빗나감 ✗"}
+              </span>
+            )}
+          </div>
+          {/* 모델이 빗나간 경우: 어떻게 빗나갔는지 */}
+          {m.prediction && modelKey != null && !modelHit && (
+            <div className="lm-miss">
+              모델은 <b>{OUT_LABEL[modelKey]}</b>
+              {eulReul(OUT_LABEL[modelKey])}{" "}
+              {(mTop!.prob * 100).toFixed(0)}%로 가장 높게 봤지만, 실제는{" "}
+              <b>{OUT_LABEL[out]}</b> (모델이 {OUT_LABEL[out]}에 준 확률{" "}
+              {(probOf(m.prediction, out) * 100).toFixed(0)}%)
+            </div>
+          )}
+        </>
+      )}
+
+      {!out && (m.prediction || mk) && (
+        <div className="lm-compare">
+          {m.prediction && (
+            <span>
+              모델{" "}
+              <b>
+                {(m.prediction.pHome * 100).toFixed(0)}/
+                {(m.prediction.pDraw * 100).toFixed(0)}/
+                {(m.prediction.pAway * 100).toFixed(0)}
+              </b>
+            </span>
+          )}
+          {mk && (
+            <span>
+              시장(배당) {(mk.h * 100).toFixed(0)}/{(mk.d * 100).toFixed(0)}/
+              {(mk.a * 100).toFixed(0)}
+            </span>
+          )}
+          <span className="note">(홈/무/원정 %)</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function fmtDay(iso: string): string {
+  const t = new Date(iso);
+  return `${t.getMonth() + 1}월 ${t.getDate()}일`;
 }
 
 export default function LivePage() {
@@ -133,124 +275,43 @@ export default function LivePage() {
         {data && data.matches.length === 0 && (
           <div className="card note">표시할 월드컵 경기가 없습니다.</div>
         )}
-        {data?.matches.map((m) => {
-          const st = statusLabel(m);
-          const showScore = m.status === "LIVE" || m.status === "FINAL";
-          const mk = m.odds ? impliedFromOdds(m.odds) : null;
-          const out = finalOutcome(m); // 종료 시 실제 결과
-          const oddsArr = m.odds
-            ? ([
-                { key: "H", lbl: "홈승", v: m.odds.win },
-                { key: "D", lbl: "무", v: m.odds.draw },
-                { key: "A", lbl: "원정승", v: m.odds.loss },
-              ] as const)
-            : [];
-          // 최저 배당(시장 예상) 결과
-          const favKey =
-            oddsArr.length > 0
-              ? oddsArr.reduce((a, b) => (b.v < a.v ? b : a)).key
-              : null;
-          // 모델이 가장 높게 본 결과
-          const modelKey = m.prediction
-            ? (["H", "D", "A"] as const)[
-                [
-                  m.prediction.pHome,
-                  m.prediction.pDraw,
-                  m.prediction.pAway,
-                ].indexOf(
-                  Math.max(
-                    m.prediction.pHome,
-                    m.prediction.pDraw,
-                    m.prediction.pAway,
-                  ),
-                )
-              ]
-            : null;
-          const outLabel =
-            out === "H" ? "홈승" : out === "A" ? "원정승" : out === "D" ? "무" : "";
-          return (
-            <div
-              key={m.id}
-              className={`live-match ${m.status === "LIVE" ? "is-live" : ""}`}
-            >
-              <div className="lm-top">
-                <span className={`lm-status ${st.cls}`}>
-                  {m.status === "LIVE" && <span className="live-dot mini" />}
-                  {st.text}
-                </span>
-                <span>월드컵</span>
-              </div>
-              <div className="lm-score">
-                <span className="lm-team left">{ko(m.homeEn ?? m.homeKo)}</span>
-                <span className={`lm-num ${m.status === "LIVE" ? "livescore" : ""}`}>
-                  {showScore ? `${m.homeScore} : ${m.awayScore}` : "vs"}
-                </span>
-                <span className="lm-team">{ko(m.awayEn ?? m.awayKo)}</span>
-              </div>
+        {data && data.matches.length > 0 && (
+          <div className="match-grid">
+            {data.matches.map((m) => (
+              <MatchCard key={m.id} m={m} />
+            ))}
+          </div>
+        )}
+      </section>
 
-              {m.status === "LIVE" && m.playText && (
-                <div className="lm-playtext">{m.playText}</div>
-              )}
-
-              {m.odds && (
-                <div className="lm-odds">
-                  {oddsArr.map((c) => (
-                    <div
-                      key={c.key}
-                      className={`chip ${out === c.key ? "won" : out ? "lost" : ""}`}
-                    >
-                      <span className="lbl">
-                        {c.lbl}
-                        {out === c.key && " ✓"}
-                      </span>
-                      <b>{c.v.toFixed(2)}</b>
-                    </div>
+      {/* 지난 경기 결과 (어제·다른 날 포함, 최신순) */}
+      <section>
+        <div className="section-head">
+          <h2>🏁 지난 경기 결과</h2>
+          <span className="sub">종료된 전체 경기 · 배당/모델 적중</span>
+        </div>
+        {data && data.finished.length === 0 && (
+          <div className="card note">아직 종료된 경기가 없습니다.</div>
+        )}
+        {data &&
+          (() => {
+            const byDay = new Map<string, Match[]>();
+            for (const m of data.finished) {
+              const d = m.startDatetime.slice(0, 10);
+              if (!byDay.has(d)) byDay.set(d, []);
+              byDay.get(d)!.push(m);
+            }
+            return [...byDay.entries()].map(([d, ms]) => (
+              <div key={d} className="matchday">
+                <h3>{fmtDay(d)}</h3>
+                <div className="match-grid">
+                  {ms.map((m) => (
+                    <MatchCard key={m.id} m={m} />
                   ))}
                 </div>
-              )}
-
-              {out && (
-                <div className="lm-result">
-                  결과 <b>{outLabel}</b>
-                  {favKey != null &&
-                    (out === favKey ? (
-                      <span className="tag-ok">예상대로 (최저배당 적중)</span>
-                    ) : (
-                      <span className="tag-up">이변</span>
-                    ))}
-                  {modelKey != null && (
-                    <span className={modelKey === out ? "tag-ok" : "tag-no"}>
-                      모델 {modelKey === out ? "적중 ✓" : "빗나감 ✗"}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              {!out && (m.prediction || mk) && (
-                <div className="lm-compare">
-                  {m.prediction && (
-                    <span>
-                      모델{" "}
-                      <b>
-                        {(m.prediction.pHome * 100).toFixed(0)}/
-                        {(m.prediction.pDraw * 100).toFixed(0)}/
-                        {(m.prediction.pAway * 100).toFixed(0)}
-                      </b>
-                    </span>
-                  )}
-                  {mk && (
-                    <span>
-                      시장(배당){" "}
-                      {(mk.h * 100).toFixed(0)}/{(mk.d * 100).toFixed(0)}/
-                      {(mk.a * 100).toFixed(0)}
-                    </span>
-                  )}
-                  <span className="note">(홈/무/원정 %)</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
+              </div>
+            ));
+          })()}
       </section>
 
       <section>

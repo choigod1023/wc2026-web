@@ -13,23 +13,23 @@
 },
 {
 "team": "England",
-"elo": 2083.4
+"elo": 2113.1
 },
 {
 "team": "Colombia",
-"elo": 2058.2
+"elo": 2076.2
 },
 {
 "team": "Brazil",
 "elo": 2056.6
 },
 {
-"team": "Portugal",
-"elo": 2027.6
-},
-{
 "team": "Germany",
 "elo": 2014.7
+},
+{
+"team": "Portugal",
+"elo": 2008.2
 },
 {
 "team": "Netherlands",
@@ -56,10 +56,6 @@
 "elo": 1975.6
 },
 {
-"team": "Croatia",
-"elo": 1960.6
-},
-{
 "team": "Belgium",
 "elo": 1955.1
 },
@@ -76,8 +72,12 @@
 "elo": 1932.7
 },
 {
+"team": "Croatia",
+"elo": 1930.9
+},
+{
 "team": "Austria",
-"elo": 1921.3
+"elo": 1921.4
 },
 {
 "team": "Italy",
@@ -136,10 +136,6 @@
 "elo": 1849.1
 },
 {
-"team": "Panama",
-"elo": 1843.3
-},
-{
 "team": "Ukraine",
 "elo": 1841.2
 },
@@ -156,7 +152,11 @@
 "elo": 1817.4
 },
 {
-"team": "Uzbekistan",
-"elo": 1817.3
+"team": "Sweden",
+"elo": 1814.1
+},
+{
+"team": "Jersey",
+"elo": 1805.3
 }
 ]

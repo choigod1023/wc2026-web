@@ -868,6 +868,33 @@ th.num {
   margin-bottom: 0;
 }
 
+/* 인플레이 라이브 추정 */
+.lm-inplay {
+  margin-top: 10px;
+  background: rgba(248, 113, 113, 0.07);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+.ip-head {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f87171;
+  margin-bottom: 6px;
+}
+.ip-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 2px 0;
+}
+.ip-row b {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
 /* 개막 전 → 현재 예측 변화 */
 .lm-shift {
   margin-top: 8px;

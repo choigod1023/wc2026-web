@@ -22,7 +22,16 @@ type Match = {
   prediction: Pred | null;
   livePrediction: { pHome: number; pDraw: number; pAway: number } | null;
   clock: string | null;
+  minute: number | null;
   playText: string | null;
+  inplay: {
+    pH: number;
+    pD: number;
+    pA: number;
+    over25: number;
+    expFinal: string;
+    remMin: number;
+  } | null;
 };
 type StandRow = {
   team: string;
@@ -139,6 +148,27 @@ function MatchCard({ m }: { m: Match }) {
 
       {m.status === "LIVE" && m.playText && (
         <div className="lm-playtext">{m.playText}</div>
+      )}
+
+      {/* 인플레이 라이브 추정: 현재 스코어 + 남은 시간 반영 */}
+      {m.status === "LIVE" && m.inplay && (
+        <div className="lm-inplay">
+          <div className="ip-head">
+            ⚡ 라이브 추정 <span className="note">(남은 {m.inplay.remMin}분 반영)</span>
+          </div>
+          <div className="ip-row">
+            <span>승부</span>
+            <b>
+              {pct(m.inplay.pH)}/{pct(m.inplay.pD)}/{pct(m.inplay.pA)}
+            </b>
+            <span className="note">홈/무/원정 %</span>
+          </div>
+          <div className="ip-row">
+            <span>오버 2.5</span>
+            <b>{pct(m.inplay.over25)}%</b>
+            <span className="note">예상 최종 {m.inplay.expFinal}</span>
+          </div>
+        </div>
       )}
 
       {m.odds && (

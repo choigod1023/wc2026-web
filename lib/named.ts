@@ -21,6 +21,7 @@ export type LiveMatch = {
   result: "WIN" | "DRAW" | "LOSS" | "UNKNOWN";
   odds: { win: number; draw: number; loss: number } | null;
   clock: string | null; // 진행 중 경기 시간 (예: "후반 12'")
+  minute: number | null; // 경과 분(숫자) — 인플레이 계산용
   playText: string | null; // 최근 상황 (예: "후반 시작")
 };
 
@@ -47,6 +48,18 @@ function liveClock(g: any): string | null {
     mm = m + (s > 0 ? 1 : 0);
   }
   return mm > 0 ? `${label} ${mm}'` : label || null;
+}
+
+// 경기 경과 분(숫자). 전반=m, 후반=45+m, 연장=90+m.
+function liveMinute(g: any): number | null {
+  const b = g.broadcast ?? {};
+  const period = b.period ?? g.period ?? 0;
+  const dt: string | null = b.displayTime ?? g.displayTime ?? null;
+  if (!period) return null;
+  let m = 0;
+  if (dt && /^\d+:\d+$/.test(dt)) m = Number(dt.split(":")[0]);
+  const base = period === 1 ? 0 : period === 2 ? 45 : 90;
+  return base + m;
 }
 
 function mapStatus(g: any): LiveMatch["status"] {
@@ -104,6 +117,7 @@ function normalize(g: any): LiveMatch {
     result: result as LiveMatch["result"],
     odds: extractOdds(g),
     clock: status === "LIVE" ? liveClock(g) : null,
+    minute: status === "LIVE" ? liveMinute(g) : null,
     playText: status === "LIVE" ? (g.broadcast?.playText ?? null) : null,
   };
 }

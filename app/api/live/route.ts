@@ -3,7 +3,9 @@ import { getLiveWindow, getAllPlayed } from "@/lib/named";
 import { computeStandings } from "@/lib/groups";
 import matchesData from "@/data/matches.json";
 import livePreds from "@/data/live_predictions.json";
+import liveScore from "@/data/live_score.json";
 import closingOdds from "@/data/closing_odds.json";
+import { inPlay } from "@/lib/inplay";
 
 // 항상 동적 실행 → 첫 진입에도 현재 데이터를 생성(빌드시점 캐시로 굳지 않게).
 // named 호출 자체는 5초 캐시라 매 요청이 외부를 두드리지 않는다.
@@ -62,18 +64,40 @@ function closingFor(homeEn: string | null, awayEn: string | null) {
   return null;
 }
 
+// 경기 전 기대득점(λ) — 인플레이 모델 입력
+const lamMap = new Map<string, { lh: number; la: number }>();
+for (const m of liveScore as any[])
+  lamMap.set(`${m.home}|${m.away}`, { lh: m.lambdaHome, la: m.lambdaAway });
+function lamFor(homeEn: string | null, awayEn: string | null) {
+  if (!homeEn || !awayEn) return null;
+  const d = lamMap.get(`${homeEn}|${awayEn}`);
+  if (d) return d;
+  const r = lamMap.get(`${awayEn}|${homeEn}`);
+  if (r) return { lh: r.la, la: r.lh };
+  return null;
+}
+
 export async function GET() {
   const [windowMatches, allPlayed] = await Promise.all([
     getLiveWindow(),
     getAllPlayed(),
   ]);
 
-  const enrich = (m: any) => ({
-    ...m,
-    prediction: lookupPred(m.homeEn, m.awayEn), // 개막 전 고정
-    livePrediction: lookupLive(m.homeEn, m.awayEn), // 현재(업데이트)
-    odds: m.odds ?? closingFor(m.homeEn, m.awayEn), // 라이브 배당 없으면 마감배당
-  });
+  const enrich = (m: any) => {
+    let inplay = null;
+    if (m.status === "LIVE" && m.minute != null) {
+      const lam = lamFor(m.homeEn, m.awayEn);
+      if (lam)
+        inplay = inPlay(lam.lh, lam.la, m.minute, m.homeScore, m.awayScore);
+    }
+    return {
+      ...m,
+      prediction: lookupPred(m.homeEn, m.awayEn), // 개막 전 고정
+      livePrediction: lookupLive(m.homeEn, m.awayEn), // 현재(업데이트)
+      odds: m.odds ?? closingFor(m.homeEn, m.awayEn), // 라이브 배당 없으면 마감배당
+      inplay, // 진행 중: 현재 스코어+시간 기반 라이브 추정
+    };
+  };
 
   // 진행 중·예정: 라이브 윈도우에서 미종료만
   const matches = windowMatches.filter((m) => m.status !== "FINAL").map(enrich);

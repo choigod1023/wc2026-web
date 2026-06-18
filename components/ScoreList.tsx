@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 import scores from "@/data/score_predictions.json";
+import liveScore from "@/data/live_score.json";
 import { ko } from "@/lib/teams";
+
+// 현재(업데이트된 Elo) 스코어 예측: home|away → overUnder/expScore
+const liveMap = new Map<string, any>();
+for (const m of liveScore as any[]) liveMap.set(`${m.home}|${m.away}`, m);
 
 type Score = {
   date: string;
@@ -166,6 +171,27 @@ export default function ScoreList() {
                     {s.eloDiff}
                   </span>
                 </div>
+
+                {/* 예정 경기: 개막 전 → 현재(업데이트) 예측 변화 */}
+                {!res &&
+                  (() => {
+                    const lv = liveMap.get(`${s.home}|${s.away}`);
+                    if (!lv) return null;
+                    const liveO = lv.overUnder["2.5"] * 100;
+                    const diff = liveO - o25;
+                    if (Math.abs(diff) < 3) return null;
+                    return (
+                      <div className="sc-shift">
+                        📈 오버 2.5: 개막 전{" "}
+                        <span className="muted2">{o25.toFixed(0)}%</span> → 현재{" "}
+                        <b>{liveO.toFixed(0)}%</b>
+                        <span className="muted2">
+                          {" "}
+                          · 예상 {s.expScore}→{lv.expScore}
+                        </span>
+                      </div>
+                    );
+                  })()}
 
                 {/* 종료 경기: 적중 배지 */}
                 {res && (

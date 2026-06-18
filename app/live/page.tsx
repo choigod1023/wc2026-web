@@ -20,6 +20,7 @@ type Match = {
   result: string;
   odds: Odds | null;
   prediction: Pred | null;
+  livePrediction: { pHome: number; pDraw: number; pAway: number } | null;
   clock: string | null;
   playText: string | null;
 };
@@ -68,6 +69,19 @@ function modelTop(p: Pred): { key: "H" | "D" | "A"; prob: number } {
 }
 function probOf(p: Pred, key: "H" | "D" | "A"): number {
   return key === "H" ? p.pHome : key === "D" ? p.pDraw : p.pAway;
+}
+const pct = (x: number) => `${Math.round(x * 100)}`;
+// 개막 전 대비 현재 예측이 3%p 이상 달라졌는지
+function predShift(m: Match): boolean {
+  const a = m.prediction!,
+    b = m.livePrediction!;
+  return (
+    Math.max(
+      Math.abs(a.pHome - b.pHome),
+      Math.abs(a.pDraw - b.pDraw),
+      Math.abs(a.pAway - b.pAway),
+    ) >= 0.03
+  );
 }
 
 function statusLabel(m: Match): { text: string; cls: string } {
@@ -175,15 +189,26 @@ function MatchCard({ m }: { m: Match }) {
 
       {!out && (m.prediction || mk) && (
         <div className="lm-compare">
-          {m.prediction && (
+          {m.livePrediction ? (
             <span>
               모델{" "}
               <b>
-                {(m.prediction.pHome * 100).toFixed(0)}/
-                {(m.prediction.pDraw * 100).toFixed(0)}/
-                {(m.prediction.pAway * 100).toFixed(0)}
+                {(m.livePrediction.pHome * 100).toFixed(0)}/
+                {(m.livePrediction.pDraw * 100).toFixed(0)}/
+                {(m.livePrediction.pAway * 100).toFixed(0)}
               </b>
             </span>
+          ) : (
+            m.prediction && (
+              <span>
+                모델{" "}
+                <b>
+                  {(m.prediction.pHome * 100).toFixed(0)}/
+                  {(m.prediction.pDraw * 100).toFixed(0)}/
+                  {(m.prediction.pAway * 100).toFixed(0)}
+                </b>
+              </span>
+            )
           )}
           {mk && (
             <span>
@@ -192,6 +217,23 @@ function MatchCard({ m }: { m: Match }) {
             </span>
           )}
           <span className="note">(홈/무/원정 %)</span>
+        </div>
+      )}
+
+      {/* 개막 전 → 현재 예측 변화 (충분히 달라졌을 때만) */}
+      {!out && m.prediction && m.livePrediction && predShift(m) && (
+        <div className="lm-shift">
+          📈 개막 전{" "}
+          <span className="muted2">
+            {pct(m.prediction.pHome)}/{pct(m.prediction.pDraw)}/
+            {pct(m.prediction.pAway)}
+          </span>{" "}
+          → 현재{" "}
+          <b>
+            {pct(m.livePrediction.pHome)}/{pct(m.livePrediction.pDraw)}/
+            {pct(m.livePrediction.pAway)}
+          </b>{" "}
+          <span className="note">(결과 반영해 갱신)</span>
         </div>
       )}
     </div>

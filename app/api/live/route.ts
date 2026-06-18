@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getLiveWindow, getAllPlayed } from "@/lib/named";
 import { computeStandings } from "@/lib/groups";
 import matchesData from "@/data/matches.json";
+import livePreds from "@/data/live_predictions.json";
 import closingOdds from "@/data/closing_odds.json";
 
 // 항상 동적 실행 → 첫 진입에도 현재 데이터를 생성(빌드시점 캐시로 굳지 않게).
@@ -29,6 +30,24 @@ function lookupPred(homeEn: string | null, awayEn: string | null) {
   return null;
 }
 
+// 현재(업데이트된 Elo) 예측 — 개막 전 대비 변화 표시용
+const liveMap = new Map<string, Pred>();
+for (const m of livePreds as any[]) {
+  liveMap.set(`${m.home}|${m.away}`, {
+    pHome: m.pHome,
+    pDraw: m.pDraw,
+    pAway: m.pAway,
+  });
+}
+function lookupLive(homeEn: string | null, awayEn: string | null) {
+  if (!homeEn || !awayEn) return null;
+  const d = liveMap.get(`${homeEn}|${awayEn}`);
+  if (d) return d;
+  const r = liveMap.get(`${awayEn}|${homeEn}`);
+  if (r) return { pHome: r.pAway, pDraw: r.pDraw, pAway: r.pHome };
+  return null;
+}
+
 // 기록된 마감배당 조회 (named가 종료 후 배당을 내려도 적중 표시 가능)
 const oddsMap = new Map<string, { win: number; draw: number; loss: number }>();
 for (const c of closingOdds as any[]) {
@@ -51,7 +70,8 @@ export async function GET() {
 
   const enrich = (m: any) => ({
     ...m,
-    prediction: lookupPred(m.homeEn, m.awayEn),
+    prediction: lookupPred(m.homeEn, m.awayEn), // 개막 전 고정
+    livePrediction: lookupLive(m.homeEn, m.awayEn), // 현재(업데이트)
     odds: m.odds ?? closingFor(m.homeEn, m.awayEn), // 라이브 배당 없으면 마감배당
   });
 

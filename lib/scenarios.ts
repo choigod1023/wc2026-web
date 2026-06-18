@@ -25,6 +25,9 @@ export type TeamScenario = {
   status: "qualified" | "eliminated" | "alive";
   qualProb: number; // 직접 진출(1·2위) 확률
   r32Prob: number; // 개막 전 기준 32강 도달(3위 포함) 확률
+  pld?: number; // 현재 치른 경기 수
+  pts?: number; // 현재 승점
+  gd?: number; // 현재 골득실
 };
 export type RemainingFix = { home: string; away: string };
 export type GroupScenario = {

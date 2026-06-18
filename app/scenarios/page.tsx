@@ -8,6 +8,9 @@ type TeamScenario = {
   status: "qualified" | "eliminated" | "alive";
   qualProb: number;
   r32Prob: number;
+  pld?: number;
+  pts?: number;
+  gd?: number;
 };
 type GroupScenario = {
   label: string;
@@ -87,11 +90,26 @@ export default function ScenariosPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {g.teams.map((t) => {
+                    {g.teams.map((t, idx) => {
                       const s = STATUS[t.status];
                       return (
                         <tr key={t.team}>
-                          <td className="team-cell">{ko(t.team)}</td>
+                          <td className="team-cell">
+                            <span className="scn-team">
+                              {g.decided > 0 && (
+                                <span className="scn-rank">{idx + 1}</span>
+                              )}
+                              {ko(t.team)}
+                            </span>
+                            {t.pld != null && t.pld > 0 && (
+                              <span className="scn-rec">
+                                {t.pld}경기 · 승점 {t.pts}
+                                {t.gd != null
+                                  ? ` · 득실 ${t.gd > 0 ? "+" : ""}${t.gd}`
+                                  : ""}
+                              </span>
+                            )}
+                          </td>
                           <td>
                             <span className={`st ${s.cls}`}>{s.text}</span>
                           </td>

@@ -1065,6 +1065,33 @@ th.num {
   white-space: nowrap;
 }
 
+/* 경우의 수: 현재 조 순위 표기 */
+.scn-team {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+.scn-rank {
+  display: inline-grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  flex: none;
+}
+.scn-rec {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
 @media (max-width: 560px) {
   .sc-grid {
     grid-template-columns: 1fr;

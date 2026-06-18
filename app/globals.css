@@ -770,6 +770,62 @@ th.num {
   color: #f87171;
 }
 
+/* 예측 변동 타임라인 */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.tl-date {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  padding-top: 2px;
+}
+.tl-moves {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tl-move {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.tl-team {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tl-team.up {
+  color: var(--accent);
+}
+.tl-team.down {
+  color: #f87171;
+}
+.tl-reason {
+  color: #cdd5ee;
+}
+.tl-upset {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.16);
+  color: var(--warn);
+}
+
 /* 우승확률 추세 그래프 */
 .trend-svg {
   width: 100%;

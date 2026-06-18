@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import leaderboard from "@/data/model_leaderboard.json";
 import champByModel from "@/data/champion_by_model.json";
 import ChampionTrend from "@/components/ChampionTrend";
+import ChangesTimeline from "@/components/ChangesTimeline";
 import { ko } from "@/lib/teams";
 
 export const metadata: Metadata = {
@@ -69,9 +70,17 @@ export default function ModelsPage() {
         </div>
         <ChampionTrend />
         <p className="note" style={{ marginTop: 10 }}>
-          경기 결과가 쌓일 때마다 Elo·시뮬레이션이 갱신되어 우승 확률이 움직입니다.
-          (개막 전~현재, 경기일마다 한 점)
+          이미 끝난 경기는 실제 결과로 고정하고 남은 경기만 시뮬레이션하므로, 경기가
+          쌓일수록 우승 확률이 실제 흐름을 반영해 움직입니다.
         </p>
+      </section>
+
+      <section>
+        <div className="section-head">
+          <h2>📰 예측이 왜 바뀌었나</h2>
+          <span className="sub">경기 결과로 본 변동 이유</span>
+        </div>
+        <ChangesTimeline />
       </section>
 
       <section>

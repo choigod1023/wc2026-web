@@ -985,6 +985,50 @@ th.num {
   padding-top: 10px;
 }
 
+/* 스코어 채점 요약 */
+.grade-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.gs-label {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.gs-val {
+  font-size: 22px;
+  font-weight: 800;
+}
+.gs-val small {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+/* 종료 경기: 예상→실제, 적중 배지 */
+.sc-actual {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sc-actual b {
+  color: var(--accent);
+  font-size: 18px;
+}
+.sc-grades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+.g-sub {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
 /* scenario status */
 .st {
   display: inline-block;

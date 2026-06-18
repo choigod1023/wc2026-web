@@ -142,6 +142,35 @@ async function fetchDate(date: string, revalidate: number): Promise<LiveMatch[]>
   }
 }
 
+// 진행 중 경기의 퇴장 수(팀별) — broadcasts 이벤트의 RED + locationType 으로 집계.
+export async function getRedCards(
+  gameId: number,
+): Promise<{ home: number; away: number; lastCard: string | null }> {
+  try {
+    const res = await fetch(`${BASE}/sports/soccer/games/${gameId}/broadcasts`, {
+      headers: { "User-Agent": "Mozilla/5.0" },
+      next: { revalidate: 10 },
+    });
+    if (!res.ok) return { home: 0, away: 0, lastCard: null };
+    const j = await res.json();
+    const ev: any[] = Array.isArray(j) ? j : (j?.broadcasts ?? []);
+    let home = 0,
+      away = 0,
+      lastCard: string | null = null;
+    for (const e of ev) {
+      const t = String(e?.eventType ?? "");
+      if (t.includes("RED")) {
+        if (e.locationType === "HOME") home++;
+        else if (e.locationType === "AWAY") away++;
+      }
+      if (t.includes("CARD")) lastCard = e?.playText ?? lastCard;
+    }
+    return { home, away, lastCard };
+  } catch {
+    return { home: 0, away: 0, lastCard: null };
+  }
+}
+
 // named 라이브 정식 피드: 오늘+내일 경기(진행 중 broadcast 포함). 라이브 표시에 더 정확.
 async function fetchTodayGames(revalidate: number): Promise<LiveMatch[]> {
   try {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getLiveWindow, getAllPlayed } from "@/lib/named";
+import { getLiveWindow, getAllPlayed, getRedCards } from "@/lib/named";
 import { computeStandings } from "@/lib/groups";
 import matchesData from "@/data/matches.json";
 import livePreds from "@/data/live_predictions.json";
@@ -83,19 +83,39 @@ export async function GET() {
     getAllPlayed(),
   ]);
 
+  // 진행 중 경기의 퇴장 수를 병렬 조회 (broadcasts 이벤트)
+  const liveOnes = windowMatches.filter((m) => m.status === "LIVE");
+  const reds = new Map<number, { home: number; away: number; lastCard: string | null }>();
+  await Promise.all(
+    liveOnes.map(async (m) => reds.set(m.id, await getRedCards(m.id))),
+  );
+
   const enrich = (m: any) => {
     let inplay = null;
+    const rc = reds.get(m.id) ?? { home: 0, away: 0, lastCard: null };
     if (m.status === "LIVE" && m.minute != null) {
       const lam = lamFor(m.homeEn, m.awayEn);
       if (lam)
-        inplay = inPlay(lam.lh, lam.la, m.minute, m.homeScore, m.awayScore);
+        inplay = {
+          ...inPlay(
+            lam.lh,
+            lam.la,
+            m.minute,
+            m.homeScore,
+            m.awayScore,
+            rc.home,
+            rc.away,
+          ),
+          redHome: rc.home,
+          redAway: rc.away,
+        };
     }
     return {
       ...m,
       prediction: lookupPred(m.homeEn, m.awayEn), // 개막 전 고정
       livePrediction: lookupLive(m.homeEn, m.awayEn), // 현재(업데이트)
       odds: m.odds ?? closingFor(m.homeEn, m.awayEn), // 라이브 배당 없으면 마감배당
-      inplay, // 진행 중: 현재 스코어+시간 기반 라이브 추정
+      inplay, // 진행 중: 현재 스코어+시간+퇴장 기반 라이브 추정
     };
   };
 

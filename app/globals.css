@@ -894,6 +894,11 @@ th.num {
   color: var(--text);
   font-variant-numeric: tabular-nums;
 }
+.ip-red {
+  margin-left: 8px;
+  color: #f87171;
+  font-weight: 700;
+}
 
 /* 개막 전 → 현재 예측 변화 */
 .lm-shift {

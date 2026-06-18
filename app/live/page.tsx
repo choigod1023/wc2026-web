@@ -31,6 +31,8 @@ type Match = {
     over25: number;
     expFinal: string;
     remMin: number;
+    redHome: number;
+    redAway: number;
   } | null;
 };
 type StandRow = {
@@ -154,7 +156,16 @@ function MatchCard({ m }: { m: Match }) {
       {m.status === "LIVE" && m.inplay && (
         <div className="lm-inplay">
           <div className="ip-head">
-            ⚡ 라이브 추정 <span className="note">(남은 {m.inplay.remMin}분 반영)</span>
+            ⚡ 라이브 추정{" "}
+            <span className="note">(남은 {m.inplay.remMin}분 반영)</span>
+            {(m.inplay.redHome > 0 || m.inplay.redAway > 0) && (
+              <span className="ip-red">
+                🟥{" "}
+                {m.inplay.redHome > 0 && `${ko(m.homeEn ?? m.homeKo)} ${m.inplay.redHome}`}
+                {m.inplay.redHome > 0 && m.inplay.redAway > 0 && " · "}
+                {m.inplay.redAway > 0 && `${ko(m.awayEn ?? m.awayKo)} ${m.inplay.redAway}`}
+              </span>
+            )}
           </div>
           <div className="ip-row">
             <span>승부</span>

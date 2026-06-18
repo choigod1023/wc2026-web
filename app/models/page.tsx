@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import leaderboard from "@/data/model_leaderboard.json";
 import champByModel from "@/data/champion_by_model.json";
+import ChampionTrend from "@/components/ChampionTrend";
 import { ko } from "@/lib/teams";
 
 export const metadata: Metadata = {
@@ -58,6 +59,18 @@ export default function ModelsPage() {
         <p className="note">
           아래 <b>Brier</b>는 <b>예측 정확도 점수</b>입니다 — 확률을 정직하게
           맞힐수록 낮아지고, 0이면 완벽입니다.
+        </p>
+      </section>
+
+      <section>
+        <div className="section-head">
+          <h2>📈 우승 확률 변화 추세</h2>
+          <span className="sub">대회 진행에 따른 상위 6개국 우승 확률</span>
+        </div>
+        <ChampionTrend />
+        <p className="note" style={{ marginTop: 10 }}>
+          경기 결과가 쌓일 때마다 Elo·시뮬레이션이 갱신되어 우승 확률이 움직입니다.
+          (개막 전~현재, 경기일마다 한 점)
         </p>
       </section>
 

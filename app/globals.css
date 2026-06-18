@@ -770,6 +770,38 @@ th.num {
   color: #f87171;
 }
 
+/* 우승확률 추세 그래프 */
+.trend-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.trend-axis {
+  fill: var(--muted);
+  font-size: 11px;
+}
+.trend-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.trend-leg {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.trend-leg b {
+  color: var(--text);
+}
+.trend-leg .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
 /* 경기 카드 그리드 (데스크톱 다열) */
 .match-grid {
   display: grid;

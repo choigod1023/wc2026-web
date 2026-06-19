@@ -175,17 +175,37 @@
 "final": 0.00025
 },
 {
-"team": "Panama",
-"champion": 5e-05,
-"final": 0.0009
-},
-{
 "team": "Czech Republic",
 "champion": 5e-05,
 "final": 0.0001
 },
 {
-"team": "Tunisia",
+"team": "Panama",
+"champion": 5e-05,
+"final": 0.0009
+},
+{
+"team": "Jordan",
+"champion": 0.0,
+"final": 0.00025
+},
+{
+"team": "New Zealand",
+"champion": 0.0,
+"final": 0.00055
+},
+{
+"team": "Iraq",
+"champion": 0.0,
+"final": 5e-05
+},
+{
+"team": "Cape Verde",
+"champion": 0.0,
+"final": 0.0001
+},
+{
+"team": "Qatar",
 "champion": 0.0,
 "final": 0.0
 },
@@ -195,37 +215,12 @@
 "final": 0.0
 },
 {
-"team": "South Africa",
-"champion": 0.0,
-"final": 5e-05
-},
-{
 "team": "Ghana",
 "champion": 0.0,
 "final": 0.00015
 },
 {
-"team": "Cape Verde",
-"champion": 0.0,
-"final": 0.0001
-},
-{
 "team": "Haiti",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Iraq",
-"champion": 0.0,
-"final": 5e-05
-},
-{
-"team": "Jordan",
-"champion": 0.0,
-"final": 0.00025
-},
-{
-"team": "Qatar",
 "champion": 0.0,
 "final": 0.0
 },
@@ -235,8 +230,13 @@
 "final": 0.0
 },
 {
-"team": "New Zealand",
+"team": "South Africa",
 "champion": 0.0,
-"final": 0.00055
+"final": 5e-05
+},
+{
+"team": "Tunisia",
+"champion": 0.0,
+"final": 0.0
 }
 ]

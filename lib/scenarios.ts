@@ -21,6 +21,12 @@ const R32: Record<string, number> = {};
 });
 
 export type Cond = "in" | "maybe" | "out";
+export type Res = "in" | "out" | "gd"; // 진출 / 탈락 / 골득실(세부)승부
+export type Leaf = {
+  other: { home: string; away: string; r: "H" | "D" | "A" } | null;
+  res: Res;
+};
+export type OwnScenario = { own: "w" | "d" | "l"; leaves: Leaf[] };
 export type TeamScenario = {
   team: string;
   status: "qualified" | "eliminated" | "alive";
@@ -33,6 +39,7 @@ export type TeamScenario = {
   nextOpp: string | null; // 남은 상대(영문)
   nextHome: boolean | null; // 남은 경기 홈 여부
   cond: { w: Cond; d: Cond; l: Cond } | null; // 남은 경기 승/무/패 시 결과
+  detail: OwnScenario[] | null; // 상세 시나리오 트리(모달용)
 };
 export type RemainingFix = { home: string; away: string };
 export type GroupScenario = {
@@ -93,6 +100,58 @@ function rank(
     }
     return (champRank.get(a) ?? 99) - (champRank.get(b) ?? 99);
   });
+}
+
+type Result = { home: string; away: string; r: "H" | "D" | "A" };
+
+function pointsOf(teams: string[], results: Result[]): Map<string, number> {
+  const pts = new Map(teams.map((t) => [t, 0]));
+  for (const { home, away, r } of results) {
+    if (r === "H") pts.set(home, pts.get(home)! + 3);
+    else if (r === "A") pts.set(away, pts.get(away)! + 3);
+    else {
+      pts.set(home, pts.get(home)! + 1);
+      pts.set(away, pts.get(away)! + 1);
+    }
+  }
+  return pts;
+}
+function h2hPoints(grp: string[], results: Result[]): Map<string, number> {
+  const hp = new Map(grp.map((t) => [t, 0]));
+  for (const { home, away, r } of results) {
+    if (!hp.has(home) || !hp.has(away)) continue;
+    if (r === "H") hp.set(home, hp.get(home)! + 3);
+    else if (r === "A") hp.set(away, hp.get(away)! + 3);
+    else {
+      hp.set(home, hp.get(home)! + 1);
+      hp.set(away, hp.get(away)! + 1);
+    }
+  }
+  return hp;
+}
+
+// 팀 T의 결과: 진출(in)/탈락(out)/골득실 세부승부(gd). 2/3위 경계가 승점·승자승 동률이면 gd.
+function teamResult(
+  t: string,
+  teams: string[],
+  results: Result[],
+  champRank: Map<string, number>,
+): Res {
+  const order = rank(teams, results, champRank);
+  const pts = pointsOf(teams, results);
+  const a = order[1],
+    b = order[2];
+  let cutTie = pts.get(a)! === pts.get(b)!;
+  if (cutTie) {
+    const grp = teams.filter((x) => pts.get(x)! === pts.get(a)!);
+    const hp = h2hPoints(grp, results);
+    cutTie = hp.get(a)! === hp.get(b)!;
+  }
+  const pos = order.indexOf(t);
+  if (pos === 0) return "in";
+  if (pos === 1) return cutTie ? "gd" : "in";
+  if (pos === 2) return cutTie ? "gd" : "out";
+  return "out";
 }
 
 export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
@@ -194,6 +253,34 @@ export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
       };
     };
 
+    // 상세 시나리오 트리: 각 own 결과(승/무/패)별로, 다른 남은 경기 결과에 따른 결말
+    const detailOf = (t: string): OwnScenario[] | null => {
+      const mine = remaining.filter((f) => f.home === t || f.away === t);
+      if (mine.length !== 1) return null;
+      const M = mine[0];
+      const others = remaining.filter((f) => f !== M);
+      if (others.length > 1) return null; // 최종 라운드(다른 경기 1개 이하)만
+      const isHome = M.home === t;
+      const ownRes = { w: isHome ? "H" : "A", d: "D", l: isHome ? "A" : "H" } as const;
+      return (["w", "d", "l"] as const).map((own) => {
+        const mres = ownRes[own] as "H" | "D" | "A";
+        const base: Result = { home: M.home, away: M.away, r: mres };
+        let leaves: Leaf[];
+        if (others.length === 0) {
+          leaves = [
+            { other: null, res: teamResult(t, teams, [...fixedResults, base], champRank) },
+          ];
+        } else {
+          const O = others[0];
+          leaves = OUT.map((o) => ({
+            other: { home: O.home, away: O.away, r: o },
+            res: teamResult(t, teams, [...fixedResults, base, { home: O.home, away: O.away, r: o }], champRank),
+          }));
+        }
+        return { own, leaves };
+      });
+    };
+
     const teamScen: TeamScenario[] = teams.map((t) => {
       const cnt = top2Count.get(t)!;
       let status: TeamScenario["status"];
@@ -213,6 +300,7 @@ export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
         nextOpp: mine ? (mine.home === t ? mine.away : mine.home) : null,
         nextHome: mine ? mine.home === t : null,
         cond: classify(t),
+        detail: detailOf(t),
       };
     });
     // 현재 순위(승점→골득실→득점→직접진출확률)로 정렬 — 조 순위표처럼

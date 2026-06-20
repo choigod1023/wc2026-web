@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { ko } from "@/lib/teams";
 
 type Cond = "in" | "maybe" | "out";
+type Res = "in" | "out" | "gd";
+type Leaf = {
+  other: { home: string; away: string; r: "H" | "D" | "A" } | null;
+  res: Res;
+};
+type OwnScenario = { own: "w" | "d" | "l"; leaves: Leaf[] };
 type TeamScenario = {
   team: string;
   status: "qualified" | "eliminated" | "alive";
@@ -16,6 +22,7 @@ type TeamScenario = {
   nextOpp: string | null;
   nextHome: boolean | null;
   cond: { w: Cond; d: Cond; l: Cond } | null;
+  detail: OwnScenario[] | null;
 };
 type GroupScenario = {
   label: string;
@@ -35,10 +42,28 @@ const COND: Record<Cond, { text: string; cls: string }> = {
   maybe: { text: "경우의수", cls: "c-maybe" },
   out: { text: "탈락", cls: "c-out" },
 };
+const RES: Record<Res, { text: string; cls: string }> = {
+  in: { text: "진출", cls: "c-in" },
+  out: { text: "탈락", cls: "c-out" },
+  gd: { text: "골득실 승부", cls: "c-maybe" },
+};
+const OWN: Record<"w" | "d" | "l", string> = {
+  w: "이기면",
+  d: "비기면",
+  l: "지면",
+};
+
+// 다른 경기 결과를 말로 ("프랑스 승" / "프랑스·세네갈 무")
+function otherText(o: NonNullable<Leaf["other"]>, koFn: (s: string) => string) {
+  if (o.r === "H") return `${koFn(o.home)} 승`;
+  if (o.r === "A") return `${koFn(o.away)} 승`;
+  return `${koFn(o.home)}·${koFn(o.away)} 무`;
+}
 
 export default function ScenariosPage() {
   const [data, setData] = useState<Payload | null>(null);
   const [err, setErr] = useState(false);
+  const [modal, setModal] = useState<TeamScenario | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -141,11 +166,19 @@ export default function ScenariosPage() {
                       {scenTeams.map((t) => (
                         <div className="scn-line" key={t.team}>
                           <div className="scn-line-head">
-                            <b>{ko(t.team)}</b>
-                            <span className="muted2">
-                              {" "}
-                              vs {ko(t.nextOpp ?? "")}
+                            <span>
+                              <b>{ko(t.team)}</b>
+                              <span className="muted2"> vs {ko(t.nextOpp ?? "")}</span>
                             </span>
+                            {t.detail && (
+                              <button
+                                type="button"
+                                className="scn-more"
+                                onClick={() => setModal(t)}
+                              >
+                                시나리오 ▸
+                              </button>
+                            )}
                           </div>
                           <div className="scn-cells">
                             {(["w", "d", "l"] as const).map((k) => {
@@ -185,6 +218,60 @@ export default function ScenariosPage() {
           기준 · 3위 와일드카드는 별도)
         </p>
       </section>
+
+      {modal && (
+        <div className="modal-backdrop" onClick={() => setModal(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-head">
+              <h3>
+                {ko(modal.team)}{" "}
+                <span className="muted2">진출 시나리오</span>
+              </h3>
+              <button className="modal-x" onClick={() => setModal(null)}>
+                ✕
+              </button>
+            </div>
+            <p className="note" style={{ margin: "0 0 12px" }}>
+              마지막 경기 <b>vs {ko(modal.nextOpp ?? "")}</b> 결과별로 정리했어요.
+            </p>
+            {modal.detail!.map((sc) => {
+              const allSame = sc.leaves.every(
+                (l) => l.res === sc.leaves[0].res,
+              );
+              return (
+                <div className="modal-own" key={sc.own}>
+                  <div className="modal-own-head">
+                    <span className="modal-own-k">{OWN[sc.own]}</span>
+                    {allSame && (
+                      <span className={`res-tag ${RES[sc.leaves[0].res].cls}`}>
+                        {RES[sc.leaves[0].res].text}
+                      </span>
+                    )}
+                  </div>
+                  {!allSame && (
+                    <ul className="modal-leaves">
+                      {sc.leaves.map((l, i) => (
+                        <li key={i}>
+                          <span className="leaf-cond">
+                            {l.other ? otherText(l.other, ko) : "결과 무관"}
+                          </span>
+                          <span className="leaf-arrow">→</span>
+                          <span className={`res-tag ${RES[l.res].cls}`}>
+                            {RES[l.res].text}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
+            <p className="note" style={{ marginTop: 12 }}>
+              &lsquo;골득실 승부&rsquo;는 승점·맞대결까지 같아 골득실로 갈리는 경우입니다.
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -3,7 +3,7 @@
 // 동률 처리는 2026 룰대로 '승자승(맞대결 승점)'을 우선 적용.
 import matchesData from "@/data/matches.json";
 import stageData from "@/data/stage_probs.json";
-import { recoverGroups } from "./groups";
+import { recoverGroups, orderByRules } from "./groups";
 import type { LiveMatch } from "./named";
 
 type Fixture = {
@@ -327,15 +327,12 @@ export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
         detail: detailOf(t),
       };
     });
-    // 현재 순위(승점→골득실→득점→직접진출확률)로 정렬 — 조 순위표처럼
-    teamScen.sort(
-      (a, b) =>
-        b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || b.qualProb - a.qualProb,
-    );
+    // 현재 순위: 2026 룰(승점→승자승→골득실→다득점→FIFA랭킹)
+    const ordered = orderByRules(teamScen, played);
 
     return {
       label: `그룹 ${LABELS[gi] ?? gi + 1}`,
-      teams: teamScen,
+      teams: ordered,
       remaining: remaining.map((f) => ({ home: f.home, away: f.away })),
       decided: fixedResults.length,
     };

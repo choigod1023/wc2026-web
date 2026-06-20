@@ -1093,32 +1093,126 @@ th.num {
   border-color: rgba(251, 191, 36, 0.4);
   color: var(--warn);
 }
-.modal-leaves {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* 시나리오 분기 트리 (애니메이션) */
+@keyframes treePop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+  }
+}
+.tree {
+  padding: 6px 0 2px;
+}
+.tree-root {
+  text-align: center;
+  font-size: 15px;
+  padding: 8px 14px;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: inline-block;
+  margin: 0 auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tree-stem {
+  width: 2px;
+  height: 14px;
+  background: var(--border);
+  margin: 0 auto;
+}
+.tree-branches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  border-top: 2px solid var(--border);
+  padding-top: 12px;
+  position: relative;
+}
+.tree-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  position: relative;
+  animation: treePop 0.35s ease both;
+}
+.tree-branch::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  background: var(--border);
+}
+.branch-head {
+  text-align: center;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+.branch-head.own-w {
+  color: var(--accent);
+}
+.branch-head.own-l {
+  color: #f87171;
+}
+.branch-children {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.modal-leaves li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #cdd5ee;
+.leaf-node {
+  font-size: 11.5px;
+  padding: 6px 7px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  animation: treePop 0.3s ease both;
 }
-.leaf-cond {
-  flex: 1;
+.leaf-node.solo {
+  font-weight: 700;
+  padding: 10px 6px;
+}
+.leaf-when {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.leaf-res {
+  font-weight: 700;
 }
 .leaf-gd {
   display: block;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--muted);
   margin-top: 2px;
 }
-.leaf-arrow {
-  color: var(--muted);
+.leaf-node.c-in {
+  background: rgba(74, 222, 128, 0.12);
+  border-color: rgba(74, 222, 128, 0.4);
+}
+.leaf-node.c-in .leaf-res {
+  color: var(--accent);
+}
+.leaf-node.c-out {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.35);
+}
+.leaf-node.c-out .leaf-res {
+  color: #f87171;
+}
+.leaf-node.c-maybe {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+.leaf-node.c-maybe .leaf-res {
+  color: var(--warn);
 }
 .scn-cells {
   display: grid;

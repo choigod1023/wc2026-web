@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ko } from "@/lib/teams";
+import ScenarioTree from "@/components/ScenarioTree";
 
 type Cond = "in" | "maybe" | "out";
 type Res = "in" | "out" | "gd";
@@ -14,7 +15,6 @@ type Leaf = {
   rGd?: number;
   rGf?: number;
 };
-const sgn = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 type OwnScenario = { own: "w" | "d" | "l"; leaves: Leaf[] };
 type TeamScenario = {
   team: string;
@@ -48,23 +48,6 @@ const COND: Record<Cond, { text: string; cls: string }> = {
   maybe: { text: "경우의수", cls: "c-maybe" },
   out: { text: "탈락", cls: "c-out" },
 };
-const RES: Record<Res, { text: string; cls: string }> = {
-  in: { text: "진출", cls: "c-in" },
-  out: { text: "탈락", cls: "c-out" },
-  gd: { text: "골득실 승부", cls: "c-maybe" },
-};
-const OWN: Record<"w" | "d" | "l", string> = {
-  w: "이기면",
-  d: "비기면",
-  l: "지면",
-};
-
-// 다른 경기 결과를 말로 ("프랑스 승" / "프랑스·세네갈 무")
-function otherText(o: NonNullable<Leaf["other"]>, koFn: (s: string) => string) {
-  if (o.r === "H") return `${koFn(o.home)} 승`;
-  if (o.r === "A") return `${koFn(o.away)} 승`;
-  return `${koFn(o.home)}·${koFn(o.away)} 무`;
-}
 
 export default function ScenariosPage() {
   const [data, setData] = useState<Payload | null>(null);
@@ -237,49 +220,16 @@ export default function ScenariosPage() {
                 ✕
               </button>
             </div>
-            <p className="note" style={{ margin: "0 0 12px" }}>
-              마지막 경기 <b>vs {ko(modal.nextOpp ?? "")}</b> 결과별로 정리했어요.
+            <p className="note" style={{ margin: "0 0 4px" }}>
+              마지막 경기 결과에 따른 진출 분기입니다.
             </p>
-            {modal.detail!.map((sc) => {
-              const allSame = sc.leaves.every(
-                (l) => l.res === sc.leaves[0].res,
-              );
-              return (
-                <div className="modal-own" key={sc.own}>
-                  <div className="modal-own-head">
-                    <span className="modal-own-k">{OWN[sc.own]}</span>
-                    {allSame && (
-                      <span className={`res-tag ${RES[sc.leaves[0].res].cls}`}>
-                        {RES[sc.leaves[0].res].text}
-                      </span>
-                    )}
-                  </div>
-                  {!allSame && (
-                    <ul className="modal-leaves">
-                      {sc.leaves.map((l, i) => (
-                        <li key={i}>
-                          <span className="leaf-cond">
-                            {l.other ? otherText(l.other, ko) : "결과 무관"}
-                            {l.res === "gd" && l.rival != null && (
-                              <span className="leaf-gd">
-                                {ko(modal.team)} 득실 {sgn(l.tGd!)}·{l.tGf}득점 vs{" "}
-                                {ko(l.rival)} {sgn(l.rGd!)}·{l.rGf}득점
-                              </span>
-                            )}
-                          </span>
-                          <span className="leaf-arrow">→</span>
-                          <span className={`res-tag ${RES[l.res].cls}`}>
-                            {RES[l.res].text}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              );
-            })}
+            <ScenarioTree
+              team={modal.team}
+              nextOpp={modal.nextOpp}
+              detail={modal.detail!}
+            />
             <p className="note" style={{ marginTop: 12 }}>
-              &lsquo;골득실 승부&rsquo;는 승점·맞대결까지 같아 골득실로 갈리는 경우입니다.
+              🟩 진출 · 🟥 탈락 · 🟨 골득실 승부(승점·맞대결까지 같아 골득실로 갈림)
             </p>
           </div>
         </div>

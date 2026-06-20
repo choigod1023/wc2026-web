@@ -70,14 +70,14 @@
 "final": 0.03625
 },
 {
-"team": "Belgium",
-"champion": 0.0094,
-"final": 0.03095
-},
-{
 "team": "Switzerland",
 "champion": 0.0094,
 "final": 0.03125
+},
+{
+"team": "Belgium",
+"champion": 0.0094,
+"final": 0.03095
 },
 {
 "team": "Uruguay",
@@ -90,14 +90,14 @@
 "final": 0.02505
 },
 {
-"team": "Austria",
-"champion": 0.0058,
-"final": 0.0198
-},
-{
 "team": "Croatia",
 "champion": 0.0058,
 "final": 0.0197
+},
+{
+"team": "Austria",
+"champion": 0.0058,
+"final": 0.0198
 },
 {
 "team": "Australia",
@@ -155,14 +155,14 @@
 "final": 0.00295
 },
 {
-"team": "Panama",
-"champion": 0.0002,
-"final": 0.00095
-},
-{
 "team": "DR Congo",
 "champion": 0.0002,
 "final": 0.00135
+},
+{
+"team": "Panama",
+"champion": 0.0002,
+"final": 0.00095
 },
 {
 "team": "Uzbekistan",
@@ -170,34 +170,9 @@
 "final": 0.0012
 },
 {
-"team": "Iraq",
+"team": "Jordan",
 "champion": 0.0,
-"final": 0.0001
-},
-{
-"team": "New Zealand",
-"champion": 0.0,
-"final": 0.00045
-},
-{
-"team": "Tunisia",
-"champion": 0.0,
-"final": 5e-05
-},
-{
-"team": "Czech Republic",
-"champion": 0.0,
-"final": 0.0001
-},
-{
-"team": "Saudi Arabia",
-"champion": 0.0,
-"final": 0.0004
-},
-{
-"team": "Ghana",
-"champion": 0.0,
-"final": 0.0001
+"final": 0.00015
 },
 {
 "team": "Turkey",
@@ -205,9 +180,14 @@
 "final": 0.0
 },
 {
-"team": "Jordan",
+"team": "New Zealand",
 "champion": 0.0,
-"final": 0.00015
+"final": 0.00045
+},
+{
+"team": "Cape Verde",
+"champion": 0.0,
+"final": 0.0002
 },
 {
 "team": "Curaçao",
@@ -215,9 +195,24 @@
 "final": 0.0
 },
 {
-"team": "South Africa",
+"team": "Haiti",
 "champion": 0.0,
-"final": 5e-05
+"final": 0.0
+},
+{
+"team": "Iraq",
+"champion": 0.0,
+"final": 0.0001
+},
+{
+"team": "Czech Republic",
+"champion": 0.0,
+"final": 0.0001
+},
+{
+"team": "Ghana",
+"champion": 0.0,
+"final": 0.0001
 },
 {
 "team": "Qatar",
@@ -230,13 +225,18 @@
 "final": 0.0
 },
 {
-"team": "Haiti",
+"team": "Saudi Arabia",
 "champion": 0.0,
-"final": 0.0
+"final": 0.0004
 },
 {
-"team": "Cape Verde",
+"team": "Tunisia",
 "champion": 0.0,
-"final": 0.0002
+"final": 5e-05
+},
+{
+"team": "South Africa",
+"champion": 0.0,
+"final": 5e-05
 }
 ]

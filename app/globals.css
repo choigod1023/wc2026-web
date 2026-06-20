@@ -587,6 +587,63 @@ th.num {
   font-variant-numeric: tabular-nums;
 }
 
+/* 토너먼트 대진표(브래킷) */
+.bracket-scroll {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.bracket-cols {
+  display: flex;
+  gap: 14px;
+  min-width: max-content;
+}
+.bracket-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+.bracket-col-head {
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.bracket-col-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 8px;
+  flex: 1;
+}
+.bm {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px 6px 18px;
+}
+.bm-no {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  font-size: 9px;
+  color: var(--muted);
+}
+.bm-slot {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 2px 0;
+  white-space: nowrap;
+}
+.bm-slot.known {
+  color: var(--text);
+  font-weight: 700;
+}
+.bm-slot + .bm-slot {
+  border-top: 1px dashed var(--border);
+}
+
 /* heat table (tournament) */
 .heat-table td.heat-cell {
   color: #0b1020;

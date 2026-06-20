@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import stages from "@/data/stage_probs.json";
 import { ko } from "@/lib/teams";
+import BracketTree from "@/components/BracketTree";
 
 export const metadata: Metadata = {
   title: "토너먼트 진출 확률 — WC2026 예측",
@@ -44,6 +45,19 @@ export default function BracketPage() {
           대회 전체를 컴퓨터로 2만 번 가상으로 치러, 각 팀이 32강부터 우승까지{" "}
           <strong>각 단계에 오를 확률</strong>을 집계했습니다. 색이 진할수록 확률이
           높습니다.
+        </p>
+      </section>
+
+      <section>
+        <div className="section-head">
+          <h2>🗺️ 토너먼트 대진표</h2>
+          <span className="sub">공식 2026 브래킷 · 조 확정 시 팀명 자동 채움</span>
+        </div>
+        <BracketTree />
+        <p className="note" style={{ marginTop: 10 }}>
+          공식 대진 구조(32강~결승)입니다. 조별리그가 끝나는 조부터 1·2위 팀명이
+          채워지고, 3위 슬롯은 어느 조 3위가 올지 막판 조합으로 정해져 후보 조로
+          표시됩니다.
         </p>
       </section>
 

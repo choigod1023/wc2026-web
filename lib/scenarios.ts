@@ -20,14 +20,19 @@ const R32: Record<string, number> = {};
   R32[s.team] = s.R32;
 });
 
+export type Cond = "in" | "maybe" | "out";
 export type TeamScenario = {
   team: string;
   status: "qualified" | "eliminated" | "alive";
   qualProb: number; // 직접 진출(1·2위) 확률
   r32Prob: number; // 개막 전 기준 32강 도달(3위 포함) 확률
-  pld?: number; // 현재 치른 경기 수
-  pts?: number; // 현재 승점
-  gd?: number; // 현재 골득실
+  pld: number; // 현재 치른 경기 수
+  pts: number; // 현재 승점
+  gd: number; // 현재 골득실
+  gf: number; // 현재 득점
+  nextOpp: string | null; // 남은 상대(영문)
+  nextHome: boolean | null; // 남은 경기 홈 여부
+  cond: { w: Cond; d: Cond; l: Cond } | null; // 남은 경기 승/무/패 시 결과
 };
 export type RemainingFix = { home: string; away: string };
 export type GroupScenario = {
@@ -134,20 +139,87 @@ export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
       }
     }
 
+    // 현재 승점·골득실(종료 경기 기준)
+    const pts0 = new Map(teams.map((t) => [t, 0]));
+    const gf0 = new Map(teams.map((t) => [t, 0]));
+    const ga0 = new Map(teams.map((t) => [t, 0]));
+    const pld0 = new Map(teams.map((t) => [t, 0]));
+    for (const g of played) {
+      if (g.status !== "FINAL" || !g.homeEn || !g.awayEn) continue;
+      if (!groupSet.has(g.homeEn) || !groupSet.has(g.awayEn)) continue;
+      pld0.set(g.homeEn, pld0.get(g.homeEn)! + 1);
+      pld0.set(g.awayEn, pld0.get(g.awayEn)! + 1);
+      gf0.set(g.homeEn, gf0.get(g.homeEn)! + g.homeScore);
+      ga0.set(g.homeEn, ga0.get(g.homeEn)! + g.awayScore);
+      gf0.set(g.awayEn, gf0.get(g.awayEn)! + g.awayScore);
+      ga0.set(g.awayEn, ga0.get(g.awayEn)! + g.homeScore);
+      if (g.homeScore > g.awayScore) pts0.set(g.homeEn, pts0.get(g.homeEn)! + 3);
+      else if (g.homeScore < g.awayScore) pts0.set(g.awayEn, pts0.get(g.awayEn)! + 3);
+      else {
+        pts0.set(g.homeEn, pts0.get(g.homeEn)! + 1);
+        pts0.set(g.awayEn, pts0.get(g.awayEn)! + 1);
+      }
+    }
+
+    // 팀의 남은 경기 결과(승/무/패)별 진출 가능성 분류
+    const classify = (t: string): TeamScenario["cond"] => {
+      const mine = remaining.filter((f) => f.home === t || f.away === t);
+      if (mine.length !== 1) return null; // 마지막 라운드(1경기 남음)만 명확
+      const M = mine[0];
+      const others = remaining.filter((f) => f !== M);
+      const isHome = M.home === t;
+      const judge = (mres: "H" | "D" | "A"): Cond => {
+        let inAll = true,
+          inAny = false;
+        const oc = Math.pow(3, others.length);
+        for (let k = 0; k < oc; k++) {
+          let kk = k;
+          const asg = [{ home: M.home, away: M.away, r: mres }];
+          for (const f of others) {
+            const o = OUT[kk % 3];
+            kk = Math.floor(kk / 3);
+            asg.push({ home: f.home, away: f.away, r: o });
+          }
+          const order = rank(teams, [...fixedResults, ...asg], champRank);
+          const top2 = order.slice(0, 2).includes(t);
+          inAll = inAll && top2;
+          inAny = inAny || top2;
+        }
+        return inAll ? "in" : inAny ? "maybe" : "out";
+      };
+      return {
+        w: judge(isHome ? "H" : "A"),
+        d: judge("D"),
+        l: judge(isHome ? "A" : "H"),
+      };
+    };
+
     const teamScen: TeamScenario[] = teams.map((t) => {
       const cnt = top2Count.get(t)!;
       let status: TeamScenario["status"];
       if (cnt === combos) status = "qualified";
       else if (cnt === 0) status = "eliminated";
       else status = "alive";
+      const mine = remaining.find((f) => f.home === t || f.away === t);
       return {
         team: t,
         status,
         qualProb: top2Prob.get(t)!,
         r32Prob: R32[t] ?? 0,
+        pld: pld0.get(t)!,
+        pts: pts0.get(t)!,
+        gd: gf0.get(t)! - ga0.get(t)!,
+        gf: gf0.get(t)!,
+        nextOpp: mine ? (mine.home === t ? mine.away : mine.home) : null,
+        nextHome: mine ? mine.home === t : null,
+        cond: classify(t),
       };
     });
-    teamScen.sort((a, b) => b.qualProb - a.qualProb);
+    // 현재 순위(승점→골득실→득점→직접진출확률)로 정렬 — 조 순위표처럼
+    teamScen.sort(
+      (a, b) =>
+        b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || b.qualProb - a.qualProb,
+    );
 
     return {
       label: `그룹 ${LABELS[gi] ?? gi + 1}`,

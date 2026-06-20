@@ -3,14 +3,19 @@
 import { useEffect, useState } from "react";
 import { ko } from "@/lib/teams";
 
+type Cond = "in" | "maybe" | "out";
 type TeamScenario = {
   team: string;
   status: "qualified" | "eliminated" | "alive";
   qualProb: number;
   r32Prob: number;
-  pld?: number;
-  pts?: number;
-  gd?: number;
+  pld: number;
+  pts: number;
+  gd: number;
+  gf: number;
+  nextOpp: string | null;
+  nextHome: boolean | null;
+  cond: { w: Cond; d: Cond; l: Cond } | null;
 };
 type GroupScenario = {
   label: string;
@@ -24,6 +29,11 @@ const STATUS: Record<string, { text: string; cls: string }> = {
   qualified: { text: "진출 확정", cls: "st-q" },
   eliminated: { text: "탈락", cls: "st-e" },
   alive: { text: "경쟁 중", cls: "st-a" },
+};
+const COND: Record<Cond, { text: string; cls: string }> = {
+  in: { text: "진출", cls: "c-in" },
+  maybe: { text: "경우의수", cls: "c-maybe" },
+  out: { text: "탈락", cls: "c-out" },
 };
 
 export default function ScenariosPage() {
@@ -56,12 +66,13 @@ export default function ScenariosPage() {
   return (
     <>
       <section className="hero" style={{ padding: "40px 0 8px" }}>
-        <h1 className="ph1" style={{ fontSize: 32 }}>32강 진출 경우의 수</h1>
+        <h1 className="ph1" style={{ fontSize: 32 }}>
+          32강 진출 경우의 수
+        </h1>
         <p>
-          각 조의 <strong>잔여 경기 결과 조합을 전부 열거</strong>해, 팀별 직접
-          진출(조 1·2위) <strong>확정 / 탈락 / 경쟁 중</strong> 상태와 진출 확률을
-          계산한다. 동률은 2026 룰대로 <strong>승자승(맞대결)</strong>을 먼저 적용.
-          개막 전에는 모든 팀이 &lsquo;경쟁 중&rsquo;이며 확률만 표시된다.
+          각 조의 현재 순위와, <strong>마지막 경기가 어떻게 되면 누가 올라가는지</strong>를
+          한눈에 보여줍니다. 동률은 2026 룰대로 <strong>승자승(맞대결)</strong>을 먼저
+          적용합니다.
         </p>
         {err && (
           <p className="note">데이터를 불러오지 못했습니다. 잠시 후 재시도합니다.</p>
@@ -72,77 +83,106 @@ export default function ScenariosPage() {
         {!data && !err && <div className="card">계산 중…</div>}
         {data && (
           <div className="standings-grid">
-            {data.groups.map((g) => (
-              <div className="card" key={g.label}>
-                <p className="grp-title">
-                  {g.label}{" "}
-                  <span className="note" style={{ fontWeight: 400 }}>
-                    {g.decided}/6 경기 종료
-                  </span>
-                </p>
-                <table className="tbl-scn">
-                  <thead>
-                    <tr>
-                      <th>팀</th>
-                      <th>상태</th>
-                      <th className="num">직접진출</th>
-                      <th className="num">32강*</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {g.teams.map((t, idx) => {
-                      const s = STATUS[t.status];
-                      return (
-                        <tr key={t.team}>
-                          <td className="team-cell">
-                            <span className="scn-team">
-                              {g.decided > 0 && (
-                                <span className="scn-rank">{idx + 1}</span>
-                              )}
+            {data.groups.map((g) => {
+              const scenTeams = g.teams.filter(
+                (t) => t.cond && t.status === "alive",
+              );
+              return (
+                <div className="card" key={g.label}>
+                  <p className="grp-title">
+                    {g.label}{" "}
+                    <span className="note" style={{ fontWeight: 400 }}>
+                      {g.decided}/6 경기 종료
+                    </span>
+                  </p>
+
+                  {/* 현재 순위 */}
+                  <table className="tbl-scn2">
+                    <thead>
+                      <tr>
+                        <th>팀</th>
+                        <th className="num">경기</th>
+                        <th className="num">승점</th>
+                        <th className="num">득실</th>
+                        <th>상태</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {g.teams.map((t, idx) => {
+                        const s = STATUS[t.status];
+                        return (
+                          <tr key={t.team} className={idx < 2 ? "qual" : undefined}>
+                            <td className="team-cell">
+                              <span className="scn-rank">{idx + 1}</span>
                               {ko(t.team)}
+                            </td>
+                            <td className="num">{t.pld}</td>
+                            <td className="num">
+                              <strong>{t.pts}</strong>
+                            </td>
+                            <td className="num">
+                              {t.gd > 0 ? `+${t.gd}` : t.gd}
+                            </td>
+                            <td>
+                              <span className={`st ${s.cls}`}>{s.text}</span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+
+                  {/* 마지막 경기 시나리오 */}
+                  {scenTeams.length > 0 && (
+                    <div className="scn-board">
+                      <div className="scn-board-title">
+                        🔑 마지막 경기 — 이렇게 되면?
+                      </div>
+                      {scenTeams.map((t) => (
+                        <div className="scn-line" key={t.team}>
+                          <div className="scn-line-head">
+                            <b>{ko(t.team)}</b>
+                            <span className="muted2">
+                              {" "}
+                              vs {ko(t.nextOpp ?? "")}
                             </span>
-                            {t.pld != null && t.pld > 0 && (
-                              <span className="scn-rec">
-                                {t.pld}경기 · 승점 {t.pts}
-                                {t.gd != null
-                                  ? ` · 득실 ${t.gd > 0 ? "+" : ""}${t.gd}`
-                                  : ""}
-                              </span>
-                            )}
-                          </td>
-                          <td>
-                            <span className={`st ${s.cls}`}>{s.text}</span>
-                          </td>
-                          <td className="num">
-                            <strong>{(t.qualProb * 100).toFixed(0)}%</strong>
-                          </td>
-                          <td className="num note">
-                            {(t.r32Prob * 100).toFixed(0)}%
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-                {g.remaining.length > 0 && (
-                  <div className="rem-fix">
-                    <span className="note">잔여: </span>
-                    {g.remaining.map((f, i) => (
-                      <span key={i} className="rem-pill">
-                        {ko(f.home)}–{ko(f.away)}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                          </div>
+                          <div className="scn-cells">
+                            {(["w", "d", "l"] as const).map((k) => {
+                              const c = COND[t.cond![k]];
+                              const lbl = k === "w" ? "승" : k === "d" ? "무" : "패";
+                              return (
+                                <span key={k} className={`scn-cell ${c.cls}`}>
+                                  <span className="scn-cell-k">{lbl}</span>
+                                  {c.text}
+                                </span>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {g.remaining.length > 0 && (
+                    <div className="rem-fix">
+                      <span className="note">잔여: </span>
+                      {g.remaining.map((f, i) => (
+                        <span key={i} className="rem-pill">
+                          {ko(f.home)}–{ko(f.away)}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
         <p className="note" style={{ marginTop: 12 }}>
-          &lsquo;직접진출&rsquo;은 조 1·2위 확률(잔여 경기를 모델 승무패 확률로 가중).
-          &lsquo;32강*&rsquo;는 3위 와일드카드를 포함한 개막 전 시뮬레이션 기준
-          진출 확률(참고용). 잔여 경기 동률의 골득실 세부 타이브레이크는 일부
-          근사된다.
+          &lsquo;경우의수&rsquo;는 다른 경기 결과나 골득실에 따라 갈리는 경우입니다. 잔여
+          경기 동률의 골득실 세부 타이브레이크는 일부 근사됩니다. (조 1·2위 직접 진출
+          기준 · 3위 와일드카드는 별도)
         </p>
       </section>
     </>

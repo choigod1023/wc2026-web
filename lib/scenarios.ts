@@ -25,6 +25,12 @@ export type Res = "in" | "out" | "gd"; // 진출 / 탈락 / 골득실(세부)승
 export type Leaf = {
   other: { home: string; away: string; r: "H" | "D" | "A" } | null;
   res: Res;
+  // 골득실 승부(res='gd')일 때 경쟁 팀·현재 득실 정보
+  rival?: string;
+  tGd?: number;
+  tGf?: number;
+  rGd?: number;
+  rGf?: number;
 };
 export type OwnScenario = { own: "w" | "d" | "l"; leaves: Leaf[] };
 export type TeamScenario = {
@@ -131,12 +137,13 @@ function h2hPoints(grp: string[], results: Result[]): Map<string, number> {
 }
 
 // 팀 T의 결과: 진출(in)/탈락(out)/골득실 세부승부(gd). 2/3위 경계가 승점·승자승 동률이면 gd.
+// gd일 때 경쟁 상대(rival)도 함께 반환.
 function teamResult(
   t: string,
   teams: string[],
   results: Result[],
   champRank: Map<string, number>,
-): Res {
+): { res: Res; rival: string | null } {
   const order = rank(teams, results, champRank);
   const pts = pointsOf(teams, results);
   const a = order[1],
@@ -148,10 +155,10 @@ function teamResult(
     cutTie = hp.get(a)! === hp.get(b)!;
   }
   const pos = order.indexOf(t);
-  if (pos === 0) return "in";
-  if (pos === 1) return cutTie ? "gd" : "in";
-  if (pos === 2) return cutTie ? "gd" : "out";
-  return "out";
+  if (pos === 0) return { res: "in", rival: null };
+  if (pos === 1) return cutTie ? { res: "gd", rival: b } : { res: "in", rival: null };
+  if (pos === 2) return cutTie ? { res: "gd", rival: a } : { res: "out", rival: null };
+  return { res: "out", rival: null };
 }
 
 export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
@@ -262,20 +269,37 @@ export function computeScenarios(played: LiveMatch[]): GroupScenario[] {
       if (others.length > 1) return null; // 최종 라운드(다른 경기 1개 이하)만
       const isHome = M.home === t;
       const ownRes = { w: isHome ? "H" : "A", d: "D", l: isHome ? "A" : "H" } as const;
+      const gdOf = (x: string) => gf0.get(x)! - ga0.get(x)!;
+      const mkLeaf = (
+        other: Leaf["other"],
+        results: Result[],
+      ): Leaf => {
+        const { res, rival } = teamResult(t, teams, results, champRank);
+        const leaf: Leaf = { other, res };
+        if (res === "gd" && rival) {
+          leaf.rival = rival;
+          leaf.tGd = gdOf(t);
+          leaf.tGf = gf0.get(t)!;
+          leaf.rGd = gdOf(rival);
+          leaf.rGf = gf0.get(rival)!;
+        }
+        return leaf;
+      };
       return (["w", "d", "l"] as const).map((own) => {
         const mres = ownRes[own] as "H" | "D" | "A";
         const base: Result = { home: M.home, away: M.away, r: mres };
         let leaves: Leaf[];
         if (others.length === 0) {
-          leaves = [
-            { other: null, res: teamResult(t, teams, [...fixedResults, base], champRank) },
-          ];
+          leaves = [mkLeaf(null, [...fixedResults, base])];
         } else {
           const O = others[0];
-          leaves = OUT.map((o) => ({
-            other: { home: O.home, away: O.away, r: o },
-            res: teamResult(t, teams, [...fixedResults, base, { home: O.home, away: O.away, r: o }], champRank),
-          }));
+          leaves = OUT.map((o) =>
+            mkLeaf({ home: O.home, away: O.away, r: o }, [
+              ...fixedResults,
+              base,
+              { home: O.home, away: O.away, r: o },
+            ]),
+          );
         }
         return { own, leaves };
       });

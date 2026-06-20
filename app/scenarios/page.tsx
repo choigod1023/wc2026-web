@@ -8,7 +8,13 @@ type Res = "in" | "out" | "gd";
 type Leaf = {
   other: { home: string; away: string; r: "H" | "D" | "A" } | null;
   res: Res;
+  rival?: string;
+  tGd?: number;
+  tGf?: number;
+  rGd?: number;
+  rGf?: number;
 };
+const sgn = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 type OwnScenario = { own: "w" | "d" | "l"; leaves: Leaf[] };
 type TeamScenario = {
   team: string;
@@ -254,6 +260,12 @@ export default function ScenariosPage() {
                         <li key={i}>
                           <span className="leaf-cond">
                             {l.other ? otherText(l.other, ko) : "결과 무관"}
+                            {l.res === "gd" && l.rival != null && (
+                              <span className="leaf-gd">
+                                {ko(modal.team)} 득실 {sgn(l.tGd!)}·{l.tGf}득점 vs{" "}
+                                {ko(l.rival)} {sgn(l.rGd!)}·{l.rGf}득점
+                              </span>
+                            )}
                           </span>
                           <span className="leaf-arrow">→</span>
                           <span className={`res-tag ${RES[l.res].cls}`}>

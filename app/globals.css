@@ -1111,6 +1111,12 @@ th.num {
 .leaf-cond {
   flex: 1;
 }
+.leaf-gd {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
 .leaf-arrow {
   color: var(--muted);
 }

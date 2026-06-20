@@ -278,5 +278,37 @@
 "oH": 1.09,
 "oD": 7.0,
 "oA": 19.5
+},
+{
+"date": "2026-06-21",
+"home": "Belgium",
+"away": "Iran",
+"oH": 1.39,
+"oD": 4.0,
+"oA": 7.1
+},
+{
+"date": "2026-06-21",
+"home": "New Zealand",
+"away": "Egypt",
+"oH": 5.2,
+"oD": 3.4,
+"oA": 1.6
+},
+{
+"date": "2026-06-21",
+"home": "Spain",
+"away": "Saudi Arabia",
+"oH": 1.08,
+"oD": 7.5,
+"oA": 19.5
+},
+{
+"date": "2026-06-21",
+"home": "Uruguay",
+"away": "Cape Verde",
+"oH": 1.45,
+"oD": 3.6,
+"oA": 7.0
 }
 ]

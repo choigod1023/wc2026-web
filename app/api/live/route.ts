@@ -5,6 +5,7 @@ import matchesData from "@/data/matches.json";
 import livePreds from "@/data/live_predictions.json";
 import liveScore from "@/data/live_score.json";
 import closingOdds from "@/data/closing_odds.json";
+import oddsHistory from "@/data/odds_history.json";
 import { inPlay } from "@/lib/inplay";
 
 // 항상 동적 실행 → 첫 진입에도 현재 데이터를 생성(빌드시점 캐시로 굳지 않게).
@@ -61,6 +62,18 @@ function closingFor(homeEn: string | null, awayEn: string | null) {
   if (d) return d;
   const r = oddsMap.get(`${awayEn}|${homeEn}`);
   if (r) return { win: r.loss, draw: r.draw, loss: r.win }; // 뒤집기
+  return null;
+}
+
+// 배당 추이: 가장 오래된 스냅샷(개장 배당)을 경기 home/away에 맞춰 반환
+const histRaw = oddsHistory as Record<string, { w: number; d: number; l: number }[]>;
+function openOdds(homeEn: string | null, awayEn: string | null) {
+  if (!homeEn || !awayEn) return null;
+  const fwd = histRaw[`${homeEn}|${awayEn}`];
+  if (fwd && fwd.length) return { win: fwd[0].w, draw: fwd[0].d, loss: fwd[0].l };
+  const rev = histRaw[`${awayEn}|${homeEn}`];
+  if (rev && rev.length)
+    return { win: rev[0].l, draw: rev[0].d, loss: rev[0].w }; // 뒤집기
   return null;
 }
 
@@ -143,6 +156,7 @@ export async function GET() {
       inplay, // 진행 중: 현재 스코어+시간+퇴장 기반 라이브 추정
       homeForm: formOf(m.homeEn), // 이번 대회 폼
       awayForm: formOf(m.awayEn),
+      oddsOpen: openOdds(m.homeEn, m.awayEn), // 개장 배당(변동 표시용)
     };
   };
 

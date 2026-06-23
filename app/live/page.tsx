@@ -36,6 +36,7 @@ type Match = {
   } | null;
   homeForm: { results: ("W" | "D" | "L")[]; gd: number } | null;
   awayForm: { results: ("W" | "D" | "L")[]; gd: number } | null;
+  oddsOpen: Odds | null;
 };
 
 const FORM_KO: Record<"W" | "D" | "L", string> = { W: "승", D: "무", L: "패" };
@@ -145,9 +146,9 @@ function MatchCard({ m }: { m: Match }) {
   const out = finalOutcome(m);
   const oddsArr = m.odds
     ? ([
-        { key: "H", lbl: "홈승", v: m.odds.win },
-        { key: "D", lbl: "무", v: m.odds.draw },
-        { key: "A", lbl: "원정승", v: m.odds.loss },
+        { key: "H", lbl: "홈승", v: m.odds.win, o: m.oddsOpen?.win },
+        { key: "D", lbl: "무", v: m.odds.draw, o: m.oddsOpen?.draw },
+        { key: "A", lbl: "원정승", v: m.odds.loss, o: m.oddsOpen?.loss },
       ] as const)
     : [];
   const favKey =
@@ -227,6 +228,15 @@ function MatchCard({ m }: { m: Match }) {
                 {out === c.key && " ✓"}
               </span>
               <b>{c.v.toFixed(2)}</b>
+              {c.o != null && Math.abs(c.v - c.o) >= 0.05 && (
+                <span
+                  className={`odds-move ${c.v < c.o ? "down" : "up"}`}
+                  title={`개장 ${c.o.toFixed(2)} → 현재 ${c.v.toFixed(2)}`}
+                >
+                  {c.v < c.o ? "▼" : "▲"}
+                  {Math.abs(c.v - c.o).toFixed(2)}
+                </span>
+              )}
             </div>
           ))}
         </div>

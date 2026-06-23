@@ -743,6 +743,18 @@ th.num {
   padding: 6px 4px;
   background: var(--bg-soft);
 }
+.odds-move {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 1px;
+}
+.odds-move.down {
+  color: var(--accent);
+} /* 배당↓ = 돈 몰림/확률↑ */
+.odds-move.up {
+  color: #f87171;
+} /* 배당↑ = 확률↓ */
 .lm-odds .chip b {
   display: block;
   font-size: 14px;

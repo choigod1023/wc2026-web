@@ -90,6 +90,31 @@ export async function GET() {
     liveOnes.map(async (m) => reds.set(m.id, await getRedCards(m.id))),
   );
 
+  // 팀별 '이번 대회 폼' (종료 경기 시간순 결과 + 누적 득실)
+  type Form = { results: ("W" | "D" | "L")[]; gf: number; ga: number };
+  const formMap = new Map<string, Form>();
+  const addForm = (t: string | null, gf: number, ga: number) => {
+    if (!t) return;
+    const e = formMap.get(t) ?? { results: [], gf: 0, ga: 0 };
+    e.results.push(gf > ga ? "W" : gf < ga ? "L" : "D");
+    e.gf += gf;
+    e.ga += ga;
+    formMap.set(t, e);
+  };
+  for (const m of [...allPlayed]
+    .filter((m) => m.status === "FINAL")
+    .sort((a, b) => a.startDatetime.localeCompare(b.startDatetime))) {
+    addForm(m.homeEn, m.homeScore, m.awayScore);
+    addForm(m.awayEn, m.awayScore, m.homeScore);
+  }
+  const formOf = (t: string | null) =>
+    t && formMap.has(t)
+      ? {
+          results: formMap.get(t)!.results.slice(-5),
+          gd: formMap.get(t)!.gf - formMap.get(t)!.ga,
+        }
+      : null;
+
   const enrich = (m: any) => {
     let inplay = null;
     const rc = reds.get(m.id) ?? { home: 0, away: 0, lastCard: null };
@@ -116,6 +141,8 @@ export async function GET() {
       livePrediction: lookupLive(m.homeEn, m.awayEn), // 현재(업데이트)
       odds: m.odds ?? closingFor(m.homeEn, m.awayEn), // 라이브 배당 없으면 마감배당
       inplay, // 진행 중: 현재 스코어+시간+퇴장 기반 라이브 추정
+      homeForm: formOf(m.homeEn), // 이번 대회 폼
+      awayForm: formOf(m.awayEn),
     };
   };
 

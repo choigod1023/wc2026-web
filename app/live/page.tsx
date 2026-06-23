@@ -34,7 +34,32 @@ type Match = {
     redHome: number;
     redAway: number;
   } | null;
+  homeForm: { results: ("W" | "D" | "L")[]; gd: number } | null;
+  awayForm: { results: ("W" | "D" | "L")[]; gd: number } | null;
 };
+
+const FORM_KO: Record<"W" | "D" | "L", string> = { W: "승", D: "무", L: "패" };
+function FormPills({
+  form,
+  align,
+}: {
+  form: Match["homeForm"];
+  align: "left" | "right";
+}) {
+  if (!form || form.results.length === 0) return null;
+  return (
+    <div className={`form-pills ${align}`}>
+      {form.results.map((r, i) => (
+        <span key={i} className={`form-dot f-${r}`}>
+          {FORM_KO[r]}
+        </span>
+      ))}
+      <span className="form-gd">
+        {form.gd > 0 ? `+${form.gd}` : form.gd}
+      </span>
+    </div>
+  );
+}
 type StandRow = {
   team: string;
   pld: number;
@@ -147,6 +172,14 @@ function MatchCard({ m }: { m: Match }) {
         </span>
         <span className="lm-team">{ko(m.awayEn ?? m.awayKo)}</span>
       </div>
+
+      {(m.homeForm || m.awayForm) && (
+        <div className="lm-form">
+          <FormPills form={m.homeForm} align="left" />
+          <span className="lm-form-label">대회 폼</span>
+          <FormPills form={m.awayForm} align="right" />
+        </div>
+      )}
 
       {m.status === "LIVE" && m.playText && (
         <div className="lm-playtext">{m.playText}</div>

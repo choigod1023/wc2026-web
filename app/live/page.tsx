@@ -307,7 +307,7 @@ function MatchCard({ m }: { m: Match }) {
       {/* 개막 전 → 현재 예측 변화 (충분히 달라졌을 때만) */}
       {!out && m.prediction && m.livePrediction && predShift(m) && (
         <div className="lm-shift">
-          📈 개막 전{" "}
+          개막 전{" "}
           <span className="muted2">
             {pct(m.prediction.pHome)}/{pct(m.prediction.pDraw)}/
             {pct(m.prediction.pAway)}
@@ -394,7 +394,7 @@ export default function LivePage() {
 
       <section>
         <div className="section-head">
-          <h2>⚽ 경기</h2>
+          <h2>경기</h2>
           <span className="sub">진행 중 · 종료 · 예정</span>
         </div>
         {!data && !err && <div className="card">불러오는 중…</div>}
@@ -413,7 +413,7 @@ export default function LivePage() {
       {/* 지난 경기 결과 (어제·다른 날 포함, 최신순) */}
       <section>
         <div className="section-head">
-          <h2>🏁 지난 경기 결과</h2>
+          <h2>지난 경기 결과</h2>
           <span className="sub">종료된 전체 경기 · 배당/모델 적중</span>
         </div>
         {data && data.finished.length === 0 && (
@@ -442,7 +442,7 @@ export default function LivePage() {
 
       <section>
         <div className="section-head">
-          <h2>📊 실시간 조별 순위</h2>
+          <h2>실시간 조별 순위</h2>
           <span className="sub">종료된 경기 기준 · 상위 2팀 자동진출</span>
         </div>
         {data && (

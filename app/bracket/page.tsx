@@ -50,7 +50,7 @@ export default function BracketPage() {
 
       <section>
         <div className="section-head">
-          <h2>🗺️ 토너먼트 대진표</h2>
+          <h2>토너먼트 대진표</h2>
           <span className="sub">공식 2026 브래킷 · 조 확정 시 팀명 자동 채움</span>
         </div>
         <BracketTree />

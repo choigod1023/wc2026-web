@@ -182,7 +182,7 @@ export default function ScoreList() {
                     if (Math.abs(diff) < 3) return null;
                     return (
                       <div className="sc-shift">
-                        📈 오버 2.5: 개막 전{" "}
+                        오버 2.5: 개막 전{" "}
                         <span className="muted2">{o25.toFixed(0)}%</span> → 현재{" "}
                         <b>{liveO.toFixed(0)}%</b>
                         <span className="muted2">

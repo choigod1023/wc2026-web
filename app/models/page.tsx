@@ -65,7 +65,7 @@ export default function ModelsPage() {
 
       <section>
         <div className="section-head">
-          <h2>📈 우승 확률 변화 추세</h2>
+          <h2>우승 확률 변화 추세</h2>
           <span className="sub">대회 진행에 따른 상위 6개국 우승 확률</span>
         </div>
         <ChampionTrend />
@@ -77,7 +77,7 @@ export default function ModelsPage() {
 
       <section>
         <div className="section-head">
-          <h2>📰 예측이 왜 바뀌었나</h2>
+          <h2>예측이 왜 바뀌었나</h2>
           <span className="sub">경기 결과로 본 변동 이유</span>
         </div>
         <ChangesTimeline />
@@ -85,7 +85,7 @@ export default function ModelsPage() {
 
       <section>
         <div className="section-head">
-          <h2>📋 Brier 리더보드</h2>
+          <h2>Brier 리더보드</h2>
           <span className="sub">낮을수록 정확 · 검증 1,868경기</span>
         </div>
         <div className="card">
@@ -144,7 +144,7 @@ export default function ModelsPage() {
 
       <section>
         <div className="section-head">
-          <h2>🏆 모델별 우승 확률</h2>
+          <h2>모델별 우승 확률</h2>
           <span className="sub">각 모델로 10,000회 시뮬레이션</span>
         </div>
         <div className="card" style={{ overflowX: "auto" }}>

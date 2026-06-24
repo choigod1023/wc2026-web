@@ -26,7 +26,7 @@ export default function Home() {
           월드컵 조별리그 72경기가 그 시험장이에요.
         </p>
         <Link href="/math" className="hero-cta">
-          🙂 수학은 몰라도 괜찮아요 — 어떻게 예측하는지 보기 →
+          수학은 몰라도 괜찮아요 — 어떻게 예측하는지 보기 →
         </Link>
       </section>
 
@@ -62,7 +62,7 @@ export default function Home() {
 
       <section>
         <div className="section-head">
-          <h2>🏆 우승 확률</h2>
+          <h2>우승 확률</h2>
           <span className="sub">대회를 2만 번 가상으로 돌린 결과 · 우승 / 결승 진출</span>
         </div>
         <div className="card">
@@ -93,7 +93,7 @@ export default function Home() {
 
       <section>
         <div className="section-head">
-          <h2>📊 모델 vs 시장</h2>
+          <h2>모델 vs 시장</h2>
           <span className="sub">우승 확률 견해차 (2026-06-10 스냅샷)</span>
         </div>
         <ModelVsMarket />
@@ -101,7 +101,7 @@ export default function Home() {
 
       <section>
         <div className="section-head">
-          <h2>📈 팀 실력 점수 Top 12</h2>
+          <h2>팀 실력 점수 Top 12</h2>
           <span className="sub">체스 랭킹식 점수(Elo) · 높을수록 강함 · 2026-06-08 기준</span>
         </div>
         <div className="card">
@@ -128,7 +128,7 @@ export default function Home() {
 
       <section>
         <div className="section-head">
-          <h2>🗓 조별리그 72경기 예측</h2>
+          <h2>조별리그 72경기 예측</h2>
           <span className="sub">홈승 · 무 · 원정승 확률</span>
         </div>
         <MatchList />

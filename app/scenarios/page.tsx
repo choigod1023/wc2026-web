@@ -150,7 +150,7 @@ export default function ScenariosPage() {
                   {scenTeams.length > 0 && (
                     <div className="scn-board">
                       <div className="scn-board-title">
-                        🔑 마지막 경기 — 이렇게 되면?
+                        마지막 경기 — 이렇게 되면?
                       </div>
                       {scenTeams.map((t) => (
                         <div className="scn-line" key={t.team}>

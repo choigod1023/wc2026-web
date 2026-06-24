@@ -26,7 +26,7 @@ export default function ScorePage() {
 
       <section>
         <div className="section-head">
-          <h2>🧪 어떤 스코어 방식이 더 맞았나</h2>
+          <h2>어떤 스코어 방식이 더 맞았나</h2>
           <span className="sub">과거로 학습→이후 경기로 시험 · 점수 높을수록/오차 낮을수록 정확</span>
         </div>
         <div className="card">
@@ -65,7 +65,7 @@ export default function ScorePage() {
 
       <section>
         <div className="section-head">
-          <h2>🗓 72경기 스코어 예측</h2>
+          <h2>72경기 스코어 예측</h2>
           <span className="sub">예상 스코어 · 언오버 · 핸디캡 · 근거</span>
         </div>
         <ScoreList />

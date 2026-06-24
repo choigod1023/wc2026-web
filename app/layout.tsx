@@ -26,7 +26,6 @@ export default function RootLayout({
         <header className="site-header">
           <div className="wrap header-inner">
             <Link href="/" className="brand">
-              <span className="brand-ball">⚽</span>
               <span>
                 WC<b>2026</b> 예측
               </span>

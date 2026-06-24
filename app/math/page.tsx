@@ -20,7 +20,7 @@ export default function MathPage() {
 
       {/* ── 쉽게 말하면 (수식 없음) ── */}
       <section>
-        <h2 style={{ marginTop: 8 }}>🙂 쉽게 말하면</h2>
+        <h2 style={{ marginTop: 8 }}>쉽게 말하면</h2>
         <div className="steps">
           <div className="step">
             <span className="step-no">1</span>
@@ -68,7 +68,7 @@ export default function MathPage() {
       </section>
 
       {/* ── 여기서부터 수식 ── */}
-      <h2 style={{ marginTop: 44 }}>📐 더 궁금하다면: 실제 수식</h2>
+      <h2 style={{ marginTop: 44 }}>더 궁금하다면: 실제 수식</h2>
       <p className="note">아래는 위 4단계를 그대로 수식으로 적은 것입니다.</p>
 
       <h3>1. 팀 실력 점수 (Elo)</h3>

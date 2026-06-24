@@ -1,16 +1,18 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
 :root {
-  --bg: #0b1020;
-  --bg-soft: #121933;
-  --card: #161e3d;
-  --card-2: #1b2547;
-  --border: #273158;
-  --text: #e8ecf8;
-  --muted: #94a0c4;
-  --accent: #4ade80;
-  --accent-2: #60a5fa;
-  --warn: #fbbf24;
-  --bar-model: #4ade80;
-  --bar-market: #60a5fa;
+  --bg: #0d1117;
+  --bg-soft: #131922;
+  --card: #171d28;
+  --card-2: #1e2531;
+  --border: #2b323e;
+  --text: #e7e9ee;
+  --muted: #98a2b3;
+  --accent: #2fb574;
+  --accent-2: #6c8cff;
+  --warn: #e0a93b;
+  --bar-model: #2fb574;
+  --bar-market: #6c8cff;
   --radius: 14px;
 }
 
@@ -23,11 +25,11 @@ body {
   margin: 0;
   padding: 0;
   background:
-    radial-gradient(1200px 600px at 80% -10%, #1b2547 0%, transparent 60%),
+    radial-gradient(1100px 560px at 82% -12%, #1b2230 0%, transparent 62%),
     var(--bg);
   color: var(--text);
   font-family:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Pretendard Variable", Pretendard, ui-sans-serif, system-ui, -apple-system,
     "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -54,7 +56,7 @@ a:hover {
   top: 0;
   z-index: 10;
   backdrop-filter: blur(10px);
-  background: rgba(11, 16, 32, 0.72);
+  background: rgba(13, 17, 23, 0.78);
   border-bottom: 1px solid var(--border);
 }
 .header-inner {
@@ -107,8 +109,8 @@ a:hover {
 }
 .nav-link.active {
   color: var(--text);
-  background: rgba(74, 222, 128, 0.12);
-  box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.3);
+  background: rgba(47, 181, 116, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(47, 181, 116, 0.3);
 }
 .nav-group {
   position: relative;
@@ -144,7 +146,7 @@ a:hover {
 }
 .nav-menu-item.active {
   color: var(--accent);
-  background: rgba(74, 222, 128, 0.1);
+  background: rgba(47, 181, 116, 0.1);
 }
 
 /* ── 모바일 햄버거 + 드로어 ── */
@@ -235,7 +237,7 @@ a:hover {
 }
 .drawer-item.active {
   color: var(--accent);
-  background: rgba(74, 222, 128, 0.12);
+  background: rgba(47, 181, 116, 0.12);
 }
 .drawer-group {
   margin-top: 6px;
@@ -275,10 +277,7 @@ a:hover {
   letter-spacing: -0.02em;
 }
 .hero .grad {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--accent);
 }
 .hero p {
   color: var(--muted);
@@ -298,8 +297,8 @@ a:hover {
 }
 .hero-cta {
   display: inline-block;
-  background: rgba(74, 222, 128, 0.12);
-  border: 1px solid rgba(74, 222, 128, 0.35);
+  background: rgba(47, 181, 116, 0.12);
+  border: 1px solid rgba(47, 181, 116, 0.35);
   color: var(--text);
   border-radius: 999px;
   padding: 10px 18px;
@@ -307,7 +306,7 @@ a:hover {
   font-weight: 600;
 }
 .hero-cta:hover {
-  background: rgba(74, 222, 128, 0.2);
+  background: rgba(47, 181, 116, 0.2);
   text-decoration: none;
 }
 
@@ -778,8 +777,8 @@ th.num {
 
 /* 종료 경기: 적중 배당 강조 */
 .lm-odds .chip.won {
-  border-color: rgba(74, 222, 128, 0.6);
-  background: rgba(74, 222, 128, 0.14);
+  border-color: rgba(47, 181, 116, 0.6);
+  background: rgba(47, 181, 116, 0.14);
 }
 .lm-odds .chip.won .lbl,
 .lm-odds .chip.won b {
@@ -809,11 +808,11 @@ th.num {
   border-radius: 999px;
 }
 .tag-ok {
-  background: rgba(74, 222, 128, 0.16);
+  background: rgba(47, 181, 116, 0.16);
   color: var(--accent);
 }
 .tag-up {
-  background: rgba(251, 191, 36, 0.16);
+  background: rgba(224, 169, 59, 0.16);
   color: var(--warn);
 }
 .tag-no {
@@ -944,7 +943,7 @@ th.num {
   font-weight: 700;
   padding: 1px 7px;
   border-radius: 999px;
-  background: rgba(251, 191, 36, 0.16);
+  background: rgba(224, 169, 59, 0.16);
   color: var(--warn);
 }
 
@@ -1027,8 +1026,8 @@ th.num {
   margin-top: 8px;
   font-size: 12.5px;
   color: #cdd5ee;
-  background: rgba(96, 165, 250, 0.08);
-  border: 1px solid rgba(96, 165, 250, 0.22);
+  background: rgba(108, 140, 255, 0.08);
+  border: 1px solid rgba(108, 140, 255, 0.22);
   border-radius: 8px;
   padding: 7px 10px;
 }
@@ -1132,7 +1131,7 @@ th.num {
   white-space: nowrap;
 }
 .scn-more:hover {
-  background: rgba(96, 165, 250, 0.12);
+  background: rgba(108, 140, 255, 0.12);
 }
 
 /* 시나리오 모달 */
@@ -1201,8 +1200,8 @@ th.num {
   border: 1px solid var(--border);
 }
 .res-tag.c-in {
-  background: rgba(74, 222, 128, 0.14);
-  border-color: rgba(74, 222, 128, 0.4);
+  background: rgba(47, 181, 116, 0.14);
+  border-color: rgba(47, 181, 116, 0.4);
   color: var(--accent);
 }
 .res-tag.c-out {
@@ -1211,8 +1210,8 @@ th.num {
   color: #f87171;
 }
 .res-tag.c-maybe {
-  background: rgba(251, 191, 36, 0.14);
-  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(224, 169, 59, 0.14);
+  border-color: rgba(224, 169, 59, 0.4);
   color: var(--warn);
 }
 /* 시나리오 분기 트리 (애니메이션) */
@@ -1316,8 +1315,8 @@ th.num {
   margin-top: 2px;
 }
 .leaf-node.c-in {
-  background: rgba(74, 222, 128, 0.12);
-  border-color: rgba(74, 222, 128, 0.4);
+  background: rgba(47, 181, 116, 0.12);
+  border-color: rgba(47, 181, 116, 0.4);
 }
 .leaf-node.c-in .leaf-res {
   color: var(--accent);
@@ -1330,8 +1329,8 @@ th.num {
   color: #f87171;
 }
 .leaf-node.c-maybe {
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(224, 169, 59, 0.12);
+  border-color: rgba(224, 169, 59, 0.4);
 }
 .leaf-node.c-maybe .leaf-res {
   color: var(--warn);
@@ -1363,13 +1362,13 @@ th.num {
   font-size: 11px;
 }
 .scn-cell.c-in {
-  background: rgba(74, 222, 128, 0.14);
-  border-color: rgba(74, 222, 128, 0.4);
+  background: rgba(47, 181, 116, 0.14);
+  border-color: rgba(47, 181, 116, 0.4);
   color: var(--accent);
 }
 .scn-cell.c-maybe {
-  background: rgba(251, 191, 36, 0.14);
-  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(224, 169, 59, 0.14);
+  border-color: rgba(224, 169, 59, 0.4);
   color: var(--warn);
 }
 .scn-cell.c-out {
@@ -1541,8 +1540,8 @@ th.num {
   margin: 8px 0 2px;
   font-size: 12.5px;
   color: #cdd5ee;
-  background: rgba(96, 165, 250, 0.08);
-  border: 1px solid rgba(96, 165, 250, 0.22);
+  background: rgba(108, 140, 255, 0.08);
+  border: 1px solid rgba(108, 140, 255, 0.22);
   border-radius: 8px;
   padding: 7px 10px;
 }
@@ -1603,7 +1602,7 @@ th.num {
   border-radius: 999px;
 }
 .st-q {
-  background: rgba(74, 222, 128, 0.16);
+  background: rgba(47, 181, 116, 0.16);
   color: var(--accent);
 }
 .st-e {
@@ -1611,7 +1610,7 @@ th.num {
   color: #f87171;
 }
 .st-a {
-  background: rgba(96, 165, 250, 0.14);
+  background: rgba(108, 140, 255, 0.14);
   color: var(--accent-2);
 }
 .rem-fix {
@@ -1750,8 +1749,8 @@ th.num {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 .callout {
-  background: rgba(96, 165, 250, 0.08);
-  border: 1px solid rgba(96, 165, 250, 0.3);
+  background: rgba(108, 140, 255, 0.08);
+  border: 1px solid rgba(108, 140, 255, 0.3);
   border-radius: 10px;
   padding: 12px 16px;
   margin: 16px 0;

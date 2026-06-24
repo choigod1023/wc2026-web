@@ -92,11 +92,11 @@
         "p": 0.0027
       },
       {
-        "team": "South Korea",
+        "team": "Canada",
         "p": 0.0026
       },
       {
-        "team": "Canada",
+        "team": "South Korea",
         "p": 0.0026
       }
     ]
@@ -162,11 +162,11 @@
         "p": 0.0099
       },
       {
-        "team": "Belgium",
+        "team": "Switzerland",
         "p": 0.0081
       },
       {
-        "team": "Switzerland",
+        "team": "Belgium",
         "p": 0.0081
       },
       {
@@ -280,11 +280,11 @@
         "p": 0.0068
       },
       {
-        "team": "United States",
+        "team": "Austria",
         "p": 0.0044
       },
       {
-        "team": "Austria",
+        "team": "United States",
         "p": 0.0044
       },
       {
@@ -292,7 +292,7 @@
         "p": 0.0033
       },
       {
-        "team": "Paraguay",
+        "team": "Australia",
         "p": 0.0032
       },
       {
@@ -300,7 +300,7 @@
         "p": 0.0032
       },
       {
-        "team": "Australia",
+        "team": "Paraguay",
         "p": 0.0032
       }
     ]

@@ -34,32 +34,43 @@ function teamScore(t: NamedTeam): number {
   return (t.periodData ?? []).reduce((s, p) => s + (p.score ?? 0), 0);
 }
 
-// 진행 중 경기 시간 라벨. broadcast(이벤트 기반)의 period+displayTime을 우선 사용.
-function liveClock(g: any): string | null {
-  const b = g.broadcast ?? {};
-  const period = b.period ?? g.period ?? 0;
-  const dt: string | null = b.displayTime ?? g.displayTime ?? null;
-  if (!period) return null;
-  const label =
-    period === 1 ? "전반" : period === 2 ? "후반" : period <= 4 ? "연장" : "";
-  let mm = 0;
-  if (dt && /^\d+:\d+$/.test(dt)) {
-    const [m, s] = dt.split(":").map(Number);
-    mm = m + (s > 0 ? 1 : 0);
-  }
-  return mm > 0 ? `${label} ${mm}'` : label || null;
+// 실제 경과시간(벽시계) 추정 — named가 라이브 시계를 안 주거나 00:00에 멈출 때 폴백.
+// startDatetime은 KST(타임존 표기 없음) → +09:00로 해석. 하프타임 15분 보정.
+function elapsedMin(g: any): number | null {
+  const s: string | null = g.realStartDateTime ?? g.startDatetime ?? null;
+  if (!s) return null;
+  const iso = /[zZ]|[+\-]\d\d:?\d\d$/.test(s) ? s : s + "+09:00";
+  const mins = (Date.now() - new Date(iso).getTime()) / 60000;
+  if (mins < 0) return null;
+  if (mins <= 47) return Math.max(1, Math.round(mins)); // 전반
+  if (mins <= 62) return 45; // 하프타임 추정(시계 정지)
+  if (mins <= 107) return Math.round(mins - 15); // 후반(휴식 15분 보정)
+  return 90;
 }
 
-// 경기 경과 분(숫자). 전반=m, 후반=45+m, 연장=90+m.
-function liveMinute(g: any): number | null {
+// API 시계가 의미있는지(존재 + 00:00 아님).
+function apiMinute(g: any): number | null {
   const b = g.broadcast ?? {};
   const period = b.period ?? g.period ?? 0;
   const dt: string | null = b.displayTime ?? g.displayTime ?? null;
-  if (!period) return null;
-  let m = 0;
-  if (dt && /^\d+:\d+$/.test(dt)) m = Number(dt.split(":")[0]);
+  if (!period || !dt || !/^\d+:\d+$/.test(dt) || dt === "00:00") return null;
   const base = period === 1 ? 0 : period === 2 ? 45 : 90;
-  return base + m;
+  return base + Number(dt.split(":")[0]);
+}
+
+// 경기 경과 분(숫자). API 시계 우선, 멈춰있으면 실경과시간으로 추정.
+function liveMinute(g: any): number | null {
+  return apiMinute(g) ?? elapsedMin(g);
+}
+
+// 진행 중 경기 시간 라벨(분 기준으로 일관). "(추정)"은 API 시계가 없을 때.
+function liveClock(g: any): string | null {
+  const m = liveMinute(g);
+  if (m == null) return null;
+  const est = apiMinute(g) == null ? "~" : ""; // 추정이면 ~ 접두
+  if (m <= 45) return `전반 ${est}${m}'`;
+  if (m <= 90) return `후반 ${est}${m - 45}'`;
+  return `연장 ${est}${m - 90}'`;
 }
 
 function mapStatus(g: any): LiveMatch["status"] {
@@ -129,12 +140,21 @@ function pickWC(all: any): LiveMatch[] {
     .map(normalize);
 }
 
+// revalidate===0 이면 데이터 캐시 우회(no-store). 라이브(오늘) 경기는 항상 0으로
+// 호출해 'getLiveWindow 5초 / getAllPlayed 60초'가 같은 URL에서 충돌하던 문제 제거.
+function cacheInit(revalidate: number): RequestInit {
+  const headers = { "User-Agent": "Mozilla/5.0" };
+  return revalidate === 0
+    ? { headers, cache: "no-store" }
+    : { headers, next: { revalidate } };
+}
+
 async function fetchDate(date: string, revalidate: number): Promise<LiveMatch[]> {
   try {
-    const res = await fetch(`${BASE}/sports/soccer/games?date=${date}`, {
-      headers: { "User-Agent": "Mozilla/5.0" },
-      next: { revalidate },
-    });
+    const res = await fetch(
+      `${BASE}/sports/soccer/games?date=${date}`,
+      cacheInit(revalidate),
+    );
     if (!res.ok) return [];
     return pickWC(await res.json());
   } catch {
@@ -176,7 +196,7 @@ async function fetchTodayGames(revalidate: number): Promise<LiveMatch[]> {
   try {
     const res = await fetch(
       `${BASE}/sports/soccer/today-games?tomorrow-game-flag=true`,
-      { headers: { "User-Agent": "Mozilla/5.0" }, next: { revalidate } },
+      cacheInit(revalidate),
     );
     if (!res.ok) return [];
     return pickWC(await res.json());
@@ -218,8 +238,8 @@ async function fetchOddsMap(date: string): Promise<Map<number, LiveMatch["odds"]
 //  today-games에 있는 경기는 today-games 값으로 덮어써(가장 최신 라이브 상태) 사용.
 export async function getLiveWindow(): Promise<LiveMatch[]> {
   const [today, recent, oddsMaps] = await Promise.all([
-    fetchTodayGames(5),
-    Promise.all([kstDate(-1), kstDate(0)].map((d) => fetchDate(d, 5))),
+    fetchTodayGames(0), // 라이브 — 항상 신선(no-store), 응답단 s-maxage=5로 부하 제어
+    Promise.all([kstDate(-1), kstDate(0)].map((d) => fetchDate(d, 0))),
     Promise.all([kstDate(-1), kstDate(1)].map(fetchOddsMap)),
   ]);
   const odds = new Map<number, LiveMatch["odds"]>();
@@ -246,8 +266,12 @@ export async function getAllPlayed(): Promise<LiveMatch[]> {
     dates.push(d.toISOString().slice(0, 10));
     d.setUTCDate(d.getUTCDate() + 1);
   }
-  // 오늘 경기(아직 진행/방금 종료)는 getLiveWindow의 8초 캐시와 URL이 같아 함께 신선해진다.
-  const lists = await Promise.all(dates.map((dt) => fetchDate(dt, 60)));
+  // 오늘 날짜는 라이브와 같은 URL → no-store(0)로 일치시켜 충돌 제거. 지난 날짜는
+  // 결과가 안 바뀌므로 길게(1시간) 캐시.
+  const todayStr = kstDate(0);
+  const lists = await Promise.all(
+    dates.map((dt) => fetchDate(dt, dt === todayStr ? 0 : 3600)),
+  );
   const seen = new Set<number>();
   const out: LiveMatch[] = [];
   for (const m of lists.flat()) {

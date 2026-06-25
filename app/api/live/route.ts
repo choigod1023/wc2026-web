@@ -138,7 +138,7 @@ export async function GET() {
           ...inPlay(
             lam.lh,
             lam.la,
-            m.minute,
+            m.minuteExact ?? m.minute, // 소수 분 → 매 폴링마다 연속 변화
             m.homeScore,
             m.awayScore,
             rc.home,

@@ -21,7 +21,8 @@ export type LiveMatch = {
   result: "WIN" | "DRAW" | "LOSS" | "UNKNOWN";
   odds: { win: number; draw: number; loss: number } | null;
   clock: string | null; // 진행 중 경기 시간 (예: "후반 12'")
-  minute: number | null; // 경과 분(숫자) — 인플레이 계산용
+  minute: number | null; // 경과 분(정수) — 표시용
+  minuteExact: number | null; // 경과 분(소수, 초 단위) — 인플레이 연속 갱신용
   playText: string | null; // 최근 상황 (예: "후반 시작")
 };
 
@@ -34,40 +35,50 @@ function teamScore(t: NamedTeam): number {
   return (t.periodData ?? []).reduce((s, p) => s + (p.score ?? 0), 0);
 }
 
-// 실제 경과시간(벽시계) 추정 — named가 라이브 시계를 안 주거나 00:00에 멈출 때 폴백.
-// startDatetime은 KST(타임존 표기 없음) → +09:00로 해석. 하프타임 15분 보정.
-function elapsedMin(g: any): number | null {
+// 실제 경과시간(벽시계, 소수 분) 추정 — named가 라이브 시계를 안 주거나 00:00에
+// 멈출 때 폴백. startDatetime은 KST(타임존 표기 없음) → +09:00로 해석. 하프타임 15분 보정.
+// 단조 증가(0→90). 전반은 45에서 캡, 45~60분(실)은 하프타임으로 45 유지, 이후 후반.
+function elapsedMinExact(g: any): number | null {
   const s: string | null = g.realStartDateTime ?? g.startDatetime ?? null;
   if (!s) return null;
   const iso = /[zZ]|[+\-]\d\d:?\d\d$/.test(s) ? s : s + "+09:00";
   const mins = (Date.now() - new Date(iso).getTime()) / 60000;
   if (mins < 0) return null;
-  if (mins <= 47) return Math.max(1, Math.round(mins)); // 전반
-  if (mins <= 62) return 45; // 하프타임 추정(시계 정지)
-  if (mins <= 107) return Math.round(mins - 15); // 후반(휴식 15분 보정)
+  if (mins <= 45) return Math.max(0.2, mins); // 전반(연속)
+  if (mins <= 60) return 45; // 전반 추가시간~하프타임(45 유지)
+  if (mins <= 105) return mins - 15; // 후반(휴식 15분 보정, 60분→45 … 105분→90)
   return 90;
 }
 
-// API 시계가 의미있는지(존재 + 00:00 아님).
-function apiMinute(g: any): number | null {
+// API 시계(소수 분). 존재 + 00:00 아닐 때만. mm:ss → mm + ss/60.
+function apiMinuteExact(g: any): number | null {
   const b = g.broadcast ?? {};
   const period = b.period ?? g.period ?? 0;
   const dt: string | null = b.displayTime ?? g.displayTime ?? null;
   if (!period || !dt || !/^\d+:\d+$/.test(dt) || dt === "00:00") return null;
+  const [mm, ss] = dt.split(":").map(Number);
   const base = period === 1 ? 0 : period === 2 ? 45 : 90;
-  return base + Number(dt.split(":")[0]);
+  return base + mm + (ss || 0) / 60;
 }
 
-// 경기 경과 분(숫자). API 시계 우선, 멈춰있으면 실경과시간으로 추정.
+// 경기 경과 분(소수) — 인플레이 연속 갱신용.
+// named 시계가 임의 지점(예: "45:46")에서 자주 얼어붙으므로 '벽시계'를 주 시계로
+// 사용(항상 진행). 시작시각이 없을 때만 API 시계로 폴백.
+function liveMinuteExact(g: any): number | null {
+  return elapsedMinExact(g) ?? apiMinuteExact(g);
+}
+
+// 표시용 정수 분.
 function liveMinute(g: any): number | null {
-  return apiMinute(g) ?? elapsedMin(g);
+  const m = liveMinuteExact(g);
+  return m == null ? null : Math.max(1, Math.round(m));
 }
 
-// 진행 중 경기 시간 라벨(분 기준으로 일관). "(추정)"은 API 시계가 없을 때.
+// 진행 중 경기 시간 라벨(분 기준). API 시계가 없으면 "~"(추정) 접두.
 function liveClock(g: any): string | null {
   const m = liveMinute(g);
   if (m == null) return null;
-  const est = apiMinute(g) == null ? "~" : ""; // 추정이면 ~ 접두
+  const est = elapsedMinExact(g) != null ? "~" : ""; // 벽시계 추정이면 ~
   if (m <= 45) return `전반 ${est}${m}'`;
   if (m <= 90) return `후반 ${est}${m - 45}'`;
   return `연장 ${est}${m - 90}'`;
@@ -129,6 +140,7 @@ function normalize(g: any): LiveMatch {
     odds: extractOdds(g),
     clock: status === "LIVE" ? liveClock(g) : null,
     minute: status === "LIVE" ? liveMinute(g) : null,
+    minuteExact: status === "LIVE" ? liveMinuteExact(g) : null,
     playText: status === "LIVE" ? (g.broadcast?.playText ?? null) : null,
   };
 }

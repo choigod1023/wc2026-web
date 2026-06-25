@@ -31,8 +31,9 @@ export function inPlay(
   redH = 0,
   redA = 0,
 ): InPlay {
-  const remMin = Math.max(0, 90 - Math.min(minute, 90));
-  const frac = Math.max(0.02, remMin / 90); // 막판에도 추가시간 약간
+  // 소수 분 허용 → 매 폴링(수초)마다 남은 시간이 줄며 확률이 연속적으로 변함.
+  const remMinExact = Math.max(0, 90 - Math.min(minute, 90));
+  const frac = Math.max(0.02, remMinExact / 90); // 막판에도 추가시간 약간
   let lh = lhPre * frac;
   let la = laPre * frac;
   // 퇴장 보정: 수적 열세 팀의 남은 득점↓, 상대↑ (장당 누적)
@@ -70,6 +71,6 @@ export function inPlay(
     pA: pA / s,
     over25: over / s,
     expFinal: `${curH + Math.round(lh)}-${curA + Math.round(la)}`,
-    remMin,
+    remMin: Math.round(remMinExact), // 표시용 정수(확률은 소수 분으로 계산됨)
   };
 }

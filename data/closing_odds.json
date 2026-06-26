@@ -478,5 +478,101 @@
 "oH": 19.0,
 "oD": 7.1,
 "oA": 1.09
+},
+{
+"date": "2026-06-26",
+"home": "Senegal",
+"away": "Iraq",
+"oH": 1.21,
+"oD": 5.3,
+"oA": 10.5
+},
+{
+"date": "2026-06-26",
+"home": "Norway",
+"away": "France",
+"oH": 4.75,
+"oD": 3.75,
+"oA": 1.58
+},
+{
+"date": "2026-06-26",
+"home": "Uruguay",
+"away": "Spain",
+"oH": 6.0,
+"oD": 3.8,
+"oA": 1.47
+},
+{
+"date": "2026-06-26",
+"home": "New Zealand",
+"away": "Belgium",
+"oH": 15.0,
+"oD": 6.3,
+"oA": 1.13
+},
+{
+"date": "2026-06-26",
+"home": "Egypt",
+"away": "Iran",
+"oH": 2.35,
+"oD": 2.5,
+"oA": 3.5
+},
+{
+"date": "2026-06-26",
+"home": "Cape Verde",
+"away": "Saudi Arabia",
+"oH": 2.49,
+"oD": 3.15,
+"oA": 2.55
+},
+{
+"date": "2026-06-27",
+"home": "Panama",
+"away": "England",
+"oH": 13.0,
+"oD": 6.1,
+"oA": 1.15
+},
+{
+"date": "2026-06-27",
+"home": "Algeria",
+"away": "Austria",
+"oH": 3.55,
+"oD": 2.21,
+"oA": 2.65
+},
+{
+"date": "2026-06-27",
+"home": "Jordan",
+"away": "Argentina",
+"oH": 13.5,
+"oD": 5.5,
+"oA": 1.17
+},
+{
+"date": "2026-06-27",
+"home": "Colombia",
+"away": "Portugal",
+"oH": 4.05,
+"oD": 3.3,
+"oA": 1.78
+},
+{
+"date": "2026-06-27",
+"home": "DR Congo",
+"away": "Uzbekistan",
+"oH": 1.73,
+"oD": 3.45,
+"oA": 4.1
+},
+{
+"date": "2026-06-27",
+"home": "Croatia",
+"away": "Ghana",
+"oH": 1.71,
+"oD": 3.25,
+"oA": 4.55
 }
 ]

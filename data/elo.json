@@ -24,16 +24,12 @@
 "elo": 2085.4
 },
 {
+"team": "Netherlands",
+"elo": 2044.5
+},
+{
 "team": "Portugal",
 "elo": 2035.9
-},
-{
-"team": "Netherlands",
-"elo": 2034.8
-},
-{
-"team": "Germany",
-"elo": 2032.1
 },
 {
 "team": "Morocco",
@@ -44,20 +40,24 @@
 "elo": 2007.8
 },
 {
-"team": "Japan",
-"elo": 2007.1
-},
-{
 "team": "Norway",
 "elo": 1999.2
 },
 {
-"team": "Switzerland",
-"elo": 1984.0
+"team": "Germany",
+"elo": 1995.2
+},
+{
+"team": "Japan",
+"elo": 1990.3
 },
 {
 "team": "Ecuador",
-"elo": 1951.4
+"elo": 1988.2
+},
+{
+"team": "Switzerland",
+"elo": 1984.0
 },
 {
 "team": "Croatia",
@@ -76,7 +76,7 @@
 "elo": 1915.9
 },
 {
-"team": "United States",
+"team": "Turkey",
 "elo": 1914.2
 },
 {
@@ -85,7 +85,7 @@
 },
 {
 "team": "Australia",
-"elo": 1907.9
+"elo": 1906.9
 },
 {
 "team": "Austria",
@@ -93,7 +93,7 @@
 },
 {
 "team": "Paraguay",
-"elo": 1895.7
+"elo": 1896.8
 },
 {
 "team": "Iran",
@@ -108,8 +108,8 @@
 "elo": 1879.8
 },
 {
-"team": "Turkey",
-"elo": 1872.7
+"team": "United States",
+"elo": 1872.6
 },
 {
 "team": "Yugoslavia",
@@ -118,6 +118,10 @@
 {
 "team": "Senegal",
 "elo": 1867.6
+},
+{
+"team": "Ivory Coast",
+"elo": 1860.1
 },
 {
 "team": "Egypt",
@@ -129,10 +133,6 @@
 },
 {
 "team": "Ukraine",
-"elo": 1841.2
-},
-{
-"team": "Ivory Coast",
 "elo": 1841.2
 },
 {

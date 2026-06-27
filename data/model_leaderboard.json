@@ -2,37 +2,65 @@
   {
     "name": "Elo-로지스틱 +|diff|",
     "short": "elo_logit_abs",
+<<<<<<< HEAD
     "brier": 0.5071,
     "logloss": 0.8614,
     "accuracy": 0.6009,
+=======
+    "brier": 0.5066,
+    "logloss": 0.8608,
+    "accuracy": 0.6018,
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
     "best": true
   },
   {
     "name": "Elo-로지스틱 (기준)",
     "short": "elo_logit",
+<<<<<<< HEAD
     "brier": 0.5073,
     "logloss": 0.8619,
     "accuracy": 0.6009
+=======
+    "brier": 0.5068,
+    "logloss": 0.8612,
+    "accuracy": 0.6018
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
   },
   {
     "name": "Davidson 무승부모델",
     "short": "davidson",
+<<<<<<< HEAD
     "brier": 0.508,
     "logloss": 0.8667,
     "accuracy": 0.6051
+=======
+    "brier": 0.5076,
+    "logloss": 0.8661,
+    "accuracy": 0.6059
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
   },
   {
     "name": "기준선·비율(base-rate)",
     "short": "base_rate",
+<<<<<<< HEAD
     "brier": 0.6382,
     "logloss": 1.057,
     "accuracy": 0.4679
+=======
+    "brier": 0.6377,
+    "logloss": 1.0564,
+    "accuracy": 0.4688
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
   },
   {
     "name": "기준선·균등(1/3)",
     "short": "uniform",
     "brier": 0.6667,
     "logloss": 1.0986,
+<<<<<<< HEAD
     "accuracy": 0.4679
+=======
+    "accuracy": 0.4688
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
   }
 ]

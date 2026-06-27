@@ -11,9 +11,13 @@ export async function GET() {
   const groups = computeScenarios(played);
 
   // 현재 조 순위(경기·승점·골득실)를 각 팀에 붙이고, 순위 순으로 정렬
-  const rec = new Map<string, { pld: number; pts: number; gd: number }>();
+  const rec = new Map<
+    string,
+    { pld: number; pts: number; gd: number; gf: number }
+  >();
   for (const g of computeStandings(played))
-    for (const r of g.rows) rec.set(r.team, { pld: r.pld, pts: r.pts, gd: r.gd });
+    for (const r of g.rows)
+      rec.set(r.team, { pld: r.pld, pts: r.pts, gd: r.gd, gf: r.gf });
   for (const g of groups) {
     for (const t of g.teams) {
       const r = rec.get(t.team);
@@ -21,6 +25,7 @@ export async function GET() {
         t.pld = r.pld;
         t.pts = r.pts;
         t.gd = r.gd;
+        t.gf = r.gf; // 3위 랭킹(공식 와일드카드 표)용
       }
     }
     // 경기를 치렀으면 현재 순위(승점→골득실→직접진출확률) 순으로

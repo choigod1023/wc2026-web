@@ -5,6 +5,7 @@
     "champions": [
       {
         "team": "Argentina",
+<<<<<<< HEAD
         "p": 0.2477
       },
       {
@@ -26,6 +27,29 @@
       {
         "team": "Brazil",
         "p": 0.0552
+=======
+        "p": 0.2455
+      },
+      {
+        "team": "Spain",
+        "p": 0.1947
+      },
+      {
+        "team": "France",
+        "p": 0.1395
+      },
+      {
+        "team": "England",
+        "p": 0.0622
+      },
+      {
+        "team": "Colombia",
+        "p": 0.0621
+      },
+      {
+        "team": "Brazil",
+        "p": 0.0526
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
       },
       {
         "team": "Netherlands",
@@ -34,6 +58,7 @@
       {
         "team": "Portugal",
         "p": 0.0286
+<<<<<<< HEAD
       },
       {
         "team": "Morocco",
@@ -66,6 +91,244 @@
       {
         "team": "Belgium",
         "p": 0.0114
+=======
+      },
+      {
+        "team": "Germany",
+        "p": 0.0281
+      },
+      {
+        "team": "Morocco",
+        "p": 0.0267
+      },
+      {
+        "team": "Mexico",
+        "p": 0.0215
+      },
+      {
+        "team": "Japan",
+        "p": 0.0191
+      },
+      {
+        "team": "Norway",
+        "p": 0.0176
+      },
+      {
+        "team": "Switzerland",
+        "p": 0.0164
+      },
+      {
+        "team": "Belgium",
+        "p": 0.0109
+      },
+      {
+        "team": "Croatia",
+        "p": 0.0074
+      },
+      {
+        "team": "Ecuador",
+        "p": 0.0063
+      },
+      {
+        "team": "Uruguay",
+        "p": 0.0048
+      },
+      {
+        "team": "United States",
+        "p": 0.0047
+      },
+      {
+        "team": "Australia",
+        "p": 0.0042
+      },
+      {
+        "team": "Austria",
+        "p": 0.0032
+      },
+      {
+        "team": "Algeria",
+        "p": 0.0029
+      },
+      {
+        "team": "Iran",
+        "p": 0.0023
+      },
+      {
+        "team": "Canada",
+        "p": 0.0019
+      }
+    ]
+  },
+  {
+    "model": "Elo-로지스틱 +|diff|",
+    "short": "elo_logit_abs",
+    "champions": [
+      {
+        "team": "Argentina",
+        "p": 0.2449
+      },
+      {
+        "team": "Spain",
+        "p": 0.1942
+      },
+      {
+        "team": "France",
+        "p": 0.1384
+      },
+      {
+        "team": "Colombia",
+        "p": 0.0624
+      },
+      {
+        "team": "England",
+        "p": 0.0614
+      },
+      {
+        "team": "Brazil",
+        "p": 0.0535
+      },
+      {
+        "team": "Portugal",
+        "p": 0.0293
+      },
+      {
+        "team": "Netherlands",
+        "p": 0.0291
+      },
+      {
+        "team": "Germany",
+        "p": 0.0282
+      },
+      {
+        "team": "Morocco",
+        "p": 0.0257
+      },
+      {
+        "team": "Mexico",
+        "p": 0.0222
+      },
+      {
+        "team": "Japan",
+        "p": 0.0193
+      },
+      {
+        "team": "Norway",
+        "p": 0.0173
+      },
+      {
+        "team": "Switzerland",
+        "p": 0.0165
+      },
+      {
+        "team": "Belgium",
+        "p": 0.0115
+      },
+      {
+        "team": "Croatia",
+        "p": 0.0071
+      },
+      {
+        "team": "Ecuador",
+        "p": 0.0064
+      },
+      {
+        "team": "Uruguay",
+        "p": 0.005
+      },
+      {
+        "team": "United States",
+        "p": 0.0046
+      },
+      {
+        "team": "Australia",
+        "p": 0.0041
+      },
+      {
+        "team": "Austria",
+        "p": 0.0037
+      },
+      {
+        "team": "Algeria",
+        "p": 0.0023
+      },
+      {
+        "team": "Paraguay",
+        "p": 0.0022
+      },
+      {
+        "team": "Iran",
+        "p": 0.002
+      }
+    ]
+  },
+  {
+    "model": "Davidson 무승부모델",
+    "short": "davidson",
+    "champions": [
+      {
+        "team": "Argentina",
+        "p": 0.2388
+      },
+      {
+        "team": "Spain",
+        "p": 0.1935
+      },
+      {
+        "team": "France",
+        "p": 0.1361
+      },
+      {
+        "team": "England",
+        "p": 0.0617
+      },
+      {
+        "team": "Colombia",
+        "p": 0.0613
+      },
+      {
+        "team": "Brazil",
+        "p": 0.0574
+      },
+      {
+        "team": "Netherlands",
+        "p": 0.03
+      },
+      {
+        "team": "Portugal",
+        "p": 0.0293
+      },
+      {
+        "team": "Morocco",
+        "p": 0.0274
+      },
+      {
+        "team": "Germany",
+        "p": 0.0266
+      },
+      {
+        "team": "Mexico",
+        "p": 0.0225
+      },
+      {
+        "team": "Japan",
+        "p": 0.0204
+      },
+      {
+        "team": "Norway",
+        "p": 0.0185
+      },
+      {
+        "team": "Switzerland",
+        "p": 0.0165
+      },
+      {
+        "team": "Belgium",
+        "p": 0.011
+      },
+      {
+        "team": "Ecuador",
+        "p": 0.0079
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
       },
       {
         "team": "Croatia",
@@ -76,6 +339,7 @@
         "p": 0.005
       },
       {
+<<<<<<< HEAD
         "team": "Turkey",
         "p": 0.0042
       },
@@ -286,12 +550,21 @@
       {
         "team": "Australia",
         "p": 0.0039
+=======
+        "team": "United States",
+        "p": 0.0043
+      },
+      {
+        "team": "Australia",
+        "p": 0.0043
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
       },
       {
         "team": "Austria",
         "p": 0.0039
       },
       {
+<<<<<<< HEAD
         "team": "Algeria",
         "p": 0.0022
       },
@@ -302,6 +575,18 @@
       {
         "team": "Paraguay",
         "p": 0.0021
+=======
+        "team": "Iran",
+        "p": 0.0021
+      },
+      {
+        "team": "Algeria",
+        "p": 0.002
+      },
+      {
+        "team": "Paraguay",
+        "p": 0.0016
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
       }
     ]
   }

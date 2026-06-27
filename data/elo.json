@@ -24,16 +24,26 @@
 "elo": 2085.4
 },
 {
+<<<<<<< HEAD
 "team": "Netherlands",
 "elo": 2044.5
 },
 {
+=======
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 "team": "Portugal",
 "elo": 2035.9
 },
 {
 "team": "Morocco",
 "elo": 2018.4
+<<<<<<< HEAD
+=======
+},
+{
+"team": "Mexico",
+"elo": 2007.8
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 },
 {
 "team": "Mexico",
@@ -44,12 +54,17 @@
 "elo": 1999.2
 },
 {
+<<<<<<< HEAD
 "team": "Germany",
 "elo": 1995.2
 },
 {
 "team": "Japan",
 "elo": 1990.3
+=======
+"team": "Switzerland",
+"elo": 1984.0
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 },
 {
 "team": "Ecuador",
@@ -130,6 +145,13 @@
 {
 "team": "Canada",
 "elo": 1847.6
+<<<<<<< HEAD
+=======
+},
+{
+"team": "Ukraine",
+"elo": 1841.2
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 },
 {
 "team": "Ukraine",

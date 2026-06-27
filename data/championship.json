@@ -1,6 +1,7 @@
 [
 {
 "team": "Argentina",
+<<<<<<< HEAD
 "champion": 0.26645,
 "final": 0.41045
 },
@@ -180,16 +181,227 @@
 "final": 5e-05
 },
 {
+=======
+"champion": 0.26445,
+"final": 0.40745
+},
+{
+"team": "Spain",
+"champion": 0.1866,
+"final": 0.31315
+},
+{
+"team": "France",
+"champion": 0.1324,
+"final": 0.23775
+},
+{
+"team": "England",
+"champion": 0.05975,
+"final": 0.12055
+},
+{
+"team": "Colombia",
+"champion": 0.05925,
+"final": 0.123
+},
+{
+"team": "Brazil",
+"champion": 0.0503,
+"final": 0.1038
+},
+{
+"team": "Portugal",
+"champion": 0.03675,
+"final": 0.08835
+},
+{
+"team": "Germany",
+"champion": 0.03495,
+"final": 0.0842
+},
+{
+"team": "Netherlands",
+"champion": 0.03165,
+"final": 0.0769
+},
+{
+"team": "Morocco",
+"champion": 0.0293,
+"final": 0.07465
+},
+{
+"team": "Mexico",
+"champion": 0.02325,
+"final": 0.0589
+},
+{
+"team": "Norway",
+"champion": 0.021,
+"final": 0.05705
+},
+{
+"team": "Japan",
+"champion": 0.01685,
+"final": 0.046
+},
+{
+"team": "Switzerland",
+"champion": 0.01095,
+"final": 0.03225
+},
+{
+"team": "United States",
+"champion": 0.00895,
+"final": 0.0377
+},
+{
+"team": "Belgium",
+"champion": 0.0062,
+"final": 0.02015
+},
+{
+"team": "Croatia",
+"champion": 0.00585,
+"final": 0.0203
+},
+{
+"team": "Australia",
+"champion": 0.00275,
+"final": 0.0103
+},
+{
+"team": "Austria",
+"champion": 0.00235,
+"final": 0.01145
+},
+{
+"team": "Canada",
+"champion": 0.00225,
+"final": 0.01145
+},
+{
+"team": "Paraguay",
+"champion": 0.0022,
+"final": 0.00815
+},
+{
+"team": "Iran",
+"champion": 0.0019,
+"final": 0.00785
+},
+{
+"team": "Egypt",
+"champion": 0.00175,
+"final": 0.00905
+},
+{
+"team": "Uruguay",
+"champion": 0.0017,
+"final": 0.00715
+},
+{
+"team": "Ecuador",
+"champion": 0.0016,
+"final": 0.0052
+},
+{
+"team": "Algeria",
+"champion": 0.0016,
+"final": 0.00665
+},
+{
+"team": "South Korea",
+"champion": 0.00155,
+"final": 0.0095
+},
+{
+"team": "Ivory Coast",
+"champion": 0.0008,
+"final": 0.00335
+},
+{
+"team": "Senegal",
+"champion": 0.0006,
+"final": 0.00275
+},
+{
+"team": "Scotland",
+"champion": 0.0002,
+"final": 0.00105
+},
+{
+"team": "South Africa",
+"champion": 0.00015,
+"final": 0.0008
+},
+{
+"team": "Sweden",
+"champion": 0.0001,
+"final": 0.0015
+},
+{
+"team": "DR Congo",
+"champion": 5e-05,
+"final": 0.00045
+},
+{
+"team": "Czech Republic",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Uzbekistan",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Bosnia and Herzegovina",
+"champion": 0.0,
+"final": 0.0007
+},
+{
+"team": "New Zealand",
+"champion": 0.0,
+"final": 5e-05
+},
+{
+"team": "Qatar",
+"champion": 0.0,
+"final": 0.0
+},
+{
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 "team": "Turkey",
 "champion": 0.0,
 "final": 0.0
 },
 {
+<<<<<<< HEAD
 "team": "DR Congo",
+=======
+"team": "Tunisia",
 "champion": 0.0,
-"final": 0.00015
+"final": 0.0
 },
 {
+"team": "Haiti",
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Saudi Arabia",
+"champion": 0.0,
+"final": 0.0001
+},
+{
+"team": "Iraq",
+"champion": 0.0,
+"final": 0.0
+},
+{
+<<<<<<< HEAD
 "team": "Cape Verde",
 "champion": 0.0,
 "final": 0.0001
@@ -201,15 +413,33 @@
 },
 {
 "team": "Haiti",
+=======
+"team": "Ghana",
+"champion": 0.0,
+"final": 0.0002
+},
+{
+"team": "Panama",
 "champion": 0.0,
 "final": 0.0
 },
 {
+"team": "Jordan",
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
+"champion": 0.0,
+"final": 0.0
+},
+{
+<<<<<<< HEAD
 "team": "Czech Republic",
+=======
+"team": "Cape Verde",
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 "champion": 0.0,
-"final": 0.0
+"final": 0.00015
 },
 {
+<<<<<<< HEAD
 "team": "Panama",
 "champion": 0.0,
 "final": 0.0
@@ -237,6 +467,10 @@
 {
 "team": "Jordan",
 "champion": 0.0,
+=======
+"team": "Curaçao",
+"champion": 0.0,
+>>>>>>> bd12730 (32강 브래킷: 공식 Annex C 3위 배정표로 와일드카드 슬롯 채움)
 "final": 0.0
 }
 ]

@@ -1,86 +1,87 @@
 [
 {
 "team": "Argentina",
+<<<<<<< HEAD
 "champion": 0.26645,
 "final": 0.41045
+=======
+"champion": 0.27035,
+"final": 0.415
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 },
 {
 "team": "Spain",
-"champion": 0.18625,
-"final": 0.3127
+"champion": 0.1873,
+"final": 0.3145
 },
 {
 "team": "France",
-"champion": 0.13725,
-"final": 0.25035
-},
-{
-"team": "Colombia",
-"champion": 0.0629,
-"final": 0.1297
+"champion": 0.1347,
+"final": 0.2476
 },
 {
 "team": "England",
-"champion": 0.05435,
-"final": 0.1131
+"champion": 0.05915,
+"final": 0.1178
+},
+{
+"team": "Colombia",
+"champion": 0.05825,
+"final": 0.12475
 },
 {
 "team": "Brazil",
-"champion": 0.05325,
-"final": 0.1089
+"champion": 0.0513,
+"final": 0.10275
 },
 {
 "team": "Netherlands",
-"champion": 0.03855,
-"final": 0.09775
+"champion": 0.04215,
+"final": 0.0999
 },
 {
 "team": "Portugal",
-"champion": 0.0368,
-"final": 0.08905
+"champion": 0.0359,
+"final": 0.09055
 },
 {
 "team": "Morocco",
-"champion": 0.02865,
-"final": 0.07285
-},
-{
-"team": "Germany",
-"champion": 0.02225,
-"final": 0.06015
+"champion": 0.0264,
+"final": 0.0706
 },
 {
 "team": "Norway",
+"champion": 0.0218,
+"final": 0.0581
+},
+{
+"team": "Germany",
 "champion": 0.02,
-"final": 0.05355
+"final": 0.0586
 },
 {
 "team": "Mexico",
-"champion": 0.01705,
-"final": 0.0446
-},
-{
-"team": "Switzerland",
-"champion": 0.0124,
-"final": 0.03375
-},
-{
-"team": "Ecuador",
-"champion": 0.01095,
-"final": 0.03235
+"champion": 0.0191,
+"final": 0.04565
 },
 {
 "team": "Japan",
-"champion": 0.01015,
-"final": 0.02605
+"champion": 0.0112,
+"final": 0.02865
 },
 {
-"team": "Belgium",
-"champion": 0.0065,
-"final": 0.01965
+"team": "Switzerland",
+"champion": 0.0109,
+"final": 0.0323
+},
+{
+"team": "Ecuador",
+"champion": 0.0108,
+"final": 0.02845
 },
 {
 "team": "Croatia",
+<<<<<<< HEAD
 "champion": 0.0063,
 "final": 0.02195
 },
@@ -143,10 +144,75 @@
 "team": "Senegal",
 "champion": 0.0005,
 "final": 0.0029
+=======
+"champion": 0.0075,
+"final": 0.023
+},
+{
+"team": "Belgium",
+"champion": 0.0062,
+"final": 0.0189
+},
+{
+"team": "United States",
+"champion": 0.0056,
+"final": 0.0244
+},
+{
+"team": "Paraguay",
+"champion": 0.00295,
+"final": 0.0135
+},
+{
+"team": "Australia",
+"champion": 0.0028,
+"final": 0.01085
+},
+{
+"team": "Austria",
+"champion": 0.00245,
+"final": 0.0104
+},
+{
+"team": "Canada",
+"champion": 0.00235,
+"final": 0.012
+},
+{
+"team": "Egypt",
+"champion": 0.00235,
+"final": 0.0101
+},
+{
+"team": "Uruguay",
+"champion": 0.0021,
+"final": 0.00795
+},
+{
+"team": "Iran",
+"champion": 0.0019,
+"final": 0.0081
+},
+{
+"team": "Algeria",
+"champion": 0.0015,
+"final": 0.0076
+},
+{
+"team": "South Korea",
+"champion": 0.001,
+"final": 0.0063
+},
+{
+"team": "Ivory Coast",
+"champion": 0.00095,
+"final": 0.00425
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 },
 {
 "team": "Sweden",
 "champion": 0.0004,
+<<<<<<< HEAD
 "final": 0.0027
 },
 {
@@ -168,10 +234,64 @@
 "team": "South Africa",
 "champion": 5e-05,
 "final": 0.00095
+=======
+"final": 0.003
+},
+{
+"team": "Senegal",
+"champion": 0.0002,
+"final": 0.0018
+},
+{
+"team": "South Africa",
+"champion": 0.00015,
+"final": 0.00075
+},
+{
+"team": "DR Congo",
+"champion": 0.00015,
+"final": 0.00055
+},
+{
+"team": "Bosnia and Herzegovina",
+"champion": 5e-05,
+"final": 0.0006
+},
+{
+"team": "Ghana",
+"champion": 5e-05,
+"final": 0.00035
+},
+{
+"team": "Saudi Arabia",
+"champion": 5e-05,
+"final": 5e-05
+},
+{
+"team": "New Zealand",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Turkey",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Iraq",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Panama",
+"champion": 0.0,
+"final": 0.0
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 },
 {
 "team": "Uzbekistan",
 "champion": 0.0,
+<<<<<<< HEAD
 "final": 5e-05
 },
 {
@@ -206,6 +326,12 @@
 },
 {
 "team": "Iraq",
+=======
+"final": 0.0
+},
+{
+"team": "Tunisia",
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 "champion": 0.0,
 "final": 0.0
 },
@@ -216,6 +342,7 @@
 },
 {
 "team": "Haiti",
+<<<<<<< HEAD
 "champion": 0.0,
 "final": 0.0
 },
@@ -226,17 +353,44 @@
 },
 {
 "team": "Panama",
+=======
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 "champion": 0.0,
 "final": 0.0
 },
 {
+<<<<<<< HEAD
 "team": "Turkey",
+=======
+"team": "Jordan",
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 "champion": 0.0,
 "final": 0.0
 },
 {
+<<<<<<< HEAD
 "team": "Jordan",
 "champion": 0.0,
 "final": 0.0
+=======
+"team": "Czech Republic",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Qatar",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Curaçao",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Cape Verde",
+"champion": 0.0,
+"final": 5e-05
+>>>>>>> 7cd3454 (조 순위: 녹아웃 경기 누수 차단(조 내 경기만 집계·승자승))
 }
 ]

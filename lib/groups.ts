@@ -143,12 +143,16 @@ export function computeStandings(played: LiveMatch[]): GroupStanding[] {
   const table = new Map<string, StandRow>();
   groups.forEach((g) => g.forEach((t) => table.set(t, blank(t))));
 
-  for (const m of played) {
-    if (m.status !== "FINAL" || !m.homeEn || !m.awayEn) continue;
+  // 조 내 경기만(녹아웃 등 조 밖 경기 제외) — 순위·승자승 타이브레이크 양쪽에 사용.
+  const groupPlayed = played.filter((m) => {
+    if (m.status !== "FINAL" || !m.homeEn || !m.awayEn) return false;
     const gi = teamGroup.get(m.homeEn);
-    if (gi == null || teamGroup.get(m.awayEn) !== gi) continue;
-    const h = table.get(m.homeEn)!,
-      a = table.get(m.awayEn)!;
+    return gi != null && teamGroup.get(m.awayEn) === gi;
+  });
+
+  for (const m of groupPlayed) {
+    const h = table.get(m.homeEn!)!,
+      a = table.get(m.awayEn!)!;
     h.pld++; a.pld++;
     h.gf += m.homeScore; h.ga += m.awayScore;
     a.gf += m.awayScore; a.ga += m.homeScore;
@@ -159,7 +163,7 @@ export function computeStandings(played: LiveMatch[]): GroupStanding[] {
   table.forEach((r) => (r.gd = r.gf - r.ga));
 
   return groups.map((g, i) => {
-    const rows = orderByRules(g.map((t) => table.get(t)!), played);
+    const rows = orderByRules(g.map((t) => table.get(t)!), groupPlayed);
     return { label: `그룹 ${groupLetter(i)}`, rows };
   });
 }

@@ -24,6 +24,19 @@ for (const m of matchesData as any[]) {
     pAway: m.pAway,
   });
 }
+// 조별리그 72경기의 팀쌍 집합 → 이 안에 없는 WC 경기 = 녹아웃.
+const groupPairs = new Set<string>();
+for (const m of matchesData as any[]) {
+  groupPairs.add([m.home, m.away].sort().join("|"));
+}
+function isKnockout(m: any): boolean {
+  return (
+    !!m.homeEn &&
+    !!m.awayEn &&
+    !groupPairs.has([m.homeEn, m.awayEn].sort().join("|"))
+  );
+}
+
 function lookupPred(homeEn: string | null, awayEn: string | null) {
   if (!homeEn || !awayEn) return null;
   const direct = predMap.get(`${homeEn}|${awayEn}`);
@@ -128,6 +141,27 @@ export async function GET() {
         }
       : null;
 
+  // 녹아웃 진출팀 추론: 결정승부면 승자, 무승부(연장·승부차기)면 '다음 녹아웃
+  // 라운드에 등장하는 팀'으로 추론(named가 승부차기 결과를 안 주므로). 추론 불가
+  // (최신 라운드 등 다음 경기 미존재) 시 null → "승부차기 진행/미정"으로 표기.
+  const koGames = [...allPlayed, ...windowMatches].filter(isKnockout);
+  const advancerOf = (m: any): string | null => {
+    if (!isKnockout(m) || m.status !== "FINAL") return null;
+    if (m.homeScore > m.awayScore) return m.homeEn;
+    if (m.awayScore > m.homeScore) return m.awayEn;
+    const laterHas = (team: string | null) =>
+      !!team &&
+      koGames.some(
+        (g) =>
+          g.id !== m.id &&
+          g.startDatetime > m.startDatetime &&
+          (g.homeEn === team || g.awayEn === team),
+      );
+    const h = laterHas(m.homeEn),
+      a = laterHas(m.awayEn);
+    return h && !a ? m.homeEn : a && !h ? m.awayEn : null;
+  };
+
   const enrich = (m: any) => {
     let inplay = null;
     const rc = reds.get(m.id) ?? { home: 0, away: 0, lastCard: null };
@@ -157,6 +191,10 @@ export async function GET() {
       homeForm: formOf(m.homeEn), // 이번 대회 폼
       awayForm: formOf(m.awayEn),
       oddsOpen: openOdds(m.homeEn, m.awayEn), // 개장 배당(변동 표시용)
+      isKO: isKnockout(m), // 녹아웃 경기 여부
+      advanced: advancerOf(m), // 녹아웃 진출팀(추론). 미정이면 null
+      koLevel:
+        isKnockout(m) && m.status === "FINAL" && m.homeScore === m.awayScore, // 연장·승부차기行
     };
   };
 

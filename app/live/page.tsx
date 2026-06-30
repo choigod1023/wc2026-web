@@ -37,6 +37,9 @@ type Match = {
   homeForm: { results: ("W" | "D" | "L")[]; gd: number } | null;
   awayForm: { results: ("W" | "D" | "L")[]; gd: number } | null;
   oddsOpen: Odds | null;
+  isKO: boolean;
+  advanced: string | null; // 녹아웃 진출팀(En), 미정이면 null
+  koLevel: boolean; // 녹아웃 무승부(연장·승부차기)
 };
 
 const FORM_KO: Record<"W" | "D" | "L", string> = { W: "승", D: "무", L: "패" };
@@ -173,6 +176,20 @@ function MatchCard({ m }: { m: Match }) {
         </span>
         <span className="lm-team">{ko(m.awayEn ?? m.awayKo)}</span>
       </div>
+
+      {/* 녹아웃: 진출팀 표시 (named가 승부차기 결과를 안 주므로 다음 라운드로 추론) */}
+      {m.isKO && m.status === "FINAL" && (
+        <div className="lm-ko">
+          {m.koLevel && <span className="lm-ko-tag">연장·승부차기</span>}
+          {m.advanced ? (
+            <span className="lm-ko-adv">
+              <b>{ko(m.advanced)}</b> 진출
+            </span>
+          ) : m.koLevel ? (
+            <span className="lm-ko-adv muted2">승부차기 — 진출팀 확정 대기</span>
+          ) : null}
+        </div>
+      )}
 
       {(m.homeForm || m.awayForm) && (
         <div className="lm-form">

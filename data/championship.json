@@ -125,106 +125,6 @@
 "final": 0.00045
 },
 {
-"team": "Czech Republic",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Iraq",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Panama",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Ecuador",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Japan",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Tunisia",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Ivory Coast",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Qatar",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Uzbekistan",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Jordan",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Scotland",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Cape Verde",
-"champion": 0.0,
-"final": 0.00015
-},
-{
-"team": "Saudi Arabia",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Iran",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Turkey",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Haiti",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Sweden",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Curaçao",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "New Zealand",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "South Africa",
-"champion": 0.0,
-"final": 0.0
-},
-{
 "team": "Uruguay",
 "champion": 0.0,
 "final": 0.0
@@ -235,8 +135,108 @@
 "final": 0.0
 },
 {
+"team": "Japan",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Iran",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Tunisia",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Ecuador",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Jordan",
+"champion": 0.0,
+"final": 0.0
+},
+{
 "team": "Ghana",
 "champion": 0.0,
 "final": 0.0001
+},
+{
+"team": "Panama",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Curaçao",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Sweden",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Qatar",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Cape Verde",
+"champion": 0.0,
+"final": 0.00015
+},
+{
+"team": "Uzbekistan",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Saudi Arabia",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Turkey",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "New Zealand",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Haiti",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Ivory Coast",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Scotland",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Iraq",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Czech Republic",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "South Africa",
+"champion": 0.0,
+"final": 0.0
 }
 ]

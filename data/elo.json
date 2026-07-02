@@ -17,7 +17,7 @@
 },
 {
 "team": "England",
-"elo": 2100.4
+"elo": 2110.2
 },
 {
 "team": "Colombia",
@@ -40,6 +40,10 @@
 "elo": 2020.6
 },
 {
+"team": "Belgium",
+"elo": 1994.4
+},
+{
 "team": "Norway",
 "elo": 1988.8
 },
@@ -50,10 +54,6 @@
 {
 "team": "Switzerland",
 "elo": 1984.0
-},
-{
-"team": "Belgium",
-"elo": 1970.3
 },
 {
 "team": "Japan",
@@ -96,12 +96,12 @@
 "elo": 1904.5
 },
 {
-"team": "Senegal",
-"elo": 1901.1
-},
-{
 "team": "Algeria",
 "elo": 1887.6
+},
+{
+"team": "United States",
+"elo": 1887.1
 },
 {
 "team": "Iran",
@@ -112,8 +112,8 @@
 "elo": 1879.8
 },
 {
-"team": "United States",
-"elo": 1872.6
+"team": "Senegal",
+"elo": 1877.0
 },
 {
 "team": "Yugoslavia",
@@ -148,12 +148,12 @@
 "elo": 1817.4
 },
 {
-"team": "DR Congo",
-"elo": 1816.2
+"team": "Scotland",
+"elo": 1809.1
 },
 {
-"team": "Scotland",
-"elo": 1809.2
+"team": "DR Congo",
+"elo": 1806.4
 },
 {
 "team": "Jersey",

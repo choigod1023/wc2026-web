@@ -5,7 +5,7 @@
 },
 {
 "team": "Spain",
-"elo": 2197.6
+"elo": 2214.0
 },
 {
 "team": "France",
@@ -24,12 +24,12 @@
 "elo": 2081.2
 },
 {
-"team": "Netherlands",
-"elo": 2042.3
+"team": "Portugal",
+"elo": 2063.5
 },
 {
-"team": "Portugal",
-"elo": 2040.2
+"team": "Netherlands",
+"elo": 2042.3
 },
 {
 "team": "Mexico",
@@ -38,6 +38,10 @@
 {
 "team": "Morocco",
 "elo": 2020.6
+},
+{
+"team": "Switzerland",
+"elo": 2016.8
 },
 {
 "team": "Belgium",
@@ -52,20 +56,16 @@
 "elo": 1986.9
 },
 {
-"team": "Switzerland",
-"elo": 1984.0
-},
-{
 "team": "Japan",
 "elo": 1968.5
 },
 {
-"team": "Croatia",
-"elo": 1961.0
-},
-{
 "team": "Ecuador",
 "elo": 1958.1
+},
+{
+"team": "Croatia",
+"elo": 1937.8
 },
 {
 "team": "Uruguay",
@@ -93,11 +93,7 @@
 },
 {
 "team": "Austria",
-"elo": 1904.5
-},
-{
-"team": "Algeria",
-"elo": 1887.6
+"elo": 1888.1
 },
 {
 "team": "United States",
@@ -126,6 +122,10 @@
 {
 "team": "Egypt",
 "elo": 1857.5
+},
+{
+"team": "Algeria",
+"elo": 1854.8
 },
 {
 "team": "Ukraine",

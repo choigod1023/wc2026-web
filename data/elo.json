@@ -1,7 +1,7 @@
 [
 {
 "team": "Argentina",
-"elo": 2220.1
+"elo": 2222.9
 },
 {
 "team": "Spain",
@@ -21,7 +21,7 @@
 },
 {
 "team": "Colombia",
-"elo": 2081.2
+"elo": 2086.7
 },
 {
 "team": "Portugal",
@@ -84,12 +84,12 @@
 "elo": 1912.9
 },
 {
-"team": "Australia",
-"elo": 1906.9
-},
-{
 "team": "Paraguay",
 "elo": 1905.1
+},
+{
+"team": "Australia",
+"elo": 1902.6
 },
 {
 "team": "Austria",
@@ -121,7 +121,7 @@
 },
 {
 "team": "Egypt",
-"elo": 1857.5
+"elo": 1861.8
 },
 {
 "team": "Algeria",

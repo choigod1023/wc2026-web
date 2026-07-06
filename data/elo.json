@@ -12,12 +12,8 @@
 "elo": 2199.2
 },
 {
-"team": "Brazil",
-"elo": 2110.3
-},
-{
 "team": "England",
-"elo": 2110.2
+"elo": 2142.6
 },
 {
 "team": "Colombia",
@@ -32,24 +28,28 @@
 "elo": 2051.2
 },
 {
-"team": "Netherlands",
-"elo": 2042.3
+"team": "Brazil",
+"elo": 2050.2
 },
 {
-"team": "Mexico",
-"elo": 2037.9
+"team": "Norway",
+"elo": 2048.9
+},
+{
+"team": "Netherlands",
+"elo": 2042.3
 },
 {
 "team": "Switzerland",
 "elo": 2016.8
 },
 {
-"team": "Belgium",
-"elo": 1994.4
+"team": "Mexico",
+"elo": 2005.5
 },
 {
-"team": "Norway",
-"elo": 1988.8
+"team": "Belgium",
+"elo": 1994.4
 },
 {
 "team": "Germany",

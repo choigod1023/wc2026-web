@@ -20,6 +20,10 @@
 "elo": 2086.7
 },
 {
+"team": "Brazil",
+"elo": 2070.2
+},
+{
 "team": "Portugal",
 "elo": 2063.5
 },
@@ -28,16 +32,12 @@
 "elo": 2051.2
 },
 {
-"team": "Brazil",
-"elo": 2050.2
+"team": "Netherlands",
+"elo": 2042.3
 },
 {
 "team": "Norway",
-"elo": 2048.9
-},
-{
-"team": "Netherlands",
-"elo": 2042.3
+"elo": 2028.9
 },
 {
 "team": "Switzerland",

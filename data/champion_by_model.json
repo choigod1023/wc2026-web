@@ -182,19 +182,19 @@
         "p": 0.0022
       },
       {
-        "team": "Iran",
-        "p": 0.0018
-      },
-      {
         "team": "Turkey",
         "p": 0.0018
       },
       {
-        "team": "Canada",
-        "p": 0.0013
+        "team": "Iran",
+        "p": 0.0018
       },
       {
         "team": "Austria",
+        "p": 0.0013
+      },
+      {
+        "team": "Canada",
         "p": 0.0013
       },
       {
@@ -284,11 +284,11 @@
         "p": 0.0023
       },
       {
-        "team": "Iran",
+        "team": "Turkey",
         "p": 0.0017
       },
       {
-        "team": "Turkey",
+        "team": "Iran",
         "p": 0.0017
       },
       {

@@ -1,7 +1,7 @@
 [
 {
 "team": "Spain",
-"elo": 2231.8
+"elo": 2247.1
 },
 {
 "team": "Argentina",
@@ -24,16 +24,16 @@
 "elo": 2070.2
 },
 {
-"team": "Belgium",
-"elo": 2045.8
-},
-{
 "team": "Portugal",
 "elo": 2045.7
 },
 {
 "team": "Netherlands",
 "elo": 2042.3
+},
+{
+"team": "Belgium",
+"elo": 2030.5
 },
 {
 "team": "Norway",

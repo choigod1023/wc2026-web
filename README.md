@@ -47,3 +47,17 @@ Vercel에 연결되어 `main` 브랜치 푸시 시 자동 배포된다.
 
 ---
 모델·수식 상세: [wc2026-predictor / docs/MATH.md](https://github.com/choigod1023/wc2026-predictor/blob/main/docs/MATH.md)
+
+---
+
+## 👤 기여도 & 개발 환경
+
+| 항목 | 내용 |
+|---|---|
+| **기여 비율** | **100%** (단독 개발) |
+| **커밋** | 43 / 43 (본인 / 전체 사람 커밋) |
+| **참여 인원** | 1명 |
+| **AI 코딩 도구** | Claude Code |
+| **자동화 커밋** | 155건 (본인이 구성한 GitHub Actions 자동 수집/갱신 — 집계 제외) |
+
+<sub>기여 비율은 커밋 author 이메일 기준 집계이며 봇·자동화 커밋은 제외했습니다.</sub>

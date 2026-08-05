@@ -9,6 +9,7 @@ type Group = { label: string; items: Item[] };
 
 const DIRECT: Item[] = [
   { href: "/", label: "대시보드" },
+  { href: "/report", label: "성적표" },
   { href: "/live", label: "라이브" },
 ];
 const GROUPS: Group[] = [

@@ -57,9 +57,9 @@ Model and formula details: [wc2026-predictor / docs/MATH.md](https://github.com/
 | Item | Detail |
 |---|---|
 | **Contribution share** | **100%** (solo development) |
-| **Commits** | 43 / 43 (mine / all human commits) |
+| **Commits** | 46 / 46 (mine / all human commits) |
 | **Contributors** | 1 |
 | **AI coding tool** | Claude Code |
-| **Automated commits** | 155 (GitHub Actions collection/refresh that I configured — excluded from the count) |
+| **Automated commits** | 231 (GitHub Actions collection/refresh that I configured — excluded from the count) |
 
-<sub>Contribution share is counted by commit author email; bot and automation commits are excluded.</sub>
+<sub>Counting basis: commits reachable from **every branch** on origin (merge commits and empty commits excluded), counted by commit author email with one person’s multiple addresses merged; bot and automation commits are excluded.</sub>

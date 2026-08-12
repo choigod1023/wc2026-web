@@ -1,5 +1,7 @@
 # WC2026 Web — 월드컵 예측 대시보드
 
+**한국어** · [日本語](README.ja.md) · [English](README.en.md)
+
 [wc2026-predictor](https://github.com/choigod1023/wc2026-predictor) 모델의 예측 결과를
 누구나 볼 수 있게 보여주는 웹 플랫폼. **모델 vs 베팅 시장** 정확도 검증 프로젝트의 공개 대시보드다.
 

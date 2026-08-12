@@ -62,4 +62,4 @@ Model and formula details: [wc2026-predictor / docs/MATH.md](https://github.com/
 | **AI coding tool** | Claude Code |
 | **Automated commits** | 231 (GitHub Actions collection/refresh that I configured — excluded from the count) |
 
-<sub>Counting basis: commits reachable from **every branch** on origin (merge commits and empty commits excluded), counted by commit author email with one person’s multiple addresses merged; bot and automation commits are excluded.</sub>
+<sub>Counting basis (snapshot as of 2026-08-12): commits reachable from **every branch** on origin (merge commits and empty commits excluded), counted by commit author email with one person’s multiple addresses merged; bot and automation commits are excluded.</sub>

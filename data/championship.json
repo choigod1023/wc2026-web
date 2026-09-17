@@ -15,52 +15,12 @@
 "final": 0.0585
 },
 {
-"team": "Brazil",
+"team": "New Zealand",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Algeria",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Uruguay",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Portugal",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Canada",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Panama",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "United States",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Norway",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Ghana",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Turkey",
+"team": "Mexico",
 "champion": 0.0,
 "final": 0.0
 },
@@ -70,27 +30,22 @@
 "final": 0.0
 },
 {
-"team": "Belgium",
+"team": "Panama",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Egypt",
+"team": "Czech Republic",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Japan",
+"team": "Portugal",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Australia",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Jordan",
+"team": "Switzerland",
 "champion": 0.0,
 "final": 0.0
 },
@@ -100,19 +55,89 @@
 "final": 0.0
 },
 {
-"team": "Netherlands",
+"team": "United States",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Germany",
+"team": "Ivory Coast",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Saudi Arabia",
+"team": "Sweden",
 "champion": 0.0,
 "final": 0.0
+},
+{
+"team": "Bosnia and Herzegovina",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Cape Verde",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Croatia",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Jordan",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Turkey",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Egypt",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Australia",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Qatar",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Norway",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "France",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Uruguay",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Ghana",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Morocco",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Argentina",
+"champion": 0.0,
+"final": 0.829
 },
 {
 "team": "South Korea",
@@ -125,62 +150,17 @@
 "final": 0.0
 },
 {
-"team": "France",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Argentina",
-"champion": 0.0,
-"final": 0.829
-},
-{
-"team": "Mexico",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Czech Republic",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Uzbekistan",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Tunisia",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Morocco",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Croatia",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Switzerland",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Qatar",
-"champion": 0.0,
-"final": 0.0
-},
-{
 "team": "Haiti",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Sweden",
+"team": "Japan",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Algeria",
 "champion": 0.0,
 "final": 0.0
 },
@@ -190,22 +170,17 @@
 "final": 0.0
 },
 {
-"team": "DR Congo",
+"team": "Germany",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Curaçao",
+"team": "Belgium",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Ivory Coast",
-"champion": 0.0,
-"final": 0.0
-},
-{
-"team": "Cape Verde",
+"team": "Tunisia",
 "champion": 0.0,
 "final": 0.0
 },
@@ -215,17 +190,37 @@
 "final": 0.0
 },
 {
+"team": "Uzbekistan",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Netherlands",
+"champion": 0.0,
+"final": 0.0
+},
+{
 "team": "Iraq",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "New Zealand",
+"team": "Curaçao",
 "champion": 0.0,
 "final": 0.0
 },
 {
-"team": "Bosnia and Herzegovina",
+"team": "DR Congo",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Canada",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Brazil",
 "champion": 0.0,
 "final": 0.0
 },
@@ -236,6 +231,11 @@
 },
 {
 "team": "Austria",
+"champion": 0.0,
+"final": 0.0
+},
+{
+"team": "Saudi Arabia",
 "champion": 0.0,
 "final": 0.0
 }

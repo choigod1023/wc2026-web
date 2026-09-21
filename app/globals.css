@@ -1884,3 +1884,307 @@ th.num {
     grid-template-columns: 1fr;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   성적표 (/report) — 104경기 예측 채점
+   ══════════════════════════════════════════════════════════ */
+.rp-eyebrow {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+
+/* 적중 지도: 칸 하나 = 경기 하나 */
+.rp-blocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 26px;
+  align-items: flex-start;
+}
+.rp-cells {
+  display: grid;
+  gap: 3px;
+}
+.rp-cell {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+.rp-cell.ok {
+  background: rgba(47, 181, 116, 0.85);
+}
+.rp-cell.no {
+  background: rgba(248, 113, 113, 0.72);
+}
+.rp-block-foot {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 9px;
+  font-size: 12px;
+}
+.rp-block-name {
+  color: var(--muted);
+}
+.rp-block-score {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.rp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+.rp-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.rp-legend i.rp-cell {
+  width: 11px;
+  height: 11px;
+}
+.rp-legend-note {
+  margin-left: auto;
+}
+
+.rp-total td {
+  border-top: 1px solid var(--border);
+  font-weight: 700;
+}
+
+/* 모델 vs 시장 */
+.rp-versus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+.rp-vs-side {
+  flex: 1;
+}
+.rp-vs-side .label {
+  color: var(--muted);
+  font-size: 13px;
+}
+.rp-vs-side .value {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.rp-vs-side .sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+.rp-vs-side.win .value {
+  color: var(--accent-2);
+}
+.rp-vs-mid {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* 우승 카드 */
+.rp-champ {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.rp-champ-label {
+  color: var(--muted);
+  font-size: 13px;
+}
+.rp-champ-team {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rp-champ-team strong {
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+.rp-champ-nums {
+  display: flex;
+  gap: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.rp-champ-nums i {
+  font-style: normal;
+  color: var(--muted);
+  margin-right: 6px;
+}
+.rp-teamlist {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* 필터 */
+.rp-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.rp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rp-chip {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1.2;
+}
+.rp-chip:hover {
+  color: var(--text);
+}
+.rp-chip.on {
+  background: rgba(47, 181, 116, 0.13);
+  border-color: rgba(47, 181, 116, 0.4);
+  color: var(--text);
+}
+.rp-chip:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+.rp-count {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* 경기 목록 */
+.rp-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 8px 18px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+}
+.rp-row:last-child {
+  border-bottom: none;
+}
+.rp-row.miss {
+  background: linear-gradient(90deg, rgba(248, 113, 113, 0.05), transparent 42%);
+}
+.rp-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.rp-when {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.rp-stage {
+  font-style: normal;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+}
+.rp-verdicts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rp-teams {
+  grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+.rp-teams span {
+  color: var(--muted);
+}
+.rp-teams .won {
+  color: var(--text);
+}
+.rp-score {
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.rp-pens {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--warn);
+}
+.rp-probs {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  align-self: center;
+}
+.rp-probs .probs {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.rp-probs .probs b {
+  color: var(--accent);
+}
+.rp-probs .probs i {
+  font-style: normal;
+  color: var(--muted);
+  margin-right: 3px;
+}
+.rp-calls {
+  grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13px;
+  color: #cdd5ee;
+}
+.rp-call i {
+  font-style: normal;
+  color: var(--muted);
+  margin-right: 5px;
+}
+.rp-call.dim {
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .rp-row {
+    grid-template-columns: 1fr;
+  }
+  .rp-probs {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .rp-versus {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rp-legend-note {
+    margin-left: 0;
+  }
+}

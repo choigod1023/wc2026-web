@@ -27,18 +27,27 @@
     "champion": 0.0083
   },
   {
-    "team": "Morocco",
+    "team": "Switzerland",
     "R32": 1.0,
     "R16": 1.0,
-    "QF": 1.0,
+    "QF": 0.4535,
     "SF": 0.0,
     "F": 0.0,
     "champion": 0.0
   },
   {
-    "team": "Ivory Coast",
+    "team": "Cape Verde",
     "R32": 1.0,
     "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Portugal",
+    "R32": 1.0,
+    "R16": 1.0,
     "QF": 0.0,
     "SF": 0.0,
     "F": 0.0,
@@ -54,16 +63,25 @@
     "champion": 0.0
   },
   {
-    "team": "Belgium",
+    "team": "Ecuador",
     "R32": 1.0,
-    "R16": 1.0,
-    "QF": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
     "SF": 0.0,
     "F": 0.0,
     "champion": 0.0
   },
   {
-    "team": "Uruguay",
+    "team": "Austria",
+    "R32": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Jordan",
     "R32": 0.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -72,52 +90,7 @@
     "champion": 0.0
   },
   {
-    "team": "France",
-    "R32": 1.0,
-    "R16": 1.0,
-    "QF": 1.0,
-    "SF": 1.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Cape Verde",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Ghana",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Norway",
-    "R32": 1.0,
-    "R16": 1.0,
-    "QF": 1.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Bosnia and Herzegovina",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Uzbekistan",
+    "team": "Panama",
     "R32": 0.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -126,9 +99,9 @@
     "champion": 0.0
   },
   {
-    "team": "Australia",
+    "team": "Mexico",
     "R32": 1.0,
-    "R16": 0.0,
+    "R16": 1.0,
     "QF": 0.0,
     "SF": 0.0,
     "F": 0.0,
@@ -144,25 +117,16 @@
     "champion": 0.0
   },
   {
-    "team": "Netherlands",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Paraguay",
+    "team": "Morocco",
     "R32": 1.0,
     "R16": 1.0,
-    "QF": 0.0,
+    "QF": 1.0,
     "SF": 0.0,
     "F": 0.0,
     "champion": 0.0
   },
   {
-    "team": "Turkey",
+    "team": "New Zealand",
     "R32": 0.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -180,25 +144,7 @@
     "champion": 0.0
   },
   {
-    "team": "New Zealand",
-    "R32": 0.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Brazil",
-    "R32": 1.0,
-    "R16": 1.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "South Africa",
+    "team": "Senegal",
     "R32": 1.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -207,7 +153,7 @@
     "champion": 0.0
   },
   {
-    "team": "Czech Republic",
+    "team": "Uruguay",
     "R32": 0.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -216,8 +162,8 @@
     "champion": 0.0
   },
   {
-    "team": "Iran",
-    "R32": 0.0,
+    "team": "Australia",
+    "R32": 1.0,
     "R16": 0.0,
     "QF": 0.0,
     "SF": 0.0,
@@ -225,16 +171,7 @@
     "champion": 0.0
   },
   {
-    "team": "Tunisia",
-    "R32": 0.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Algeria",
+    "team": "Netherlands",
     "R32": 1.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -252,63 +189,9 @@
     "champion": 0.0
   },
   {
-    "team": "Croatia",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
     "team": "United States",
     "R32": 1.0,
     "R16": 1.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Jordan",
-    "R32": 0.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Canada",
-    "R32": 1.0,
-    "R16": 1.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Portugal",
-    "R32": 1.0,
-    "R16": 1.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Austria",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Panama",
-    "R32": 0.0,
-    "R16": 0.0,
     "QF": 0.0,
     "SF": 0.0,
     "F": 0.0,
@@ -324,20 +207,11 @@
     "champion": 0.0
   },
   {
-    "team": "Switzerland",
+    "team": "France",
     "R32": 1.0,
     "R16": 1.0,
-    "QF": 0.4535,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Haiti",
-    "R32": 0.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
+    "QF": 1.0,
+    "SF": 1.0,
     "F": 0.0,
     "champion": 0.0
   },
@@ -351,16 +225,7 @@
     "champion": 0.0
   },
   {
-    "team": "Mexico",
-    "R32": 1.0,
-    "R16": 1.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Saudi Arabia",
+    "team": "Uzbekistan",
     "R32": 0.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -369,9 +234,99 @@
     "champion": 0.0
   },
   {
-    "team": "Senegal",
+    "team": "Bosnia and Herzegovina",
     "R32": 1.0,
     "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Czech Republic",
+    "R32": 0.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "South Korea",
+    "R32": 0.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Ghana",
+    "R32": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Ivory Coast",
+    "R32": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Tunisia",
+    "R32": 0.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Sweden",
+    "R32": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Paraguay",
+    "R32": 1.0,
+    "R16": 1.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Iran",
+    "R32": 0.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Turkey",
+    "R32": 0.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Egypt",
+    "R32": 1.0,
+    "R16": 1.0,
     "QF": 0.0,
     "SF": 0.0,
     "F": 0.0,
@@ -396,16 +351,7 @@
     "champion": 0.0
   },
   {
-    "team": "Sweden",
-    "R32": 1.0,
-    "R16": 0.0,
-    "QF": 0.0,
-    "SF": 0.0,
-    "F": 0.0,
-    "champion": 0.0
-  },
-  {
-    "team": "Egypt",
+    "team": "Canada",
     "R32": 1.0,
     "R16": 1.0,
     "QF": 0.0,
@@ -414,7 +360,7 @@
     "champion": 0.0
   },
   {
-    "team": "South Korea",
+    "team": "Saudi Arabia",
     "R32": 0.0,
     "R16": 0.0,
     "QF": 0.0,
@@ -423,10 +369,64 @@
     "champion": 0.0
   },
   {
-    "team": "Ecuador",
+    "team": "South Africa",
     "R32": 1.0,
     "R16": 0.0,
     "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Algeria",
+    "R32": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Brazil",
+    "R32": 1.0,
+    "R16": 1.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Haiti",
+    "R32": 0.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Croatia",
+    "R32": 1.0,
+    "R16": 0.0,
+    "QF": 0.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Belgium",
+    "R32": 1.0,
+    "R16": 1.0,
+    "QF": 1.0,
+    "SF": 0.0,
+    "F": 0.0,
+    "champion": 0.0
+  },
+  {
+    "team": "Norway",
+    "R32": 1.0,
+    "R16": 1.0,
+    "QF": 1.0,
     "SF": 0.0,
     "F": 0.0,
     "champion": 0.0

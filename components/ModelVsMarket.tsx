@@ -100,7 +100,7 @@ export default function ModelVsMarket() {
 
       <p className="note" style={{ marginTop: 16 }}>
         모델 우승 확률 vs 시장 내재 확률(북메이커·예측시장 평균). 막대 차이가 곧
-        모델과 시장의 견해차다 — 대회 종료 후 어느 쪽이 옳았는지 채점된다.
+        모델과 시장의 견해차다. 이 그래프는 경기별 Brier 채점과는 별개다.
         (시장 스냅샷 2026-06-10)
       </p>
     </div>

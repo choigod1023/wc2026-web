@@ -22,8 +22,9 @@ export default function Home() {
         </h1>
         <p>
           축구 데이터로 각 팀의 우승·스코어·승부 확률을 계산하고, 그 예측이 실제
-          베팅 시장(배당)보다 정확한지 대회 내내 검증하는 프로젝트입니다. 2026
-          월드컵 조별리그 72경기가 그 시험장이에요.
+          베팅 시장(배당)과 비교하는 프로젝트입니다. 2026 월드컵
+          조별리그 72경기가 그 시험장이에요. 저장된 배당의 관측 시각을 확인할 수 없어
+          경기별 채점은 탐색적 비교로 해석해야 합니다.
         </p>
         <Link href="/math" className="hero-cta">
           수학은 몰라도 괜찮아요 — 어떻게 예측하는지 보기 →
@@ -40,15 +41,15 @@ export default function Home() {
             </div>
           </div>
           <div className="kpi-card">
-            <div className="label">검증 경기 수</div>
+            <div className="label">조별리그 경기 수</div>
             <div className="value">
               72<small> 조별리그</small>
             </div>
           </div>
           <div className="kpi-card">
-            <div className="label">예측 적중률</div>
+            <div className="label">비교 지표</div>
             <div className="value">
-              약 60<small>% (승·무·패)</small>
+              Brier<small> 낮을수록 좋음</small>
             </div>
           </div>
           <div className="kpi-card">
@@ -102,7 +103,7 @@ export default function Home() {
       <section>
         <div className="section-head">
           <h2>팀 실력 점수 Top 12</h2>
-          <span className="sub">체스 랭킹식 점수(Elo) · 높을수록 강함 · 2026-06-08 기준</span>
+          <span className="sub">체스 랭킹식 점수(Elo) · 높을수록 강함 · 저장된 산출물 기준</span>
         </div>
         <div className="card">
           <table>

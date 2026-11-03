@@ -58,8 +58,8 @@ export default function MathPage() {
         </div>
         <div className="callout">
           그리고 가장 중요한 질문 하나 — <b>&ldquo;우리 예측이 베팅 시장(배당)보다
-          정확할까?&rdquo;</b> 대회가 끝나면 같은 경기에 대해 우리 확률과 시장 확률의
-          정확도를 채점해서 확인합니다. 이게 이 프로젝트의 진짜 목적이에요.
+          정확할까?&rdquo;</b> 같은 경기에 대해 우리 확률과 시장 확률을 비교합니다.
+          저장된 배당의 관측 시각이 없어, 이 결과는 탐색적 비교입니다.
         </div>
         <p className="note">
           참고: 실제 베팅을 위한 사이트가 아니라, 모델의 정확도를 검증·기록하는
@@ -115,34 +115,10 @@ export default function MathPage() {
       <Tex block>
         {String.raw`\text{Brier} = \frac{1}{N}\sum_{i=1}^{N}\sum_{c}\left(p_{i,c} - y_{i,c}\right)^2`}
       </Tex>
-      <div className="card" style={{ margin: "14px 0" }}>
-        <table>
-          <thead>
-            <tr>
-              <th>예측 방식</th>
-              <th className="num">Brier</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>그냥 ⅓씩 찍기</td>
-              <td className="num">0.6667</td>
-            </tr>
-            <tr>
-              <td>과거 평균 비율로 찍기</td>
-              <td className="num">0.6385</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>우리 모델</strong>
-              </td>
-              <td className="num">
-                <strong>0.5056</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <p className="note">
+        모델별 과거 데이터 검증 결과는 <a href="/models">모델 비교 페이지</a>를 참고하세요.
+        조별리그 경기별 배당 비교와는 평가 대상이 다릅니다.
+      </p>
 
       <h3>5. 시장(배당) 확률과 비교</h3>
       <p>소수 배당을 확률로 바꿀 때는 역수를 합으로 나눠 수수료(마진)를 제거합니다:</p>
@@ -151,7 +127,7 @@ export default function MathPage() {
       </Tex>
       <p className="note">
         <b>쉽게:</b> 같은 경기에서 <b>우리 확률 vs 시장 확률</b>의 Brier를 비교해, 누가
-        더 정확했는지 대회 후 채점합니다.
+        점수를 비교합니다. 관측 시각이 없는 배당은 마감 배당으로 확정할 수 없습니다.
       </p>
 
       <div className="callout" style={{ marginTop: 32 }}>

@@ -9,6 +9,15 @@ model publicly viewable — the public dashboard of a **model vs. betting market
 
 > ⚠️ Not intended for actual betting. Built for model-accuracy verification and learning.
 
+## Match scoring status (checked 2026-11-03)
+
+On predictor snapshot `9cd48f9`, all 72 matches have matching predictions, results and stored
+odds. Brier is **0.5336** for the model and **0.4863** for probabilities derived from the
+stored odds (lower is better). This is exploratory: odds observation times and whether each
+prediction preceded its match have not been verified. The championship-probability chart is a
+separate comparison. See the [predictor repository](https://github.com/choigod1023/wc2026-predictor)
+for the reproduction command and limitations.
+
 ## What it shows
 - 🏆 **Dashboard** — championship probabilities (Monte Carlo), model-vs-market disagreement chart, Elo Top 12, probabilities for all 72 matches
 - 🔴 **Live** (`/live`) — live scores, per-match 3-way odds, model-prediction overlay, live group standings (named.com API, ~5s polling)
@@ -24,8 +33,8 @@ Team-name mapping lives in `lib/teams.ts` (48 teams, EN↔KO); group reconstruct
 
 ## Tech stack
 - Next.js 15 (App Router) · React 19 · TypeScript
-- Static generation (SSG) — serverless, every page prerendered
-- Prediction data in `data/*.json` (a frozen kickoff-time snapshot converted from the model repo's CSVs)
+- Pages use static generation (SSG); the live-data API is handled by a server route
+- Prediction data in `data/*.json` (converted from model-repo CSVs; match predictions are frozen, while other outputs are refreshed)
 
 ## Local development
 ```bash

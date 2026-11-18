@@ -1,162 +1,162 @@
 [
 {
 "team": "Spain",
-"elo": 2340.7
-},
-{
-"team": "Argentina",
-"elo": 2248.4
+"elo": 2319.1
 },
 {
 "team": "England",
-"elo": 2206.3
+"elo": 2233.1
+},
+{
+"team": "Argentina",
+"elo": 2231.4
 },
 {
 "team": "France",
-"elo": 2160.8
-},
-{
-"team": "Portugal",
-"elo": 2093.2
-},
-{
-"team": "Brazil",
-"elo": 2081.8
+"elo": 2134.3
 },
 {
 "team": "Colombia",
-"elo": 2069.2
+"elo": 2067.0
 },
 {
-"team": "Netherlands",
-"elo": 2043.1
-},
-{
-"team": "Switzerland",
-"elo": 2036.4
+"team": "Brazil",
+"elo": 2063.7
 },
 {
 "team": "Belgium",
-"elo": 2034.5
+"elo": 2060.5
+},
+{
+"team": "Portugal",
+"elo": 2055.9
+},
+{
+"team": "Switzerland",
+"elo": 2036.6
+},
+{
+"team": "Netherlands",
+"elo": 2026.0
 },
 {
 "team": "Morocco",
-"elo": 2020.1
+"elo": 2023.1
 },
 {
 "team": "Germany",
-"elo": 1973.4
-},
-{
-"team": "Japan",
-"elo": 1970.3
+"elo": 2015.2
 },
 {
 "team": "Norway",
-"elo": 1969.8
+"elo": 1993.8
 },
 {
-"team": "Mexico",
-"elo": 1959.4
+"team": "Japan",
+"elo": 1972.1
 },
 {
 "team": "Italy",
-"elo": 1952.3
+"elo": 1966.9
 },
 {
 "team": "Uruguay",
-"elo": 1940.6
+"elo": 1960.3
 },
 {
 "team": "Ecuador",
-"elo": 1938.2
+"elo": 1945.8
 },
 {
-"team": "Croatia",
-"elo": 1921.2
+"team": "Mexico",
+"elo": 1940.3
 },
 {
 "team": "Paraguay",
-"elo": 1918.5
+"elo": 1939.0
 },
 {
 "team": "Denmark",
-"elo": 1908.1
+"elo": 1933.8
+},
+{
+"team": "Croatia",
+"elo": 1923.0
 },
 {
 "team": "Austria",
-"elo": 1901.4
-},
-{
-"team": "Australia",
-"elo": 1892.3
+"elo": 1898.7
 },
 {
 "team": "United States",
-"elo": 1881.1
+"elo": 1897.7
+},
+{
+"team": "Senegal",
+"elo": 1879.0
+},
+{
+"team": "Australia",
+"elo": 1877.9
 },
 {
 "team": "Yugoslavia",
 "elo": 1873.3
 },
 {
-"team": "Senegal",
-"elo": 1870.4
+"team": "Russia",
+"elo": 1871.5
 },
 {
 "team": "Iran",
-"elo": 1863.0
-},
-{
-"team": "Russia",
-"elo": 1852.9
-},
-{
-"team": "Turkey",
-"elo": 1849.5
-},
-{
-"team": "Algeria",
-"elo": 1846.7
+"elo": 1866.9
 },
 {
 "team": "Canada",
-"elo": 1843.9
+"elo": 1862.6
 },
 {
-"team": "South Korea",
-"elo": 1840.6
+"team": "Turkey",
+"elo": 1835.3
 },
 {
 "team": "Greece",
-"elo": 1836.5
+"elo": 1834.1
 },
 {
-"team": "Ivory Coast",
-"elo": 1835.2
-},
-{
-"team": "Egypt",
-"elo": 1828.6
+"team": "South Korea",
+"elo": 1833.5
 },
 {
 "team": "Sweden",
-"elo": 1826.1
+"elo": 1833.4
+},
+{
+"team": "Ivory Coast",
+"elo": 1831.5
+},
+{
+"team": "Egypt",
+"elo": 1818.9
 },
 {
 "team": "Nigeria",
-"elo": 1824.0
-},
-{
-"team": "Venezuela",
-"elo": 1817.8
+"elo": 1811.5
 },
 {
 "team": "Chile",
-"elo": 1807.4
+"elo": 1809.6
 },
 {
 "team": "Jersey",
 "elo": 1805.3
+},
+{
+"team": "Basque Country",
+"elo": 1805.0
+},
+{
+"team": "Czechoslovakia",
+"elo": 1804.8
 }
 ]

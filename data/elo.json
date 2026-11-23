@@ -1,39 +1,39 @@
 [
 {
 "team": "Spain",
-"elo": 2318.9
+"elo": 2319.3
 },
 {
 "team": "England",
-"elo": 2232.8
+"elo": 2232.9
 },
 {
 "team": "Argentina",
-"elo": 2231.2
+"elo": 2231.8
 },
 {
 "team": "France",
-"elo": 2134.1
+"elo": 2134.2
 },
 {
 "team": "Colombia",
-"elo": 2066.8
+"elo": 2067.1
 },
 {
 "team": "Brazil",
-"elo": 2063.5
+"elo": 2063.7
 },
 {
 "team": "Belgium",
-"elo": 2060.3
+"elo": 2060.5
 },
 {
 "team": "Portugal",
-"elo": 2055.6
+"elo": 2055.9
 },
 {
 "team": "Switzerland",
-"elo": 2036.4
+"elo": 2036.1
 },
 {
 "team": "Netherlands",
@@ -41,19 +41,19 @@
 },
 {
 "team": "Morocco",
-"elo": 2022.9
+"elo": 2023.2
 },
 {
 "team": "Germany",
-"elo": 2015.0
+"elo": 2015.1
 },
 {
 "team": "Norway",
-"elo": 1993.5
+"elo": 1993.7
 },
 {
 "team": "Japan",
-"elo": 1971.9
+"elo": 1972.1
 },
 {
 "team": "Italy",
@@ -61,59 +61,59 @@
 },
 {
 "team": "Uruguay",
-"elo": 1960.2
+"elo": 1961.8
 },
 {
 "team": "Ecuador",
-"elo": 1945.6
+"elo": 1945.8
 },
 {
 "team": "Mexico",
-"elo": 1940.2
+"elo": 1940.4
 },
 {
 "team": "Paraguay",
-"elo": 1938.9
+"elo": 1939.0
 },
 {
 "team": "Denmark",
-"elo": 1933.5
+"elo": 1933.7
 },
 {
 "team": "Croatia",
-"elo": 1922.7
+"elo": 1922.6
 },
 {
 "team": "Austria",
-"elo": 1898.5
+"elo": 1899.1
 },
 {
 "team": "United States",
-"elo": 1897.5
+"elo": 1897.7
 },
 {
 "team": "Senegal",
-"elo": 1878.9
+"elo": 1879.5
 },
 {
 "team": "Australia",
-"elo": 1877.8
+"elo": 1878.1
 },
 {
 "team": "Yugoslavia",
-"elo": 1873.3
+"elo": 1873.4
 },
 {
 "team": "Russia",
-"elo": 1871.3
+"elo": 1871.2
 },
 {
 "team": "Iran",
-"elo": 1866.8
+"elo": 1867.5
 },
 {
 "team": "Canada",
-"elo": 1862.4
+"elo": 1862.5
 },
 {
 "team": "Turkey",
@@ -121,27 +121,27 @@
 },
 {
 "team": "Greece",
-"elo": 1833.8
-},
-{
-"team": "South Korea",
-"elo": 1833.4
+"elo": 1833.7
 },
 {
 "team": "Sweden",
+"elo": 1833.3
+},
+{
+"team": "South Korea",
 "elo": 1833.1
 },
 {
 "team": "Ivory Coast",
-"elo": 1831.4
+"elo": 1832.1
 },
 {
 "team": "Egypt",
-"elo": 1818.7
+"elo": 1819.4
 },
 {
 "team": "Nigeria",
-"elo": 1811.3
+"elo": 1812.5
 },
 {
 "team": "Chile",
@@ -153,10 +153,10 @@
 },
 {
 "team": "Basque Country",
-"elo": 1805.0
+"elo": 1805.4
 },
 {
 "team": "Czechoslovakia",
-"elo": 1804.8
+"elo": 1804.9
 }
 ]
